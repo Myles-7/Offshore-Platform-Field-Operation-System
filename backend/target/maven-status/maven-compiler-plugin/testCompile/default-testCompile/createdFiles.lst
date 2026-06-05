@@ -1,0 +1,14 @@
+com\offshore\platform\FileControllerTest.class
+com\offshore\platform\HealthControllerTest.class
+com\offshore\platform\MobileWorkOrderControllerTest.class
+com\offshore\platform\DatabaseCoreRelationTest.class
+com\offshore\platform\AcceptanceMaterialControllerTest.class
+com\offshore\platform\QualificationSyncControllerTest.class
+com\offshore\platform\AdminSystemControllerTest.class
+com\offshore\platform\MapperDataAccessTest.class
+com\offshore\platform\AiDashboardControllerTest.class
+com\offshore\platform\BackendEndToEndIntegrationTest.class
+com\offshore\platform\WorkRecordControllerTest.class
+com\offshore\platform\AdminWorkOrderControllerTest.class
+com\offshore\platform\PermissionSecurityControllerTest.class
+com\offshore\platform\AuthControllerTest.class

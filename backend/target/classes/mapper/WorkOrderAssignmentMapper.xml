@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.offshore.platform.mapper.WorkOrderAssignmentMapper">
+    <resultMap id="BaseResultMap" type="com.offshore.platform.entity.WorkOrderAssignment">
+        <id column="id" property="id" />
+        <result column="work_order_id" property="workOrderId" />
+        <result column="assigner_id" property="assignerId" />
+        <result column="assignee_id" property="assigneeId" />
+        <result column="assignment_role" property="assignmentRole" />
+        <result column="assignment_status" property="assignmentStatus" />
+        <result column="assigned_at" property="assignedAt" />
+        <result column="accepted_at" property="acceptedAt" />
+        <result column="rejected_at" property="rejectedAt" />
+        <result column="completed_at" property="completedAt" />
+        <result column="reject_reason" property="rejectReason" />
+        <result column="local_id" property="localId" />
+        <result column="server_id" property="serverId" />
+        <result column="version" property="version" />
+        <result column="sync_status" property="syncStatus" />
+        <result column="device_id" property="deviceId" />
+        <result column="operator_id" property="operatorId" />
+        <result column="created_at" property="createdAt" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="deleted_flag" property="deletedFlag" />
+        <result column="created_by" property="createdBy" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <sql id="BaseColumnList">
+        id, work_order_id, assigner_id, assignee_id, assignment_role, assignment_status, assigned_at, accepted_at, rejected_at, completed_at, reject_reason, local_id, server_id, version, sync_status, device_id, operator_id, created_at, updated_at, deleted_flag, created_by, updated_by, remark
+    </sql>
+
+    <insert id="insert" parameterType="com.offshore.platform.entity.WorkOrderAssignment" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO work_order_assignment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="workOrderId != null">work_order_id,</if>
+            <if test="assignerId != null">assigner_id,</if>
+            <if test="assigneeId != null">assignee_id,</if>
+            <if test="assignmentRole != null">assignment_role,</if>
+            <if test="assignmentStatus != null">assignment_status,</if>
+            <if test="assignedAt != null">assigned_at,</if>
+            <if test="acceptedAt != null">accepted_at,</if>
+            <if test="rejectedAt != null">rejected_at,</if>
+            <if test="completedAt != null">completed_at,</if>
+            <if test="rejectReason != null">reject_reason,</if>
+            <if test="localId != null">local_id,</if>
+            <if test="serverId != null">server_id,</if>
+            <if test="version != null">version,</if>
+            <if test="syncStatus != null">sync_status,</if>
+            <if test="deviceId != null">device_id,</if>
+            <if test="operatorId != null">operator_id,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+            <if test="deletedFlag != null">deleted_flag,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="workOrderId != null">#{workOrderId},</if>
+            <if test="assignerId != null">#{assignerId},</if>
+            <if test="assigneeId != null">#{assigneeId},</if>
+            <if test="assignmentRole != null">#{assignmentRole},</if>
+            <if test="assignmentStatus != null">#{assignmentStatus},</if>
+            <if test="assignedAt != null">#{assignedAt},</if>
+            <if test="acceptedAt != null">#{acceptedAt},</if>
+            <if test="rejectedAt != null">#{rejectedAt},</if>
+            <if test="completedAt != null">#{completedAt},</if>
+            <if test="rejectReason != null">#{rejectReason},</if>
+            <if test="localId != null">#{localId},</if>
+            <if test="serverId != null">#{serverId},</if>
+            <if test="version != null">#{version},</if>
+            <if test="syncStatus != null">#{syncStatus},</if>
+            <if test="deviceId != null">#{deviceId},</if>
+            <if test="operatorId != null">#{operatorId},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+            <if test="deletedFlag != null">#{deletedFlag},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateById" parameterType="com.offshore.platform.entity.WorkOrderAssignment">
+        UPDATE work_order_assignment
+        <set>
+            <if test="workOrderId != null">work_order_id = #{workOrderId},</if>
+            <if test="assignerId != null">assigner_id = #{assignerId},</if>
+            <if test="assigneeId != null">assignee_id = #{assigneeId},</if>
+            <if test="assignmentRole != null">assignment_role = #{assignmentRole},</if>
+            <if test="assignmentStatus != null">assignment_status = #{assignmentStatus},</if>
+            <if test="assignedAt != null">assigned_at = #{assignedAt},</if>
+            <if test="acceptedAt != null">accepted_at = #{acceptedAt},</if>
+            <if test="rejectedAt != null">rejected_at = #{rejectedAt},</if>
+            <if test="completedAt != null">completed_at = #{completedAt},</if>
+            <if test="rejectReason != null">reject_reason = #{rejectReason},</if>
+            <if test="localId != null">local_id = #{localId},</if>
+            <if test="serverId != null">server_id = #{serverId},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="syncStatus != null">sync_status = #{syncStatus},</if>
+            <if test="deviceId != null">device_id = #{deviceId},</if>
+            <if test="operatorId != null">operator_id = #{operatorId},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+            <if test="deletedFlag != null">deleted_flag = #{deletedFlag},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectById" parameterType="long" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM work_order_assignment
+        WHERE id = #{id}
+          AND deleted_flag = 0
+    </select>
+
+    <select id="selectByWorkOrderId" parameterType="long" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM work_order_assignment
+        WHERE work_order_id = #{workOrderId}
+          AND deleted_flag = 0
+        ORDER BY assigned_at ASC, id ASC
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM work_order_assignment
+        WHERE deleted_flag = 0
+        ORDER BY id DESC
+    </select>
+
+    <update id="softDeleteById" parameterType="long">
+        UPDATE work_order_assignment
+        SET deleted_flag = 1
+        WHERE id = #{id}
+    </update>
+</mapper>

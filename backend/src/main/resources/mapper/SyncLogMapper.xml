@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.offshore.platform.mapper.SyncLogMapper">
+    <resultMap id="BaseResultMap" type="com.offshore.platform.entity.SyncLog">
+        <id column="id" property="id" />
+        <result column="sync_task_id" property="syncTaskId" />
+        <result column="batch_id" property="batchId" />
+        <result column="device_id" property="deviceId" />
+        <result column="operator_id" property="operatorId" />
+        <result column="module_type" property="moduleType" />
+        <result column="entity_type" property="entityType" />
+        <result column="action_type" property="actionType" />
+        <result column="local_id" property="localId" />
+        <result column="server_id" property="serverId" />
+        <result column="entity_id" property="entityId" />
+        <result column="work_order_id" property="workOrderId" />
+        <result column="business_no" property="businessNo" />
+        <result column="client_version" property="clientVersion" />
+        <result column="server_version" property="serverVersion" />
+        <result column="client_updated_at" property="clientUpdatedAt" />
+        <result column="server_updated_at" property="serverUpdatedAt" />
+        <result column="sync_status" property="syncStatus" />
+        <result column="conflict_id" property="conflictId" />
+        <result column="retry_count" property="retryCount" />
+        <result column="checksum" property="checksum" />
+        <result column="error_code" property="errorCode" />
+        <result column="error_message" property="errorMessage" />
+        <result column="request_payload" property="requestPayload" />
+        <result column="response_payload" property="responsePayload" />
+        <result column="created_at" property="createdAt" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="deleted_flag" property="deletedFlag" />
+        <result column="created_by" property="createdBy" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <sql id="BaseColumnList">
+        id, sync_task_id, batch_id, device_id, operator_id, module_type, entity_type, action_type, local_id, server_id, entity_id, work_order_id, business_no, client_version, server_version, client_updated_at, server_updated_at, sync_status, conflict_id, retry_count, checksum, error_code, error_message, request_payload, response_payload, created_at, updated_at, deleted_flag, created_by, updated_by, remark
+    </sql>
+
+    <insert id="insert" parameterType="com.offshore.platform.entity.SyncLog" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sync_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="syncTaskId != null">sync_task_id,</if>
+            <if test="batchId != null">batch_id,</if>
+            <if test="deviceId != null">device_id,</if>
+            <if test="operatorId != null">operator_id,</if>
+            <if test="moduleType != null">module_type,</if>
+            <if test="entityType != null">entity_type,</if>
+            <if test="actionType != null">action_type,</if>
+            <if test="localId != null">local_id,</if>
+            <if test="serverId != null">server_id,</if>
+            <if test="entityId != null">entity_id,</if>
+            <if test="workOrderId != null">work_order_id,</if>
+            <if test="businessNo != null">business_no,</if>
+            <if test="clientVersion != null">client_version,</if>
+            <if test="serverVersion != null">server_version,</if>
+            <if test="clientUpdatedAt != null">client_updated_at,</if>
+            <if test="serverUpdatedAt != null">server_updated_at,</if>
+            <if test="syncStatus != null">sync_status,</if>
+            <if test="conflictId != null">conflict_id,</if>
+            <if test="retryCount != null">retry_count,</if>
+            <if test="checksum != null">checksum,</if>
+            <if test="errorCode != null">error_code,</if>
+            <if test="errorMessage != null">error_message,</if>
+            <if test="requestPayload != null">request_payload,</if>
+            <if test="responsePayload != null">response_payload,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+            <if test="deletedFlag != null">deleted_flag,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="syncTaskId != null">#{syncTaskId},</if>
+            <if test="batchId != null">#{batchId},</if>
+            <if test="deviceId != null">#{deviceId},</if>
+            <if test="operatorId != null">#{operatorId},</if>
+            <if test="moduleType != null">#{moduleType},</if>
+            <if test="entityType != null">#{entityType},</if>
+            <if test="actionType != null">#{actionType},</if>
+            <if test="localId != null">#{localId},</if>
+            <if test="serverId != null">#{serverId},</if>
+            <if test="entityId != null">#{entityId},</if>
+            <if test="workOrderId != null">#{workOrderId},</if>
+            <if test="businessNo != null">#{businessNo},</if>
+            <if test="clientVersion != null">#{clientVersion},</if>
+            <if test="serverVersion != null">#{serverVersion},</if>
+            <if test="clientUpdatedAt != null">#{clientUpdatedAt},</if>
+            <if test="serverUpdatedAt != null">#{serverUpdatedAt},</if>
+            <if test="syncStatus != null">#{syncStatus},</if>
+            <if test="conflictId != null">#{conflictId},</if>
+            <if test="retryCount != null">#{retryCount},</if>
+            <if test="checksum != null">#{checksum},</if>
+            <if test="errorCode != null">#{errorCode},</if>
+            <if test="errorMessage != null">#{errorMessage},</if>
+            <if test="requestPayload != null">#{requestPayload},</if>
+            <if test="responsePayload != null">#{responsePayload},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+            <if test="deletedFlag != null">#{deletedFlag},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateById" parameterType="com.offshore.platform.entity.SyncLog">
+        UPDATE sync_log
+        <set>
+            <if test="syncTaskId != null">sync_task_id = #{syncTaskId},</if>
+            <if test="batchId != null">batch_id = #{batchId},</if>
+            <if test="deviceId != null">device_id = #{deviceId},</if>
+            <if test="operatorId != null">operator_id = #{operatorId},</if>
+            <if test="moduleType != null">module_type = #{moduleType},</if>
+            <if test="entityType != null">entity_type = #{entityType},</if>
+            <if test="actionType != null">action_type = #{actionType},</if>
+            <if test="localId != null">local_id = #{localId},</if>
+            <if test="serverId != null">server_id = #{serverId},</if>
+            <if test="entityId != null">entity_id = #{entityId},</if>
+            <if test="workOrderId != null">work_order_id = #{workOrderId},</if>
+            <if test="businessNo != null">business_no = #{businessNo},</if>
+            <if test="clientVersion != null">client_version = #{clientVersion},</if>
+            <if test="serverVersion != null">server_version = #{serverVersion},</if>
+            <if test="clientUpdatedAt != null">client_updated_at = #{clientUpdatedAt},</if>
+            <if test="serverUpdatedAt != null">server_updated_at = #{serverUpdatedAt},</if>
+            <if test="syncStatus != null">sync_status = #{syncStatus},</if>
+            <if test="conflictId != null">conflict_id = #{conflictId},</if>
+            <if test="retryCount != null">retry_count = #{retryCount},</if>
+            <if test="checksum != null">checksum = #{checksum},</if>
+            <if test="errorCode != null">error_code = #{errorCode},</if>
+            <if test="errorMessage != null">error_message = #{errorMessage},</if>
+            <if test="requestPayload != null">request_payload = #{requestPayload},</if>
+            <if test="responsePayload != null">response_payload = #{responsePayload},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+            <if test="deletedFlag != null">deleted_flag = #{deletedFlag},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectById" parameterType="long" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM sync_log
+        WHERE id = #{id}
+          AND deleted_flag = 0
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM sync_log
+        WHERE deleted_flag = 0
+        ORDER BY id DESC
+    </select>
+
+    <update id="softDeleteById" parameterType="long">
+        UPDATE sync_log
+        SET deleted_flag = 1
+        WHERE id = #{id}
+    </update>
+</mapper>

@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.offshore.platform.mapper.MaterialQrcodeMapper">
+    <resultMap id="BaseResultMap" type="com.offshore.platform.entity.MaterialQrcode">
+        <id column="id" property="id" />
+        <result column="material_id" property="materialId" />
+        <result column="material_code" property="materialCode" />
+        <result column="qrcode_value" property="qrcodeValue" />
+        <result column="qrcode_file_id" property="qrcodeFileId" />
+        <result column="batch_no" property="batchNo" />
+        <result column="serial_no" property="serialNo" />
+        <result column="generate_user_id" property="generateUserId" />
+        <result column="generate_time" property="generateTime" />
+        <result column="bind_status" property="bindStatus" />
+        <result column="qrcode_status" property="qrcodeStatus" />
+        <result column="last_scan_time" property="lastScanTime" />
+        <result column="last_scan_user_id" property="lastScanUserId" />
+        <result column="created_at" property="createdAt" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="deleted_flag" property="deletedFlag" />
+        <result column="created_by" property="createdBy" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <sql id="BaseColumnList">
+        id, material_id, material_code, qrcode_value, qrcode_file_id, batch_no, serial_no, generate_user_id, generate_time, bind_status, qrcode_status, last_scan_time, last_scan_user_id, created_at, updated_at, deleted_flag, created_by, updated_by, remark
+    </sql>
+
+    <insert id="insert" parameterType="com.offshore.platform.entity.MaterialQrcode" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO material_qrcode
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="materialId != null">material_id,</if>
+            <if test="materialCode != null">material_code,</if>
+            <if test="qrcodeValue != null">qrcode_value,</if>
+            <if test="qrcodeFileId != null">qrcode_file_id,</if>
+            <if test="batchNo != null">batch_no,</if>
+            <if test="serialNo != null">serial_no,</if>
+            <if test="generateUserId != null">generate_user_id,</if>
+            <if test="generateTime != null">generate_time,</if>
+            <if test="bindStatus != null">bind_status,</if>
+            <if test="qrcodeStatus != null">qrcode_status,</if>
+            <if test="lastScanTime != null">last_scan_time,</if>
+            <if test="lastScanUserId != null">last_scan_user_id,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+            <if test="deletedFlag != null">deleted_flag,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="materialId != null">#{materialId},</if>
+            <if test="materialCode != null">#{materialCode},</if>
+            <if test="qrcodeValue != null">#{qrcodeValue},</if>
+            <if test="qrcodeFileId != null">#{qrcodeFileId},</if>
+            <if test="batchNo != null">#{batchNo},</if>
+            <if test="serialNo != null">#{serialNo},</if>
+            <if test="generateUserId != null">#{generateUserId},</if>
+            <if test="generateTime != null">#{generateTime},</if>
+            <if test="bindStatus != null">#{bindStatus},</if>
+            <if test="qrcodeStatus != null">#{qrcodeStatus},</if>
+            <if test="lastScanTime != null">#{lastScanTime},</if>
+            <if test="lastScanUserId != null">#{lastScanUserId},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+            <if test="deletedFlag != null">#{deletedFlag},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateById" parameterType="com.offshore.platform.entity.MaterialQrcode">
+        UPDATE material_qrcode
+        <set>
+            <if test="materialId != null">material_id = #{materialId},</if>
+            <if test="materialCode != null">material_code = #{materialCode},</if>
+            <if test="qrcodeValue != null">qrcode_value = #{qrcodeValue},</if>
+            <if test="qrcodeFileId != null">qrcode_file_id = #{qrcodeFileId},</if>
+            <if test="batchNo != null">batch_no = #{batchNo},</if>
+            <if test="serialNo != null">serial_no = #{serialNo},</if>
+            <if test="generateUserId != null">generate_user_id = #{generateUserId},</if>
+            <if test="generateTime != null">generate_time = #{generateTime},</if>
+            <if test="bindStatus != null">bind_status = #{bindStatus},</if>
+            <if test="qrcodeStatus != null">qrcode_status = #{qrcodeStatus},</if>
+            <if test="lastScanTime != null">last_scan_time = #{lastScanTime},</if>
+            <if test="lastScanUserId != null">last_scan_user_id = #{lastScanUserId},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+            <if test="deletedFlag != null">deleted_flag = #{deletedFlag},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectById" parameterType="long" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM material_qrcode
+        WHERE id = #{id}
+          AND deleted_flag = 0
+    </select>
+
+    <select id="selectByQrcodeValue" parameterType="string" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM material_qrcode
+        WHERE qrcode_value = #{qrcodeValue}
+          AND deleted_flag = 0
+        LIMIT 1
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM material_qrcode
+        WHERE deleted_flag = 0
+        ORDER BY id DESC
+    </select>
+
+    <update id="softDeleteById" parameterType="long">
+        UPDATE material_qrcode
+        SET deleted_flag = 1
+        WHERE id = #{id}
+    </update>
+</mapper>

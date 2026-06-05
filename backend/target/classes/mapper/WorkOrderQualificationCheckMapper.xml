@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.offshore.platform.mapper.WorkOrderQualificationCheckMapper">
+    <resultMap id="BaseResultMap" type="com.offshore.platform.entity.WorkOrderQualificationCheck">
+        <id column="id" property="id" />
+        <result column="work_order_id" property="workOrderId" />
+        <result column="employee_id" property="employeeId" />
+        <result column="certificate_id" property="certificateId" />
+        <result column="qualification_type_id" property="qualificationTypeId" />
+        <result column="check_result" property="checkResult" />
+        <result column="check_time" property="checkTime" />
+        <result column="checker_id" property="checkerId" />
+        <result column="local_id" property="localId" />
+        <result column="server_id" property="serverId" />
+        <result column="version" property="version" />
+        <result column="sync_status" property="syncStatus" />
+        <result column="device_id" property="deviceId" />
+        <result column="operator_id" property="operatorId" />
+        <result column="created_at" property="createdAt" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="deleted_flag" property="deletedFlag" />
+        <result column="created_by" property="createdBy" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <sql id="BaseColumnList">
+        id, work_order_id, employee_id, certificate_id, qualification_type_id, check_result, check_time, checker_id, local_id, server_id, version, sync_status, device_id, operator_id, created_at, updated_at, deleted_flag, created_by, updated_by, remark
+    </sql>
+
+    <insert id="insert" parameterType="com.offshore.platform.entity.WorkOrderQualificationCheck" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO work_order_qualification_check
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="workOrderId != null">work_order_id,</if>
+            <if test="employeeId != null">employee_id,</if>
+            <if test="certificateId != null">certificate_id,</if>
+            <if test="qualificationTypeId != null">qualification_type_id,</if>
+            <if test="checkResult != null">check_result,</if>
+            <if test="checkTime != null">check_time,</if>
+            <if test="checkerId != null">checker_id,</if>
+            <if test="localId != null">local_id,</if>
+            <if test="serverId != null">server_id,</if>
+            <if test="version != null">version,</if>
+            <if test="syncStatus != null">sync_status,</if>
+            <if test="deviceId != null">device_id,</if>
+            <if test="operatorId != null">operator_id,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+            <if test="deletedFlag != null">deleted_flag,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="workOrderId != null">#{workOrderId},</if>
+            <if test="employeeId != null">#{employeeId},</if>
+            <if test="certificateId != null">#{certificateId},</if>
+            <if test="qualificationTypeId != null">#{qualificationTypeId},</if>
+            <if test="checkResult != null">#{checkResult},</if>
+            <if test="checkTime != null">#{checkTime},</if>
+            <if test="checkerId != null">#{checkerId},</if>
+            <if test="localId != null">#{localId},</if>
+            <if test="serverId != null">#{serverId},</if>
+            <if test="version != null">#{version},</if>
+            <if test="syncStatus != null">#{syncStatus},</if>
+            <if test="deviceId != null">#{deviceId},</if>
+            <if test="operatorId != null">#{operatorId},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+            <if test="deletedFlag != null">#{deletedFlag},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateById" parameterType="com.offshore.platform.entity.WorkOrderQualificationCheck">
+        UPDATE work_order_qualification_check
+        <set>
+            <if test="workOrderId != null">work_order_id = #{workOrderId},</if>
+            <if test="employeeId != null">employee_id = #{employeeId},</if>
+            <if test="certificateId != null">certificate_id = #{certificateId},</if>
+            <if test="qualificationTypeId != null">qualification_type_id = #{qualificationTypeId},</if>
+            <if test="checkResult != null">check_result = #{checkResult},</if>
+            <if test="checkTime != null">check_time = #{checkTime},</if>
+            <if test="checkerId != null">checker_id = #{checkerId},</if>
+            <if test="localId != null">local_id = #{localId},</if>
+            <if test="serverId != null">server_id = #{serverId},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="syncStatus != null">sync_status = #{syncStatus},</if>
+            <if test="deviceId != null">device_id = #{deviceId},</if>
+            <if test="operatorId != null">operator_id = #{operatorId},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+            <if test="deletedFlag != null">deleted_flag = #{deletedFlag},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectById" parameterType="long" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM work_order_qualification_check
+        WHERE id = #{id}
+          AND deleted_flag = 0
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM work_order_qualification_check
+        WHERE deleted_flag = 0
+        ORDER BY id DESC
+    </select>
+
+    <update id="softDeleteById" parameterType="long">
+        UPDATE work_order_qualification_check
+        SET deleted_flag = 1
+        WHERE id = #{id}
+    </update>
+</mapper>

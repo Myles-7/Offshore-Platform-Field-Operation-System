@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.offshore.platform.mapper.FileStorageMapper">
+    <resultMap id="BaseResultMap" type="com.offshore.platform.entity.FileStorage">
+        <id column="id" property="id" />
+        <result column="file_id" property="fileId" />
+        <result column="original_name" property="originalName" />
+        <result column="stored_name" property="storedName" />
+        <result column="file_type" property="fileType" />
+        <result column="mime_type" property="mimeType" />
+        <result column="file_size" property="fileSize" />
+        <result column="storage_type" property="storageType" />
+        <result column="bucket_name" property="bucketName" />
+        <result column="file_path" property="filePath" />
+        <result column="preview_path" property="previewPath" />
+        <result column="thumbnail_path" property="thumbnailPath" />
+        <result column="file_hash" property="fileHash" />
+        <result column="checksum" property="checksum" />
+        <result column="upload_user_id" property="uploadUserId" />
+        <result column="upload_user_name" property="uploadUserName" />
+        <result column="upload_time" property="uploadTime" />
+        <result column="upload_status" property="uploadStatus" />
+        <result column="retry_count" property="retryCount" />
+        <result column="last_retry_time" property="lastRetryTime" />
+        <result column="error_code" property="errorCode" />
+        <result column="error_message" property="errorMessage" />
+        <result column="work_order_id" property="workOrderId" />
+        <result column="record_id" property="recordId" />
+        <result column="access_level" property="accessLevel" />
+        <result column="preview_enabled" property="previewEnabled" />
+        <result column="download_enabled" property="downloadEnabled" />
+        <result column="cache_enabled" property="cacheEnabled" />
+        <result column="cache_key" property="cacheKey" />
+        <result column="cache_expire_time" property="cacheExpireTime" />
+        <result column="local_file_path" property="localFilePath" />
+        <result column="client_created_at" property="clientCreatedAt" />
+        <result column="client_updated_at" property="clientUpdatedAt" />
+        <result column="local_id" property="localId" />
+        <result column="server_id" property="serverId" />
+        <result column="version" property="version" />
+        <result column="sync_status" property="syncStatus" />
+        <result column="device_id" property="deviceId" />
+        <result column="operator_id" property="operatorId" />
+        <result column="conflict_flag" property="conflictFlag" />
+        <result column="created_at" property="createdAt" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="deleted_flag" property="deletedFlag" />
+        <result column="created_by" property="createdBy" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <sql id="BaseColumnList">
+        id, file_id, original_name, stored_name, file_type, mime_type, file_size, storage_type, bucket_name, file_path, preview_path, thumbnail_path, file_hash, checksum, upload_user_id, upload_user_name, upload_time, upload_status, retry_count, last_retry_time, error_code, error_message, work_order_id, record_id, access_level, preview_enabled, download_enabled, cache_enabled, cache_key, cache_expire_time, local_file_path, client_created_at, client_updated_at, local_id, server_id, version, sync_status, device_id, operator_id, conflict_flag, created_at, updated_at, deleted_flag, created_by, updated_by, remark
+    </sql>
+
+    <insert id="insert" parameterType="com.offshore.platform.entity.FileStorage" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO file_storage
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fileId != null">file_id,</if>
+            <if test="originalName != null">original_name,</if>
+            <if test="storedName != null">stored_name,</if>
+            <if test="fileType != null">file_type,</if>
+            <if test="mimeType != null">mime_type,</if>
+            <if test="fileSize != null">file_size,</if>
+            <if test="storageType != null">storage_type,</if>
+            <if test="bucketName != null">bucket_name,</if>
+            <if test="filePath != null">file_path,</if>
+            <if test="previewPath != null">preview_path,</if>
+            <if test="thumbnailPath != null">thumbnail_path,</if>
+            <if test="fileHash != null">file_hash,</if>
+            <if test="checksum != null">checksum,</if>
+            <if test="uploadUserId != null">upload_user_id,</if>
+            <if test="uploadUserName != null">upload_user_name,</if>
+            <if test="uploadTime != null">upload_time,</if>
+            <if test="uploadStatus != null">upload_status,</if>
+            <if test="retryCount != null">retry_count,</if>
+            <if test="lastRetryTime != null">last_retry_time,</if>
+            <if test="errorCode != null">error_code,</if>
+            <if test="errorMessage != null">error_message,</if>
+            <if test="workOrderId != null">work_order_id,</if>
+            <if test="recordId != null">record_id,</if>
+            <if test="accessLevel != null">access_level,</if>
+            <if test="previewEnabled != null">preview_enabled,</if>
+            <if test="downloadEnabled != null">download_enabled,</if>
+            <if test="cacheEnabled != null">cache_enabled,</if>
+            <if test="cacheKey != null">cache_key,</if>
+            <if test="cacheExpireTime != null">cache_expire_time,</if>
+            <if test="localFilePath != null">local_file_path,</if>
+            <if test="clientCreatedAt != null">client_created_at,</if>
+            <if test="clientUpdatedAt != null">client_updated_at,</if>
+            <if test="localId != null">local_id,</if>
+            <if test="serverId != null">server_id,</if>
+            <if test="version != null">version,</if>
+            <if test="syncStatus != null">sync_status,</if>
+            <if test="deviceId != null">device_id,</if>
+            <if test="operatorId != null">operator_id,</if>
+            <if test="conflictFlag != null">conflict_flag,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+            <if test="deletedFlag != null">deleted_flag,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="fileId != null">#{fileId},</if>
+            <if test="originalName != null">#{originalName},</if>
+            <if test="storedName != null">#{storedName},</if>
+            <if test="fileType != null">#{fileType},</if>
+            <if test="mimeType != null">#{mimeType},</if>
+            <if test="fileSize != null">#{fileSize},</if>
+            <if test="storageType != null">#{storageType},</if>
+            <if test="bucketName != null">#{bucketName},</if>
+            <if test="filePath != null">#{filePath},</if>
+            <if test="previewPath != null">#{previewPath},</if>
+            <if test="thumbnailPath != null">#{thumbnailPath},</if>
+            <if test="fileHash != null">#{fileHash},</if>
+            <if test="checksum != null">#{checksum},</if>
+            <if test="uploadUserId != null">#{uploadUserId},</if>
+            <if test="uploadUserName != null">#{uploadUserName},</if>
+            <if test="uploadTime != null">#{uploadTime},</if>
+            <if test="uploadStatus != null">#{uploadStatus},</if>
+            <if test="retryCount != null">#{retryCount},</if>
+            <if test="lastRetryTime != null">#{lastRetryTime},</if>
+            <if test="errorCode != null">#{errorCode},</if>
+            <if test="errorMessage != null">#{errorMessage},</if>
+            <if test="workOrderId != null">#{workOrderId},</if>
+            <if test="recordId != null">#{recordId},</if>
+            <if test="accessLevel != null">#{accessLevel},</if>
+            <if test="previewEnabled != null">#{previewEnabled},</if>
+            <if test="downloadEnabled != null">#{downloadEnabled},</if>
+            <if test="cacheEnabled != null">#{cacheEnabled},</if>
+            <if test="cacheKey != null">#{cacheKey},</if>
+            <if test="cacheExpireTime != null">#{cacheExpireTime},</if>
+            <if test="localFilePath != null">#{localFilePath},</if>
+            <if test="clientCreatedAt != null">#{clientCreatedAt},</if>
+            <if test="clientUpdatedAt != null">#{clientUpdatedAt},</if>
+            <if test="localId != null">#{localId},</if>
+            <if test="serverId != null">#{serverId},</if>
+            <if test="version != null">#{version},</if>
+            <if test="syncStatus != null">#{syncStatus},</if>
+            <if test="deviceId != null">#{deviceId},</if>
+            <if test="operatorId != null">#{operatorId},</if>
+            <if test="conflictFlag != null">#{conflictFlag},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+            <if test="deletedFlag != null">#{deletedFlag},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateById" parameterType="com.offshore.platform.entity.FileStorage">
+        UPDATE file_storage
+        <set>
+            <if test="fileId != null">file_id = #{fileId},</if>
+            <if test="originalName != null">original_name = #{originalName},</if>
+            <if test="storedName != null">stored_name = #{storedName},</if>
+            <if test="fileType != null">file_type = #{fileType},</if>
+            <if test="mimeType != null">mime_type = #{mimeType},</if>
+            <if test="fileSize != null">file_size = #{fileSize},</if>
+            <if test="storageType != null">storage_type = #{storageType},</if>
+            <if test="bucketName != null">bucket_name = #{bucketName},</if>
+            <if test="filePath != null">file_path = #{filePath},</if>
+            <if test="previewPath != null">preview_path = #{previewPath},</if>
+            <if test="thumbnailPath != null">thumbnail_path = #{thumbnailPath},</if>
+            <if test="fileHash != null">file_hash = #{fileHash},</if>
+            <if test="checksum != null">checksum = #{checksum},</if>
+            <if test="uploadUserId != null">upload_user_id = #{uploadUserId},</if>
+            <if test="uploadUserName != null">upload_user_name = #{uploadUserName},</if>
+            <if test="uploadTime != null">upload_time = #{uploadTime},</if>
+            <if test="uploadStatus != null">upload_status = #{uploadStatus},</if>
+            <if test="retryCount != null">retry_count = #{retryCount},</if>
+            <if test="lastRetryTime != null">last_retry_time = #{lastRetryTime},</if>
+            <if test="errorCode != null">error_code = #{errorCode},</if>
+            <if test="errorMessage != null">error_message = #{errorMessage},</if>
+            <if test="workOrderId != null">work_order_id = #{workOrderId},</if>
+            <if test="recordId != null">record_id = #{recordId},</if>
+            <if test="accessLevel != null">access_level = #{accessLevel},</if>
+            <if test="previewEnabled != null">preview_enabled = #{previewEnabled},</if>
+            <if test="downloadEnabled != null">download_enabled = #{downloadEnabled},</if>
+            <if test="cacheEnabled != null">cache_enabled = #{cacheEnabled},</if>
+            <if test="cacheKey != null">cache_key = #{cacheKey},</if>
+            <if test="cacheExpireTime != null">cache_expire_time = #{cacheExpireTime},</if>
+            <if test="localFilePath != null">local_file_path = #{localFilePath},</if>
+            <if test="clientCreatedAt != null">client_created_at = #{clientCreatedAt},</if>
+            <if test="clientUpdatedAt != null">client_updated_at = #{clientUpdatedAt},</if>
+            <if test="localId != null">local_id = #{localId},</if>
+            <if test="serverId != null">server_id = #{serverId},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="syncStatus != null">sync_status = #{syncStatus},</if>
+            <if test="deviceId != null">device_id = #{deviceId},</if>
+            <if test="operatorId != null">operator_id = #{operatorId},</if>
+            <if test="conflictFlag != null">conflict_flag = #{conflictFlag},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+            <if test="deletedFlag != null">deleted_flag = #{deletedFlag},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectById" parameterType="long" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM file_storage
+        WHERE id = #{id}
+          AND deleted_flag = 0
+    </select>
+
+    <select id="selectByFileId" parameterType="string" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM file_storage
+        WHERE file_id = #{fileId}
+          AND deleted_flag = 0
+        LIMIT 1
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM file_storage
+        WHERE deleted_flag = 0
+        ORDER BY id DESC
+    </select>
+
+    <update id="softDeleteById" parameterType="long">
+        UPDATE file_storage
+        SET deleted_flag = 1
+        WHERE id = #{id}
+    </update>
+</mapper>

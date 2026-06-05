@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.offshore.platform.mapper.AiModelInfoMapper">
+    <resultMap id="BaseResultMap" type="com.offshore.platform.entity.AiModelInfo">
+        <id column="id" property="id" />
+        <result column="model_code" property="modelCode" />
+        <result column="model_name" property="modelName" />
+        <result column="model_version" property="modelVersion" />
+        <result column="model_type" property="modelType" />
+        <result column="runtime_type" property="runtimeType" />
+        <result column="deploy_side" property="deploySide" />
+        <result column="model_file_id" property="modelFileId" />
+        <result column="model_hash" property="modelHash" />
+        <result column="input_size" property="inputSize" />
+        <result column="defect_types" property="defectTypes" />
+        <result column="confidence_threshold" property="confidenceThreshold" />
+        <result column="active_flag" property="activeFlag" />
+        <result column="model_status" property="modelStatus" />
+        <result column="released_at" property="releasedAt" />
+        <result column="created_at" property="createdAt" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="deleted_flag" property="deletedFlag" />
+        <result column="created_by" property="createdBy" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <sql id="BaseColumnList">
+        id, model_code, model_name, model_version, model_type, runtime_type, deploy_side, model_file_id, model_hash, input_size, defect_types, confidence_threshold, active_flag, model_status, released_at, created_at, updated_at, deleted_flag, created_by, updated_by, remark
+    </sql>
+
+    <insert id="insert" parameterType="com.offshore.platform.entity.AiModelInfo" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO ai_model_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="modelCode != null">model_code,</if>
+            <if test="modelName != null">model_name,</if>
+            <if test="modelVersion != null">model_version,</if>
+            <if test="modelType != null">model_type,</if>
+            <if test="runtimeType != null">runtime_type,</if>
+            <if test="deploySide != null">deploy_side,</if>
+            <if test="modelFileId != null">model_file_id,</if>
+            <if test="modelHash != null">model_hash,</if>
+            <if test="inputSize != null">input_size,</if>
+            <if test="defectTypes != null">defect_types,</if>
+            <if test="confidenceThreshold != null">confidence_threshold,</if>
+            <if test="activeFlag != null">active_flag,</if>
+            <if test="modelStatus != null">model_status,</if>
+            <if test="releasedAt != null">released_at,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+            <if test="deletedFlag != null">deleted_flag,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="modelCode != null">#{modelCode},</if>
+            <if test="modelName != null">#{modelName},</if>
+            <if test="modelVersion != null">#{modelVersion},</if>
+            <if test="modelType != null">#{modelType},</if>
+            <if test="runtimeType != null">#{runtimeType},</if>
+            <if test="deploySide != null">#{deploySide},</if>
+            <if test="modelFileId != null">#{modelFileId},</if>
+            <if test="modelHash != null">#{modelHash},</if>
+            <if test="inputSize != null">#{inputSize},</if>
+            <if test="defectTypes != null">#{defectTypes},</if>
+            <if test="confidenceThreshold != null">#{confidenceThreshold},</if>
+            <if test="activeFlag != null">#{activeFlag},</if>
+            <if test="modelStatus != null">#{modelStatus},</if>
+            <if test="releasedAt != null">#{releasedAt},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+            <if test="deletedFlag != null">#{deletedFlag},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateById" parameterType="com.offshore.platform.entity.AiModelInfo">
+        UPDATE ai_model_info
+        <set>
+            <if test="modelCode != null">model_code = #{modelCode},</if>
+            <if test="modelName != null">model_name = #{modelName},</if>
+            <if test="modelVersion != null">model_version = #{modelVersion},</if>
+            <if test="modelType != null">model_type = #{modelType},</if>
+            <if test="runtimeType != null">runtime_type = #{runtimeType},</if>
+            <if test="deploySide != null">deploy_side = #{deploySide},</if>
+            <if test="modelFileId != null">model_file_id = #{modelFileId},</if>
+            <if test="modelHash != null">model_hash = #{modelHash},</if>
+            <if test="inputSize != null">input_size = #{inputSize},</if>
+            <if test="defectTypes != null">defect_types = #{defectTypes},</if>
+            <if test="confidenceThreshold != null">confidence_threshold = #{confidenceThreshold},</if>
+            <if test="activeFlag != null">active_flag = #{activeFlag},</if>
+            <if test="modelStatus != null">model_status = #{modelStatus},</if>
+            <if test="releasedAt != null">released_at = #{releasedAt},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+            <if test="deletedFlag != null">deleted_flag = #{deletedFlag},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectById" parameterType="long" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM ai_model_info
+        WHERE id = #{id}
+          AND deleted_flag = 0
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM ai_model_info
+        WHERE deleted_flag = 0
+        ORDER BY id DESC
+    </select>
+
+    <update id="softDeleteById" parameterType="long">
+        UPDATE ai_model_info
+        SET deleted_flag = 1
+        WHERE id = #{id}
+    </update>
+</mapper>

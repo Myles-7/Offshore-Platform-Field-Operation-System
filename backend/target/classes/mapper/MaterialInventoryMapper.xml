@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.offshore.platform.mapper.MaterialInventoryMapper">
+    <resultMap id="BaseResultMap" type="com.offshore.platform.entity.MaterialInventory">
+        <id column="id" property="id" />
+        <result column="material_id" property="materialId" />
+        <result column="material_code" property="materialCode" />
+        <result column="warehouse_code" property="warehouseCode" />
+        <result column="warehouse_name" property="warehouseName" />
+        <result column="location_code" property="locationCode" />
+        <result column="batch_no" property="batchNo" />
+        <result column="qrcode_id" property="qrcodeId" />
+        <result column="current_qty" property="currentQty" />
+        <result column="locked_qty" property="lockedQty" />
+        <result column="available_qty" property="availableQty" />
+        <result column="last_in_time" property="lastInTime" />
+        <result column="last_out_time" property="lastOutTime" />
+        <result column="last_check_time" property="lastCheckTime" />
+        <result column="inventory_status" property="inventoryStatus" />
+        <result column="created_at" property="createdAt" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="deleted_flag" property="deletedFlag" />
+        <result column="created_by" property="createdBy" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <sql id="BaseColumnList">
+        id, material_id, material_code, warehouse_code, warehouse_name, location_code, batch_no, qrcode_id, current_qty, locked_qty, available_qty, last_in_time, last_out_time, last_check_time, inventory_status, created_at, updated_at, deleted_flag, created_by, updated_by, remark
+    </sql>
+
+    <insert id="insert" parameterType="com.offshore.platform.entity.MaterialInventory" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO material_inventory
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="materialId != null">material_id,</if>
+            <if test="materialCode != null">material_code,</if>
+            <if test="warehouseCode != null">warehouse_code,</if>
+            <if test="warehouseName != null">warehouse_name,</if>
+            <if test="locationCode != null">location_code,</if>
+            <if test="batchNo != null">batch_no,</if>
+            <if test="qrcodeId != null">qrcode_id,</if>
+            <if test="currentQty != null">current_qty,</if>
+            <if test="lockedQty != null">locked_qty,</if>
+            <if test="availableQty != null">available_qty,</if>
+            <if test="lastInTime != null">last_in_time,</if>
+            <if test="lastOutTime != null">last_out_time,</if>
+            <if test="lastCheckTime != null">last_check_time,</if>
+            <if test="inventoryStatus != null">inventory_status,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+            <if test="deletedFlag != null">deleted_flag,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="materialId != null">#{materialId},</if>
+            <if test="materialCode != null">#{materialCode},</if>
+            <if test="warehouseCode != null">#{warehouseCode},</if>
+            <if test="warehouseName != null">#{warehouseName},</if>
+            <if test="locationCode != null">#{locationCode},</if>
+            <if test="batchNo != null">#{batchNo},</if>
+            <if test="qrcodeId != null">#{qrcodeId},</if>
+            <if test="currentQty != null">#{currentQty},</if>
+            <if test="lockedQty != null">#{lockedQty},</if>
+            <if test="availableQty != null">#{availableQty},</if>
+            <if test="lastInTime != null">#{lastInTime},</if>
+            <if test="lastOutTime != null">#{lastOutTime},</if>
+            <if test="lastCheckTime != null">#{lastCheckTime},</if>
+            <if test="inventoryStatus != null">#{inventoryStatus},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+            <if test="deletedFlag != null">#{deletedFlag},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateById" parameterType="com.offshore.platform.entity.MaterialInventory">
+        UPDATE material_inventory
+        <set>
+            <if test="materialId != null">material_id = #{materialId},</if>
+            <if test="materialCode != null">material_code = #{materialCode},</if>
+            <if test="warehouseCode != null">warehouse_code = #{warehouseCode},</if>
+            <if test="warehouseName != null">warehouse_name = #{warehouseName},</if>
+            <if test="locationCode != null">location_code = #{locationCode},</if>
+            <if test="batchNo != null">batch_no = #{batchNo},</if>
+            <if test="qrcodeId != null">qrcode_id = #{qrcodeId},</if>
+            <if test="currentQty != null">current_qty = #{currentQty},</if>
+            <if test="lockedQty != null">locked_qty = #{lockedQty},</if>
+            <if test="availableQty != null">available_qty = #{availableQty},</if>
+            <if test="lastInTime != null">last_in_time = #{lastInTime},</if>
+            <if test="lastOutTime != null">last_out_time = #{lastOutTime},</if>
+            <if test="lastCheckTime != null">last_check_time = #{lastCheckTime},</if>
+            <if test="inventoryStatus != null">inventory_status = #{inventoryStatus},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+            <if test="deletedFlag != null">deleted_flag = #{deletedFlag},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectById" parameterType="long" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM material_inventory
+        WHERE id = #{id}
+          AND deleted_flag = 0
+    </select>
+
+    <select id="selectByMaterialId" parameterType="long" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM material_inventory
+        WHERE material_id = #{materialId}
+          AND deleted_flag = 0
+        ORDER BY id DESC
+    </select>
+
+    <select id="selectOneForUpdate" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM material_inventory
+        WHERE material_id = #{materialId}
+          AND warehouse_code = #{warehouseCode}
+          AND (batch_no = #{batchNo} OR (batch_no IS NULL AND #{batchNo} IS NULL))
+          AND deleted_flag = 0
+        LIMIT 1
+        FOR UPDATE
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM material_inventory
+        WHERE deleted_flag = 0
+        ORDER BY id DESC
+    </select>
+
+    <update id="softDeleteById" parameterType="long">
+        UPDATE material_inventory
+        SET deleted_flag = 1
+        WHERE id = #{id}
+    </update>
+</mapper>

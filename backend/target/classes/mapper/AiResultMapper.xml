@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.offshore.platform.mapper.AiResultMapper">
+    <resultMap id="BaseResultMap" type="com.offshore.platform.entity.AiResult">
+        <id column="id" property="id" />
+        <result column="ai_result_no" property="aiResultNo" />
+        <result column="work_order_id" property="workOrderId" />
+        <result column="work_order_no" property="workOrderNo" />
+        <result column="project_id" property="projectId" />
+        <result column="record_id" property="recordId" />
+        <result column="attachment_id" property="attachmentId" />
+        <result column="file_id" property="fileId" />
+        <result column="result_image_file_id" property="resultImageFileId" />
+        <result column="model_id" property="modelId" />
+        <result column="model_code" property="modelCode" />
+        <result column="model_version" property="modelVersion" />
+        <result column="infer_side" property="inferSide" />
+        <result column="infer_time" property="inferTime" />
+        <result column="infer_cost_ms" property="inferCostMs" />
+        <result column="defect_type" property="defectType" />
+        <result column="confidence" property="confidence" />
+        <result column="suspected_defect_flag" property="suspectedDefectFlag" />
+        <result column="defect_count" property="defectCount" />
+        <result column="result_summary" property="resultSummary" />
+        <result column="raw_result" property="rawResult" />
+        <result column="review_status" property="reviewStatus" />
+        <result column="reviewed_flag" property="reviewedFlag" />
+        <result column="reviewer_id" property="reviewerId" />
+        <result column="review_time" property="reviewTime" />
+        <result column="client_created_at" property="clientCreatedAt" />
+        <result column="client_updated_at" property="clientUpdatedAt" />
+        <result column="local_id" property="localId" />
+        <result column="server_id" property="serverId" />
+        <result column="version" property="version" />
+        <result column="sync_status" property="syncStatus" />
+        <result column="device_id" property="deviceId" />
+        <result column="operator_id" property="operatorId" />
+        <result column="conflict_flag" property="conflictFlag" />
+        <result column="created_at" property="createdAt" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="deleted_flag" property="deletedFlag" />
+        <result column="created_by" property="createdBy" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <sql id="BaseColumnList">
+        id, ai_result_no, work_order_id, work_order_no, project_id, record_id, attachment_id, file_id, result_image_file_id, model_id, model_code, model_version, infer_side, infer_time, infer_cost_ms, defect_type, confidence, suspected_defect_flag, defect_count, result_summary, raw_result, review_status, reviewed_flag, reviewer_id, review_time, client_created_at, client_updated_at, local_id, server_id, version, sync_status, device_id, operator_id, conflict_flag, created_at, updated_at, deleted_flag, created_by, updated_by, remark
+    </sql>
+
+    <insert id="insert" parameterType="com.offshore.platform.entity.AiResult" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO ai_result
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="aiResultNo != null">ai_result_no,</if>
+            <if test="workOrderId != null">work_order_id,</if>
+            <if test="workOrderNo != null">work_order_no,</if>
+            <if test="projectId != null">project_id,</if>
+            <if test="recordId != null">record_id,</if>
+            <if test="attachmentId != null">attachment_id,</if>
+            <if test="fileId != null">file_id,</if>
+            <if test="resultImageFileId != null">result_image_file_id,</if>
+            <if test="modelId != null">model_id,</if>
+            <if test="modelCode != null">model_code,</if>
+            <if test="modelVersion != null">model_version,</if>
+            <if test="inferSide != null">infer_side,</if>
+            <if test="inferTime != null">infer_time,</if>
+            <if test="inferCostMs != null">infer_cost_ms,</if>
+            <if test="defectType != null">defect_type,</if>
+            <if test="confidence != null">confidence,</if>
+            <if test="suspectedDefectFlag != null">suspected_defect_flag,</if>
+            <if test="defectCount != null">defect_count,</if>
+            <if test="resultSummary != null">result_summary,</if>
+            <if test="rawResult != null">raw_result,</if>
+            <if test="reviewStatus != null">review_status,</if>
+            <if test="reviewedFlag != null">reviewed_flag,</if>
+            <if test="reviewerId != null">reviewer_id,</if>
+            <if test="reviewTime != null">review_time,</if>
+            <if test="clientCreatedAt != null">client_created_at,</if>
+            <if test="clientUpdatedAt != null">client_updated_at,</if>
+            <if test="localId != null">local_id,</if>
+            <if test="serverId != null">server_id,</if>
+            <if test="version != null">version,</if>
+            <if test="syncStatus != null">sync_status,</if>
+            <if test="deviceId != null">device_id,</if>
+            <if test="operatorId != null">operator_id,</if>
+            <if test="conflictFlag != null">conflict_flag,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+            <if test="deletedFlag != null">deleted_flag,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="aiResultNo != null">#{aiResultNo},</if>
+            <if test="workOrderId != null">#{workOrderId},</if>
+            <if test="workOrderNo != null">#{workOrderNo},</if>
+            <if test="projectId != null">#{projectId},</if>
+            <if test="recordId != null">#{recordId},</if>
+            <if test="attachmentId != null">#{attachmentId},</if>
+            <if test="fileId != null">#{fileId},</if>
+            <if test="resultImageFileId != null">#{resultImageFileId},</if>
+            <if test="modelId != null">#{modelId},</if>
+            <if test="modelCode != null">#{modelCode},</if>
+            <if test="modelVersion != null">#{modelVersion},</if>
+            <if test="inferSide != null">#{inferSide},</if>
+            <if test="inferTime != null">#{inferTime},</if>
+            <if test="inferCostMs != null">#{inferCostMs},</if>
+            <if test="defectType != null">#{defectType},</if>
+            <if test="confidence != null">#{confidence},</if>
+            <if test="suspectedDefectFlag != null">#{suspectedDefectFlag},</if>
+            <if test="defectCount != null">#{defectCount},</if>
+            <if test="resultSummary != null">#{resultSummary},</if>
+            <if test="rawResult != null">#{rawResult},</if>
+            <if test="reviewStatus != null">#{reviewStatus},</if>
+            <if test="reviewedFlag != null">#{reviewedFlag},</if>
+            <if test="reviewerId != null">#{reviewerId},</if>
+            <if test="reviewTime != null">#{reviewTime},</if>
+            <if test="clientCreatedAt != null">#{clientCreatedAt},</if>
+            <if test="clientUpdatedAt != null">#{clientUpdatedAt},</if>
+            <if test="localId != null">#{localId},</if>
+            <if test="serverId != null">#{serverId},</if>
+            <if test="version != null">#{version},</if>
+            <if test="syncStatus != null">#{syncStatus},</if>
+            <if test="deviceId != null">#{deviceId},</if>
+            <if test="operatorId != null">#{operatorId},</if>
+            <if test="conflictFlag != null">#{conflictFlag},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+            <if test="deletedFlag != null">#{deletedFlag},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateById" parameterType="com.offshore.platform.entity.AiResult">
+        UPDATE ai_result
+        <set>
+            <if test="aiResultNo != null">ai_result_no = #{aiResultNo},</if>
+            <if test="workOrderId != null">work_order_id = #{workOrderId},</if>
+            <if test="workOrderNo != null">work_order_no = #{workOrderNo},</if>
+            <if test="projectId != null">project_id = #{projectId},</if>
+            <if test="recordId != null">record_id = #{recordId},</if>
+            <if test="attachmentId != null">attachment_id = #{attachmentId},</if>
+            <if test="fileId != null">file_id = #{fileId},</if>
+            <if test="resultImageFileId != null">result_image_file_id = #{resultImageFileId},</if>
+            <if test="modelId != null">model_id = #{modelId},</if>
+            <if test="modelCode != null">model_code = #{modelCode},</if>
+            <if test="modelVersion != null">model_version = #{modelVersion},</if>
+            <if test="inferSide != null">infer_side = #{inferSide},</if>
+            <if test="inferTime != null">infer_time = #{inferTime},</if>
+            <if test="inferCostMs != null">infer_cost_ms = #{inferCostMs},</if>
+            <if test="defectType != null">defect_type = #{defectType},</if>
+            <if test="confidence != null">confidence = #{confidence},</if>
+            <if test="suspectedDefectFlag != null">suspected_defect_flag = #{suspectedDefectFlag},</if>
+            <if test="defectCount != null">defect_count = #{defectCount},</if>
+            <if test="resultSummary != null">result_summary = #{resultSummary},</if>
+            <if test="rawResult != null">raw_result = #{rawResult},</if>
+            <if test="reviewStatus != null">review_status = #{reviewStatus},</if>
+            <if test="reviewedFlag != null">reviewed_flag = #{reviewedFlag},</if>
+            <if test="reviewerId != null">reviewer_id = #{reviewerId},</if>
+            <if test="reviewTime != null">review_time = #{reviewTime},</if>
+            <if test="clientCreatedAt != null">client_created_at = #{clientCreatedAt},</if>
+            <if test="clientUpdatedAt != null">client_updated_at = #{clientUpdatedAt},</if>
+            <if test="localId != null">local_id = #{localId},</if>
+            <if test="serverId != null">server_id = #{serverId},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="syncStatus != null">sync_status = #{syncStatus},</if>
+            <if test="deviceId != null">device_id = #{deviceId},</if>
+            <if test="operatorId != null">operator_id = #{operatorId},</if>
+            <if test="conflictFlag != null">conflict_flag = #{conflictFlag},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+            <if test="deletedFlag != null">deleted_flag = #{deletedFlag},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectById" parameterType="long" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM ai_result
+        WHERE id = #{id}
+          AND deleted_flag = 0
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM ai_result
+        WHERE deleted_flag = 0
+        ORDER BY id DESC
+    </select>
+
+    <update id="softDeleteById" parameterType="long">
+        UPDATE ai_result
+        SET deleted_flag = 1
+        WHERE id = #{id}
+    </update>
+</mapper>

@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.offshore.platform.mapper.WorkOrderRecordDetailMapper">
+    <resultMap id="BaseResultMap" type="com.offshore.platform.entity.WorkOrderRecordDetail">
+        <id column="id" property="id" />
+        <result column="work_order_id" property="workOrderId" />
+        <result column="record_id" property="recordId" />
+        <result column="detail_type" property="detailType" />
+        <result column="detail_title" property="detailTitle" />
+        <result column="detail_content" property="detailContent" />
+        <result column="step_no" property="stepNo" />
+        <result column="item_code" property="itemCode" />
+        <result column="item_name" property="itemName" />
+        <result column="item_value" property="itemValue" />
+        <result column="item_unit" property="itemUnit" />
+        <result column="normal_flag" property="normalFlag" />
+        <result column="abnormal_desc" property="abnormalDesc" />
+        <result column="attachment_ref_flag" property="attachmentRefFlag" />
+        <result column="ai_ref_flag" property="aiRefFlag" />
+        <result column="sort_order" property="sortOrder" />
+        <result column="client_created_at" property="clientCreatedAt" />
+        <result column="client_updated_at" property="clientUpdatedAt" />
+        <result column="local_id" property="localId" />
+        <result column="server_id" property="serverId" />
+        <result column="version" property="version" />
+        <result column="sync_status" property="syncStatus" />
+        <result column="device_id" property="deviceId" />
+        <result column="operator_id" property="operatorId" />
+        <result column="conflict_flag" property="conflictFlag" />
+        <result column="created_at" property="createdAt" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="deleted_flag" property="deletedFlag" />
+        <result column="created_by" property="createdBy" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <sql id="BaseColumnList">
+        id, work_order_id, record_id, detail_type, detail_title, detail_content, step_no, item_code, item_name, item_value, item_unit, normal_flag, abnormal_desc, attachment_ref_flag, ai_ref_flag, sort_order, client_created_at, client_updated_at, local_id, server_id, version, sync_status, device_id, operator_id, conflict_flag, created_at, updated_at, deleted_flag, created_by, updated_by, remark
+    </sql>
+
+    <insert id="insert" parameterType="com.offshore.platform.entity.WorkOrderRecordDetail" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO work_order_record_detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="workOrderId != null">work_order_id,</if>
+            <if test="recordId != null">record_id,</if>
+            <if test="detailType != null">detail_type,</if>
+            <if test="detailTitle != null">detail_title,</if>
+            <if test="detailContent != null">detail_content,</if>
+            <if test="stepNo != null">step_no,</if>
+            <if test="itemCode != null">item_code,</if>
+            <if test="itemName != null">item_name,</if>
+            <if test="itemValue != null">item_value,</if>
+            <if test="itemUnit != null">item_unit,</if>
+            <if test="normalFlag != null">normal_flag,</if>
+            <if test="abnormalDesc != null">abnormal_desc,</if>
+            <if test="attachmentRefFlag != null">attachment_ref_flag,</if>
+            <if test="aiRefFlag != null">ai_ref_flag,</if>
+            <if test="sortOrder != null">sort_order,</if>
+            <if test="clientCreatedAt != null">client_created_at,</if>
+            <if test="clientUpdatedAt != null">client_updated_at,</if>
+            <if test="localId != null">local_id,</if>
+            <if test="serverId != null">server_id,</if>
+            <if test="version != null">version,</if>
+            <if test="syncStatus != null">sync_status,</if>
+            <if test="deviceId != null">device_id,</if>
+            <if test="operatorId != null">operator_id,</if>
+            <if test="conflictFlag != null">conflict_flag,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+            <if test="deletedFlag != null">deleted_flag,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="workOrderId != null">#{workOrderId},</if>
+            <if test="recordId != null">#{recordId},</if>
+            <if test="detailType != null">#{detailType},</if>
+            <if test="detailTitle != null">#{detailTitle},</if>
+            <if test="detailContent != null">#{detailContent},</if>
+            <if test="stepNo != null">#{stepNo},</if>
+            <if test="itemCode != null">#{itemCode},</if>
+            <if test="itemName != null">#{itemName},</if>
+            <if test="itemValue != null">#{itemValue},</if>
+            <if test="itemUnit != null">#{itemUnit},</if>
+            <if test="normalFlag != null">#{normalFlag},</if>
+            <if test="abnormalDesc != null">#{abnormalDesc},</if>
+            <if test="attachmentRefFlag != null">#{attachmentRefFlag},</if>
+            <if test="aiRefFlag != null">#{aiRefFlag},</if>
+            <if test="sortOrder != null">#{sortOrder},</if>
+            <if test="clientCreatedAt != null">#{clientCreatedAt},</if>
+            <if test="clientUpdatedAt != null">#{clientUpdatedAt},</if>
+            <if test="localId != null">#{localId},</if>
+            <if test="serverId != null">#{serverId},</if>
+            <if test="version != null">#{version},</if>
+            <if test="syncStatus != null">#{syncStatus},</if>
+            <if test="deviceId != null">#{deviceId},</if>
+            <if test="operatorId != null">#{operatorId},</if>
+            <if test="conflictFlag != null">#{conflictFlag},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+            <if test="deletedFlag != null">#{deletedFlag},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateById" parameterType="com.offshore.platform.entity.WorkOrderRecordDetail">
+        UPDATE work_order_record_detail
+        <set>
+            <if test="workOrderId != null">work_order_id = #{workOrderId},</if>
+            <if test="recordId != null">record_id = #{recordId},</if>
+            <if test="detailType != null">detail_type = #{detailType},</if>
+            <if test="detailTitle != null">detail_title = #{detailTitle},</if>
+            <if test="detailContent != null">detail_content = #{detailContent},</if>
+            <if test="stepNo != null">step_no = #{stepNo},</if>
+            <if test="itemCode != null">item_code = #{itemCode},</if>
+            <if test="itemName != null">item_name = #{itemName},</if>
+            <if test="itemValue != null">item_value = #{itemValue},</if>
+            <if test="itemUnit != null">item_unit = #{itemUnit},</if>
+            <if test="normalFlag != null">normal_flag = #{normalFlag},</if>
+            <if test="abnormalDesc != null">abnormal_desc = #{abnormalDesc},</if>
+            <if test="attachmentRefFlag != null">attachment_ref_flag = #{attachmentRefFlag},</if>
+            <if test="aiRefFlag != null">ai_ref_flag = #{aiRefFlag},</if>
+            <if test="sortOrder != null">sort_order = #{sortOrder},</if>
+            <if test="clientCreatedAt != null">client_created_at = #{clientCreatedAt},</if>
+            <if test="clientUpdatedAt != null">client_updated_at = #{clientUpdatedAt},</if>
+            <if test="localId != null">local_id = #{localId},</if>
+            <if test="serverId != null">server_id = #{serverId},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="syncStatus != null">sync_status = #{syncStatus},</if>
+            <if test="deviceId != null">device_id = #{deviceId},</if>
+            <if test="operatorId != null">operator_id = #{operatorId},</if>
+            <if test="conflictFlag != null">conflict_flag = #{conflictFlag},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+            <if test="deletedFlag != null">deleted_flag = #{deletedFlag},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectById" parameterType="long" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM work_order_record_detail
+        WHERE id = #{id}
+          AND deleted_flag = 0
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM work_order_record_detail
+        WHERE deleted_flag = 0
+        ORDER BY id DESC
+    </select>
+
+    <update id="softDeleteById" parameterType="long">
+        UPDATE work_order_record_detail
+        SET deleted_flag = 1
+        WHERE id = #{id}
+    </update>
+</mapper>

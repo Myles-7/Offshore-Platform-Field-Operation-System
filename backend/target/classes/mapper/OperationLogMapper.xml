@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.offshore.platform.mapper.OperationLogMapper">
+    <resultMap id="BaseResultMap" type="com.offshore.platform.entity.OperationLog">
+        <id column="id" property="id" />
+        <result column="trace_id" property="traceId" />
+        <result column="operator_id" property="operatorId" />
+        <result column="operator_name" property="operatorName" />
+        <result column="role_code" property="roleCode" />
+        <result column="platform" property="platform" />
+        <result column="module_name" property="moduleName" />
+        <result column="operation_type" property="operationType" />
+        <result column="business_type" property="businessType" />
+        <result column="business_id" property="businessId" />
+        <result column="business_no" property="businessNo" />
+        <result column="project_id" property="projectId" />
+        <result column="device_id" property="deviceId" />
+        <result column="request_method" property="requestMethod" />
+        <result column="request_path" property="requestPath" />
+        <result column="request_ip" property="requestIp" />
+        <result column="user_agent" property="userAgent" />
+        <result column="request_body" property="requestBody" />
+        <result column="result_status" property="resultStatus" />
+        <result column="error_code" property="errorCode" />
+        <result column="error_message" property="errorMessage" />
+        <result column="operation_time" property="operationTime" />
+        <result column="created_at" property="createdAt" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="deleted_flag" property="deletedFlag" />
+        <result column="created_by" property="createdBy" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <sql id="BaseColumnList">
+        id, trace_id, operator_id, operator_name, role_code, platform, module_name, operation_type, business_type, business_id, business_no, project_id, device_id, request_method, request_path, request_ip, user_agent, request_body, result_status, error_code, error_message, operation_time, created_at, updated_at, deleted_flag, created_by, updated_by, remark
+    </sql>
+
+    <insert id="insert" parameterType="com.offshore.platform.entity.OperationLog" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO operation_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="traceId != null">trace_id,</if>
+            <if test="operatorId != null">operator_id,</if>
+            <if test="operatorName != null">operator_name,</if>
+            <if test="roleCode != null">role_code,</if>
+            <if test="platform != null">platform,</if>
+            <if test="moduleName != null">module_name,</if>
+            <if test="operationType != null">operation_type,</if>
+            <if test="businessType != null">business_type,</if>
+            <if test="businessId != null">business_id,</if>
+            <if test="businessNo != null">business_no,</if>
+            <if test="projectId != null">project_id,</if>
+            <if test="deviceId != null">device_id,</if>
+            <if test="requestMethod != null">request_method,</if>
+            <if test="requestPath != null">request_path,</if>
+            <if test="requestIp != null">request_ip,</if>
+            <if test="userAgent != null">user_agent,</if>
+            <if test="requestBody != null">request_body,</if>
+            <if test="resultStatus != null">result_status,</if>
+            <if test="errorCode != null">error_code,</if>
+            <if test="errorMessage != null">error_message,</if>
+            <if test="operationTime != null">operation_time,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+            <if test="deletedFlag != null">deleted_flag,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="traceId != null">#{traceId},</if>
+            <if test="operatorId != null">#{operatorId},</if>
+            <if test="operatorName != null">#{operatorName},</if>
+            <if test="roleCode != null">#{roleCode},</if>
+            <if test="platform != null">#{platform},</if>
+            <if test="moduleName != null">#{moduleName},</if>
+            <if test="operationType != null">#{operationType},</if>
+            <if test="businessType != null">#{businessType},</if>
+            <if test="businessId != null">#{businessId},</if>
+            <if test="businessNo != null">#{businessNo},</if>
+            <if test="projectId != null">#{projectId},</if>
+            <if test="deviceId != null">#{deviceId},</if>
+            <if test="requestMethod != null">#{requestMethod},</if>
+            <if test="requestPath != null">#{requestPath},</if>
+            <if test="requestIp != null">#{requestIp},</if>
+            <if test="userAgent != null">#{userAgent},</if>
+            <if test="requestBody != null">#{requestBody},</if>
+            <if test="resultStatus != null">#{resultStatus},</if>
+            <if test="errorCode != null">#{errorCode},</if>
+            <if test="errorMessage != null">#{errorMessage},</if>
+            <if test="operationTime != null">#{operationTime},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+            <if test="deletedFlag != null">#{deletedFlag},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateById" parameterType="com.offshore.platform.entity.OperationLog">
+        UPDATE operation_log
+        <set>
+            <if test="traceId != null">trace_id = #{traceId},</if>
+            <if test="operatorId != null">operator_id = #{operatorId},</if>
+            <if test="operatorName != null">operator_name = #{operatorName},</if>
+            <if test="roleCode != null">role_code = #{roleCode},</if>
+            <if test="platform != null">platform = #{platform},</if>
+            <if test="moduleName != null">module_name = #{moduleName},</if>
+            <if test="operationType != null">operation_type = #{operationType},</if>
+            <if test="businessType != null">business_type = #{businessType},</if>
+            <if test="businessId != null">business_id = #{businessId},</if>
+            <if test="businessNo != null">business_no = #{businessNo},</if>
+            <if test="projectId != null">project_id = #{projectId},</if>
+            <if test="deviceId != null">device_id = #{deviceId},</if>
+            <if test="requestMethod != null">request_method = #{requestMethod},</if>
+            <if test="requestPath != null">request_path = #{requestPath},</if>
+            <if test="requestIp != null">request_ip = #{requestIp},</if>
+            <if test="userAgent != null">user_agent = #{userAgent},</if>
+            <if test="requestBody != null">request_body = #{requestBody},</if>
+            <if test="resultStatus != null">result_status = #{resultStatus},</if>
+            <if test="errorCode != null">error_code = #{errorCode},</if>
+            <if test="errorMessage != null">error_message = #{errorMessage},</if>
+            <if test="operationTime != null">operation_time = #{operationTime},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+            <if test="deletedFlag != null">deleted_flag = #{deletedFlag},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectById" parameterType="long" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM operation_log
+        WHERE id = #{id}
+          AND deleted_flag = 0
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM operation_log
+        WHERE deleted_flag = 0
+        ORDER BY id DESC
+    </select>
+
+    <update id="softDeleteById" parameterType="long">
+        UPDATE operation_log
+        SET deleted_flag = 1
+        WHERE id = #{id}
+    </update>
+</mapper>

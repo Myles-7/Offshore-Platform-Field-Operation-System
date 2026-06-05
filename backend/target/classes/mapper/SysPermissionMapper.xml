@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.offshore.platform.mapper.SysPermissionMapper">
+    <resultMap id="BaseResultMap" type="com.offshore.platform.entity.SysPermission">
+        <id column="id" property="id" />
+        <result column="parent_id" property="parentId" />
+        <result column="permission_code" property="permissionCode" />
+        <result column="permission_name" property="permissionName" />
+        <result column="permission_type" property="permissionType" />
+        <result column="platform" property="platform" />
+        <result column="route_path" property="routePath" />
+        <result column="api_method" property="apiMethod" />
+        <result column="api_path" property="apiPath" />
+        <result column="component_path" property="componentPath" />
+        <result column="icon" property="icon" />
+        <result column="sort_order" property="sortOrder" />
+        <result column="visible_flag" property="visibleFlag" />
+        <result column="status" property="status" />
+        <result column="created_at" property="createdAt" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="deleted_flag" property="deletedFlag" />
+        <result column="created_by" property="createdBy" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <sql id="BaseColumnList">
+        id, parent_id, permission_code, permission_name, permission_type, platform, route_path, api_method, api_path, component_path, icon, sort_order, visible_flag, status, created_at, updated_at, deleted_flag, created_by, updated_by, remark
+    </sql>
+
+    <insert id="insert" parameterType="com.offshore.platform.entity.SysPermission" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sys_permission
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="parentId != null">parent_id,</if>
+            <if test="permissionCode != null">permission_code,</if>
+            <if test="permissionName != null">permission_name,</if>
+            <if test="permissionType != null">permission_type,</if>
+            <if test="platform != null">platform,</if>
+            <if test="routePath != null">route_path,</if>
+            <if test="apiMethod != null">api_method,</if>
+            <if test="apiPath != null">api_path,</if>
+            <if test="componentPath != null">component_path,</if>
+            <if test="icon != null">icon,</if>
+            <if test="sortOrder != null">sort_order,</if>
+            <if test="visibleFlag != null">visible_flag,</if>
+            <if test="status != null">status,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+            <if test="deletedFlag != null">deleted_flag,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="parentId != null">#{parentId},</if>
+            <if test="permissionCode != null">#{permissionCode},</if>
+            <if test="permissionName != null">#{permissionName},</if>
+            <if test="permissionType != null">#{permissionType},</if>
+            <if test="platform != null">#{platform},</if>
+            <if test="routePath != null">#{routePath},</if>
+            <if test="apiMethod != null">#{apiMethod},</if>
+            <if test="apiPath != null">#{apiPath},</if>
+            <if test="componentPath != null">#{componentPath},</if>
+            <if test="icon != null">#{icon},</if>
+            <if test="sortOrder != null">#{sortOrder},</if>
+            <if test="visibleFlag != null">#{visibleFlag},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+            <if test="deletedFlag != null">#{deletedFlag},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateById" parameterType="com.offshore.platform.entity.SysPermission">
+        UPDATE sys_permission
+        <set>
+            <if test="parentId != null">parent_id = #{parentId},</if>
+            <if test="permissionCode != null">permission_code = #{permissionCode},</if>
+            <if test="permissionName != null">permission_name = #{permissionName},</if>
+            <if test="permissionType != null">permission_type = #{permissionType},</if>
+            <if test="platform != null">platform = #{platform},</if>
+            <if test="routePath != null">route_path = #{routePath},</if>
+            <if test="apiMethod != null">api_method = #{apiMethod},</if>
+            <if test="apiPath != null">api_path = #{apiPath},</if>
+            <if test="componentPath != null">component_path = #{componentPath},</if>
+            <if test="icon != null">icon = #{icon},</if>
+            <if test="sortOrder != null">sort_order = #{sortOrder},</if>
+            <if test="visibleFlag != null">visible_flag = #{visibleFlag},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+            <if test="deletedFlag != null">deleted_flag = #{deletedFlag},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectById" parameterType="long" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM sys_permission
+        WHERE id = #{id}
+          AND deleted_flag = 0
+    </select>
+
+    <select id="selectByUserId" parameterType="long" resultMap="BaseResultMap">
+        SELECT DISTINCT p.id, p.parent_id, p.permission_code, p.permission_name, p.permission_type, p.platform,
+               p.route_path, p.api_method, p.api_path, p.component_path, p.icon, p.sort_order, p.visible_flag,
+               p.status, p.created_at, p.updated_at, p.deleted_flag, p.created_by, p.updated_by, p.remark
+        FROM sys_permission p
+        JOIN sys_role_permission rp ON rp.permission_id = p.id
+        JOIN sys_user_role ur ON ur.role_id = rp.role_id
+        JOIN sys_role r ON r.id = ur.role_id
+        WHERE ur.user_id = #{userId}
+          AND ur.deleted_flag = 0
+          AND rp.deleted_flag = 0
+          AND r.deleted_flag = 0
+          AND r.status = 'ACTIVE'
+          AND p.deleted_flag = 0
+          AND p.status = 'ACTIVE'
+        ORDER BY p.sort_order ASC, p.id ASC
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM sys_permission
+        WHERE deleted_flag = 0
+        ORDER BY id DESC
+    </select>
+
+    <update id="softDeleteById" parameterType="long">
+        UPDATE sys_permission
+        SET deleted_flag = 1
+        WHERE id = #{id}
+    </update>
+</mapper>

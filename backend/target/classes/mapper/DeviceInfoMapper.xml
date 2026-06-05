@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.offshore.platform.mapper.DeviceInfoMapper">
+    <resultMap id="BaseResultMap" type="com.offshore.platform.entity.DeviceInfo">
+        <id column="id" property="id" />
+        <result column="device_id" property="deviceId" />
+        <result column="user_id" property="userId" />
+        <result column="device_name" property="deviceName" />
+        <result column="platform" property="platform" />
+        <result column="os_version" property="osVersion" />
+        <result column="app_version" property="appVersion" />
+        <result column="manufacturer" property="manufacturer" />
+        <result column="model" property="model" />
+        <result column="imei_hash" property="imeiHash" />
+        <result column="push_token" property="pushToken" />
+        <result column="register_time" property="registerTime" />
+        <result column="last_login_time" property="lastLoginTime" />
+        <result column="last_heartbeat_time" property="lastHeartbeatTime" />
+        <result column="last_sync_time" property="lastSyncTime" />
+        <result column="last_sync_cursor" property="lastSyncCursor" />
+        <result column="online_status" property="onlineStatus" />
+        <result column="device_status" property="deviceStatus" />
+        <result column="sync_enabled" property="syncEnabled" />
+        <result column="created_at" property="createdAt" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="deleted_flag" property="deletedFlag" />
+        <result column="created_by" property="createdBy" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <sql id="BaseColumnList">
+        id, device_id, user_id, device_name, platform, os_version, app_version, manufacturer, model, imei_hash, push_token, register_time, last_login_time, last_heartbeat_time, last_sync_time, last_sync_cursor, online_status, device_status, sync_enabled, created_at, updated_at, deleted_flag, created_by, updated_by, remark
+    </sql>
+
+    <insert id="insert" parameterType="com.offshore.platform.entity.DeviceInfo" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO device_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="deviceId != null">device_id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="deviceName != null">device_name,</if>
+            <if test="platform != null">platform,</if>
+            <if test="osVersion != null">os_version,</if>
+            <if test="appVersion != null">app_version,</if>
+            <if test="manufacturer != null">manufacturer,</if>
+            <if test="model != null">model,</if>
+            <if test="imeiHash != null">imei_hash,</if>
+            <if test="pushToken != null">push_token,</if>
+            <if test="registerTime != null">register_time,</if>
+            <if test="lastLoginTime != null">last_login_time,</if>
+            <if test="lastHeartbeatTime != null">last_heartbeat_time,</if>
+            <if test="lastSyncTime != null">last_sync_time,</if>
+            <if test="lastSyncCursor != null">last_sync_cursor,</if>
+            <if test="onlineStatus != null">online_status,</if>
+            <if test="deviceStatus != null">device_status,</if>
+            <if test="syncEnabled != null">sync_enabled,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+            <if test="deletedFlag != null">deleted_flag,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="deviceId != null">#{deviceId},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="deviceName != null">#{deviceName},</if>
+            <if test="platform != null">#{platform},</if>
+            <if test="osVersion != null">#{osVersion},</if>
+            <if test="appVersion != null">#{appVersion},</if>
+            <if test="manufacturer != null">#{manufacturer},</if>
+            <if test="model != null">#{model},</if>
+            <if test="imeiHash != null">#{imeiHash},</if>
+            <if test="pushToken != null">#{pushToken},</if>
+            <if test="registerTime != null">#{registerTime},</if>
+            <if test="lastLoginTime != null">#{lastLoginTime},</if>
+            <if test="lastHeartbeatTime != null">#{lastHeartbeatTime},</if>
+            <if test="lastSyncTime != null">#{lastSyncTime},</if>
+            <if test="lastSyncCursor != null">#{lastSyncCursor},</if>
+            <if test="onlineStatus != null">#{onlineStatus},</if>
+            <if test="deviceStatus != null">#{deviceStatus},</if>
+            <if test="syncEnabled != null">#{syncEnabled},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+            <if test="deletedFlag != null">#{deletedFlag},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateById" parameterType="com.offshore.platform.entity.DeviceInfo">
+        UPDATE device_info
+        <set>
+            <if test="deviceId != null">device_id = #{deviceId},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="deviceName != null">device_name = #{deviceName},</if>
+            <if test="platform != null">platform = #{platform},</if>
+            <if test="osVersion != null">os_version = #{osVersion},</if>
+            <if test="appVersion != null">app_version = #{appVersion},</if>
+            <if test="manufacturer != null">manufacturer = #{manufacturer},</if>
+            <if test="model != null">model = #{model},</if>
+            <if test="imeiHash != null">imei_hash = #{imeiHash},</if>
+            <if test="pushToken != null">push_token = #{pushToken},</if>
+            <if test="registerTime != null">register_time = #{registerTime},</if>
+            <if test="lastLoginTime != null">last_login_time = #{lastLoginTime},</if>
+            <if test="lastHeartbeatTime != null">last_heartbeat_time = #{lastHeartbeatTime},</if>
+            <if test="lastSyncTime != null">last_sync_time = #{lastSyncTime},</if>
+            <if test="lastSyncCursor != null">last_sync_cursor = #{lastSyncCursor},</if>
+            <if test="onlineStatus != null">online_status = #{onlineStatus},</if>
+            <if test="deviceStatus != null">device_status = #{deviceStatus},</if>
+            <if test="syncEnabled != null">sync_enabled = #{syncEnabled},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+            <if test="deletedFlag != null">deleted_flag = #{deletedFlag},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectById" parameterType="long" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM device_info
+        WHERE id = #{id}
+          AND deleted_flag = 0
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM device_info
+        WHERE deleted_flag = 0
+        ORDER BY id DESC
+    </select>
+
+    <update id="softDeleteById" parameterType="long">
+        UPDATE device_info
+        SET deleted_flag = 1
+        WHERE id = #{id}
+    </update>
+</mapper>

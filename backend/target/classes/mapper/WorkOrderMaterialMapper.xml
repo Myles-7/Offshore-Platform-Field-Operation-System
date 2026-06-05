@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.offshore.platform.mapper.WorkOrderMaterialMapper">
+    <resultMap id="BaseResultMap" type="com.offshore.platform.entity.WorkOrderMaterial">
+        <id column="id" property="id" />
+        <result column="work_order_id" property="workOrderId" />
+        <result column="material_code" property="materialCode" />
+        <result column="material_name" property="materialName" />
+        <result column="material_spec" property="materialSpec" />
+        <result column="unit" property="unit" />
+        <result column="planned_qty" property="plannedQty" />
+        <result column="actual_qty" property="actualQty" />
+        <result column="material_desc" property="materialDesc" />
+        <result column="required_flag" property="requiredFlag" />
+        <result column="prepare_status" property="prepareStatus" />
+        <result column="local_id" property="localId" />
+        <result column="server_id" property="serverId" />
+        <result column="version" property="version" />
+        <result column="sync_status" property="syncStatus" />
+        <result column="device_id" property="deviceId" />
+        <result column="operator_id" property="operatorId" />
+        <result column="created_at" property="createdAt" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="deleted_flag" property="deletedFlag" />
+        <result column="created_by" property="createdBy" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <sql id="BaseColumnList">
+        id, work_order_id, material_code, material_name, material_spec, unit, planned_qty, actual_qty, material_desc, required_flag, prepare_status, local_id, server_id, version, sync_status, device_id, operator_id, created_at, updated_at, deleted_flag, created_by, updated_by, remark
+    </sql>
+
+    <insert id="insert" parameterType="com.offshore.platform.entity.WorkOrderMaterial" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO work_order_material
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="workOrderId != null">work_order_id,</if>
+            <if test="materialCode != null">material_code,</if>
+            <if test="materialName != null">material_name,</if>
+            <if test="materialSpec != null">material_spec,</if>
+            <if test="unit != null">unit,</if>
+            <if test="plannedQty != null">planned_qty,</if>
+            <if test="actualQty != null">actual_qty,</if>
+            <if test="materialDesc != null">material_desc,</if>
+            <if test="requiredFlag != null">required_flag,</if>
+            <if test="prepareStatus != null">prepare_status,</if>
+            <if test="localId != null">local_id,</if>
+            <if test="serverId != null">server_id,</if>
+            <if test="version != null">version,</if>
+            <if test="syncStatus != null">sync_status,</if>
+            <if test="deviceId != null">device_id,</if>
+            <if test="operatorId != null">operator_id,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+            <if test="deletedFlag != null">deleted_flag,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="workOrderId != null">#{workOrderId},</if>
+            <if test="materialCode != null">#{materialCode},</if>
+            <if test="materialName != null">#{materialName},</if>
+            <if test="materialSpec != null">#{materialSpec},</if>
+            <if test="unit != null">#{unit},</if>
+            <if test="plannedQty != null">#{plannedQty},</if>
+            <if test="actualQty != null">#{actualQty},</if>
+            <if test="materialDesc != null">#{materialDesc},</if>
+            <if test="requiredFlag != null">#{requiredFlag},</if>
+            <if test="prepareStatus != null">#{prepareStatus},</if>
+            <if test="localId != null">#{localId},</if>
+            <if test="serverId != null">#{serverId},</if>
+            <if test="version != null">#{version},</if>
+            <if test="syncStatus != null">#{syncStatus},</if>
+            <if test="deviceId != null">#{deviceId},</if>
+            <if test="operatorId != null">#{operatorId},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+            <if test="deletedFlag != null">#{deletedFlag},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateById" parameterType="com.offshore.platform.entity.WorkOrderMaterial">
+        UPDATE work_order_material
+        <set>
+            <if test="workOrderId != null">work_order_id = #{workOrderId},</if>
+            <if test="materialCode != null">material_code = #{materialCode},</if>
+            <if test="materialName != null">material_name = #{materialName},</if>
+            <if test="materialSpec != null">material_spec = #{materialSpec},</if>
+            <if test="unit != null">unit = #{unit},</if>
+            <if test="plannedQty != null">planned_qty = #{plannedQty},</if>
+            <if test="actualQty != null">actual_qty = #{actualQty},</if>
+            <if test="materialDesc != null">material_desc = #{materialDesc},</if>
+            <if test="requiredFlag != null">required_flag = #{requiredFlag},</if>
+            <if test="prepareStatus != null">prepare_status = #{prepareStatus},</if>
+            <if test="localId != null">local_id = #{localId},</if>
+            <if test="serverId != null">server_id = #{serverId},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="syncStatus != null">sync_status = #{syncStatus},</if>
+            <if test="deviceId != null">device_id = #{deviceId},</if>
+            <if test="operatorId != null">operator_id = #{operatorId},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+            <if test="deletedFlag != null">deleted_flag = #{deletedFlag},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectById" parameterType="long" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM work_order_material
+        WHERE id = #{id}
+          AND deleted_flag = 0
+    </select>
+
+    <select id="selectByWorkOrderId" parameterType="long" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM work_order_material
+        WHERE work_order_id = #{workOrderId}
+          AND deleted_flag = 0
+        ORDER BY id ASC
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM work_order_material
+        WHERE deleted_flag = 0
+        ORDER BY id DESC
+    </select>
+
+    <update id="softDeleteById" parameterType="long">
+        UPDATE work_order_material
+        SET deleted_flag = 1
+        WHERE id = #{id}
+    </update>
+</mapper>

@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.offshore.platform.mapper.ReportDailySummaryMapper">
+    <resultMap id="BaseResultMap" type="com.offshore.platform.entity.ReportDailySummary">
+        <id column="id" property="id" />
+        <result column="summary_date" property="summaryDate" />
+        <result column="project_id" property="projectId" />
+        <result column="project_name" property="projectName" />
+        <result column="work_order_total" property="workOrderTotal" />
+        <result column="work_order_in_progress" property="workOrderInProgress" />
+        <result column="work_order_completed" property="workOrderCompleted" />
+        <result column="work_order_pending_acceptance" property="workOrderPendingAcceptance" />
+        <result column="work_order_rejected" property="workOrderRejected" />
+        <result column="completion_rate" property="completionRate" />
+        <result column="attendance_count" property="attendanceCount" />
+        <result column="record_count" property="recordCount" />
+        <result column="attachment_count" property="attachmentCount" />
+        <result column="material_used_amount" property="materialUsedAmount" />
+        <result column="material_used_qty" property="materialUsedQty" />
+        <result column="output_value" property="outputValue" />
+        <result column="ai_suspected_count" property="aiSuspectedCount" />
+        <result column="conflict_pending_count" property="conflictPendingCount" />
+        <result column="generated_at" property="generatedAt" />
+        <result column="created_at" property="createdAt" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="deleted_flag" property="deletedFlag" />
+        <result column="created_by" property="createdBy" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <sql id="BaseColumnList">
+        id, summary_date, project_id, project_name, work_order_total, work_order_in_progress, work_order_completed, work_order_pending_acceptance, work_order_rejected, completion_rate, attendance_count, record_count, attachment_count, material_used_amount, material_used_qty, output_value, ai_suspected_count, conflict_pending_count, generated_at, created_at, updated_at, deleted_flag, created_by, updated_by, remark
+    </sql>
+
+    <insert id="insert" parameterType="com.offshore.platform.entity.ReportDailySummary" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO report_daily_summary
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="summaryDate != null">summary_date,</if>
+            <if test="projectId != null">project_id,</if>
+            <if test="projectName != null">project_name,</if>
+            <if test="workOrderTotal != null">work_order_total,</if>
+            <if test="workOrderInProgress != null">work_order_in_progress,</if>
+            <if test="workOrderCompleted != null">work_order_completed,</if>
+            <if test="workOrderPendingAcceptance != null">work_order_pending_acceptance,</if>
+            <if test="workOrderRejected != null">work_order_rejected,</if>
+            <if test="completionRate != null">completion_rate,</if>
+            <if test="attendanceCount != null">attendance_count,</if>
+            <if test="recordCount != null">record_count,</if>
+            <if test="attachmentCount != null">attachment_count,</if>
+            <if test="materialUsedAmount != null">material_used_amount,</if>
+            <if test="materialUsedQty != null">material_used_qty,</if>
+            <if test="outputValue != null">output_value,</if>
+            <if test="aiSuspectedCount != null">ai_suspected_count,</if>
+            <if test="conflictPendingCount != null">conflict_pending_count,</if>
+            <if test="generatedAt != null">generated_at,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+            <if test="deletedFlag != null">deleted_flag,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="summaryDate != null">#{summaryDate},</if>
+            <if test="projectId != null">#{projectId},</if>
+            <if test="projectName != null">#{projectName},</if>
+            <if test="workOrderTotal != null">#{workOrderTotal},</if>
+            <if test="workOrderInProgress != null">#{workOrderInProgress},</if>
+            <if test="workOrderCompleted != null">#{workOrderCompleted},</if>
+            <if test="workOrderPendingAcceptance != null">#{workOrderPendingAcceptance},</if>
+            <if test="workOrderRejected != null">#{workOrderRejected},</if>
+            <if test="completionRate != null">#{completionRate},</if>
+            <if test="attendanceCount != null">#{attendanceCount},</if>
+            <if test="recordCount != null">#{recordCount},</if>
+            <if test="attachmentCount != null">#{attachmentCount},</if>
+            <if test="materialUsedAmount != null">#{materialUsedAmount},</if>
+            <if test="materialUsedQty != null">#{materialUsedQty},</if>
+            <if test="outputValue != null">#{outputValue},</if>
+            <if test="aiSuspectedCount != null">#{aiSuspectedCount},</if>
+            <if test="conflictPendingCount != null">#{conflictPendingCount},</if>
+            <if test="generatedAt != null">#{generatedAt},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+            <if test="deletedFlag != null">#{deletedFlag},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateById" parameterType="com.offshore.platform.entity.ReportDailySummary">
+        UPDATE report_daily_summary
+        <set>
+            <if test="summaryDate != null">summary_date = #{summaryDate},</if>
+            <if test="projectId != null">project_id = #{projectId},</if>
+            <if test="projectName != null">project_name = #{projectName},</if>
+            <if test="workOrderTotal != null">work_order_total = #{workOrderTotal},</if>
+            <if test="workOrderInProgress != null">work_order_in_progress = #{workOrderInProgress},</if>
+            <if test="workOrderCompleted != null">work_order_completed = #{workOrderCompleted},</if>
+            <if test="workOrderPendingAcceptance != null">work_order_pending_acceptance = #{workOrderPendingAcceptance},</if>
+            <if test="workOrderRejected != null">work_order_rejected = #{workOrderRejected},</if>
+            <if test="completionRate != null">completion_rate = #{completionRate},</if>
+            <if test="attendanceCount != null">attendance_count = #{attendanceCount},</if>
+            <if test="recordCount != null">record_count = #{recordCount},</if>
+            <if test="attachmentCount != null">attachment_count = #{attachmentCount},</if>
+            <if test="materialUsedAmount != null">material_used_amount = #{materialUsedAmount},</if>
+            <if test="materialUsedQty != null">material_used_qty = #{materialUsedQty},</if>
+            <if test="outputValue != null">output_value = #{outputValue},</if>
+            <if test="aiSuspectedCount != null">ai_suspected_count = #{aiSuspectedCount},</if>
+            <if test="conflictPendingCount != null">conflict_pending_count = #{conflictPendingCount},</if>
+            <if test="generatedAt != null">generated_at = #{generatedAt},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+            <if test="deletedFlag != null">deleted_flag = #{deletedFlag},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectById" parameterType="long" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM report_daily_summary
+        WHERE id = #{id}
+          AND deleted_flag = 0
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM report_daily_summary
+        WHERE deleted_flag = 0
+        ORDER BY id DESC
+    </select>
+
+    <update id="softDeleteById" parameterType="long">
+        UPDATE report_daily_summary
+        SET deleted_flag = 1
+        WHERE id = #{id}
+    </update>
+</mapper>

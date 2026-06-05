@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.offshore.platform.mapper.WorkOrderRecordMapper">
+    <resultMap id="BaseResultMap" type="com.offshore.platform.entity.WorkOrderRecord">
+        <id column="id" property="id" />
+        <result column="work_order_id" property="workOrderId" />
+        <result column="project_id" property="projectId" />
+        <result column="record_no" property="recordNo" />
+        <result column="record_type" property="recordType" />
+        <result column="construction_time" property="constructionTime" />
+        <result column="construction_user_id" property="constructionUserId" />
+        <result column="construction_user_name" property="constructionUserName" />
+        <result column="construction_desc" property="constructionDesc" />
+        <result column="site_condition" property="siteCondition" />
+        <result column="abnormal_flag" property="abnormalFlag" />
+        <result column="abnormal_desc" property="abnormalDesc" />
+        <result column="weather" property="weather" />
+        <result column="temperature" property="temperature" />
+        <result column="humidity" property="humidity" />
+        <result column="location_name" property="locationName" />
+        <result column="latitude" property="latitude" />
+        <result column="longitude" property="longitude" />
+        <result column="altitude" property="altitude" />
+        <result column="attachment_count" property="attachmentCount" />
+        <result column="ai_result_count" property="aiResultCount" />
+        <result column="record_status" property="recordStatus" />
+        <result column="submitted_at" property="submittedAt" />
+        <result column="confirmed_by" property="confirmedBy" />
+        <result column="confirmed_at" property="confirmedAt" />
+        <result column="client_created_at" property="clientCreatedAt" />
+        <result column="client_updated_at" property="clientUpdatedAt" />
+        <result column="local_id" property="localId" />
+        <result column="server_id" property="serverId" />
+        <result column="version" property="version" />
+        <result column="sync_status" property="syncStatus" />
+        <result column="device_id" property="deviceId" />
+        <result column="operator_id" property="operatorId" />
+        <result column="conflict_flag" property="conflictFlag" />
+        <result column="created_at" property="createdAt" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="deleted_flag" property="deletedFlag" />
+        <result column="created_by" property="createdBy" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <sql id="BaseColumnList">
+        id, work_order_id, project_id, record_no, record_type, construction_time, construction_user_id, construction_user_name, construction_desc, site_condition, abnormal_flag, abnormal_desc, weather, temperature, humidity, location_name, latitude, longitude, altitude, attachment_count, ai_result_count, record_status, submitted_at, confirmed_by, confirmed_at, client_created_at, client_updated_at, local_id, server_id, version, sync_status, device_id, operator_id, conflict_flag, created_at, updated_at, deleted_flag, created_by, updated_by, remark
+    </sql>
+
+    <insert id="insert" parameterType="com.offshore.platform.entity.WorkOrderRecord" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO work_order_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="workOrderId != null">work_order_id,</if>
+            <if test="projectId != null">project_id,</if>
+            <if test="recordNo != null">record_no,</if>
+            <if test="recordType != null">record_type,</if>
+            <if test="constructionTime != null">construction_time,</if>
+            <if test="constructionUserId != null">construction_user_id,</if>
+            <if test="constructionUserName != null">construction_user_name,</if>
+            <if test="constructionDesc != null">construction_desc,</if>
+            <if test="siteCondition != null">site_condition,</if>
+            <if test="abnormalFlag != null">abnormal_flag,</if>
+            <if test="abnormalDesc != null">abnormal_desc,</if>
+            <if test="weather != null">weather,</if>
+            <if test="temperature != null">temperature,</if>
+            <if test="humidity != null">humidity,</if>
+            <if test="locationName != null">location_name,</if>
+            <if test="latitude != null">latitude,</if>
+            <if test="longitude != null">longitude,</if>
+            <if test="altitude != null">altitude,</if>
+            <if test="attachmentCount != null">attachment_count,</if>
+            <if test="aiResultCount != null">ai_result_count,</if>
+            <if test="recordStatus != null">record_status,</if>
+            <if test="submittedAt != null">submitted_at,</if>
+            <if test="confirmedBy != null">confirmed_by,</if>
+            <if test="confirmedAt != null">confirmed_at,</if>
+            <if test="clientCreatedAt != null">client_created_at,</if>
+            <if test="clientUpdatedAt != null">client_updated_at,</if>
+            <if test="localId != null">local_id,</if>
+            <if test="serverId != null">server_id,</if>
+            <if test="version != null">version,</if>
+            <if test="syncStatus != null">sync_status,</if>
+            <if test="deviceId != null">device_id,</if>
+            <if test="operatorId != null">operator_id,</if>
+            <if test="conflictFlag != null">conflict_flag,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+            <if test="deletedFlag != null">deleted_flag,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="workOrderId != null">#{workOrderId},</if>
+            <if test="projectId != null">#{projectId},</if>
+            <if test="recordNo != null">#{recordNo},</if>
+            <if test="recordType != null">#{recordType},</if>
+            <if test="constructionTime != null">#{constructionTime},</if>
+            <if test="constructionUserId != null">#{constructionUserId},</if>
+            <if test="constructionUserName != null">#{constructionUserName},</if>
+            <if test="constructionDesc != null">#{constructionDesc},</if>
+            <if test="siteCondition != null">#{siteCondition},</if>
+            <if test="abnormalFlag != null">#{abnormalFlag},</if>
+            <if test="abnormalDesc != null">#{abnormalDesc},</if>
+            <if test="weather != null">#{weather},</if>
+            <if test="temperature != null">#{temperature},</if>
+            <if test="humidity != null">#{humidity},</if>
+            <if test="locationName != null">#{locationName},</if>
+            <if test="latitude != null">#{latitude},</if>
+            <if test="longitude != null">#{longitude},</if>
+            <if test="altitude != null">#{altitude},</if>
+            <if test="attachmentCount != null">#{attachmentCount},</if>
+            <if test="aiResultCount != null">#{aiResultCount},</if>
+            <if test="recordStatus != null">#{recordStatus},</if>
+            <if test="submittedAt != null">#{submittedAt},</if>
+            <if test="confirmedBy != null">#{confirmedBy},</if>
+            <if test="confirmedAt != null">#{confirmedAt},</if>
+            <if test="clientCreatedAt != null">#{clientCreatedAt},</if>
+            <if test="clientUpdatedAt != null">#{clientUpdatedAt},</if>
+            <if test="localId != null">#{localId},</if>
+            <if test="serverId != null">#{serverId},</if>
+            <if test="version != null">#{version},</if>
+            <if test="syncStatus != null">#{syncStatus},</if>
+            <if test="deviceId != null">#{deviceId},</if>
+            <if test="operatorId != null">#{operatorId},</if>
+            <if test="conflictFlag != null">#{conflictFlag},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+            <if test="deletedFlag != null">#{deletedFlag},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateById" parameterType="com.offshore.platform.entity.WorkOrderRecord">
+        UPDATE work_order_record
+        <set>
+            <if test="workOrderId != null">work_order_id = #{workOrderId},</if>
+            <if test="projectId != null">project_id = #{projectId},</if>
+            <if test="recordNo != null">record_no = #{recordNo},</if>
+            <if test="recordType != null">record_type = #{recordType},</if>
+            <if test="constructionTime != null">construction_time = #{constructionTime},</if>
+            <if test="constructionUserId != null">construction_user_id = #{constructionUserId},</if>
+            <if test="constructionUserName != null">construction_user_name = #{constructionUserName},</if>
+            <if test="constructionDesc != null">construction_desc = #{constructionDesc},</if>
+            <if test="siteCondition != null">site_condition = #{siteCondition},</if>
+            <if test="abnormalFlag != null">abnormal_flag = #{abnormalFlag},</if>
+            <if test="abnormalDesc != null">abnormal_desc = #{abnormalDesc},</if>
+            <if test="weather != null">weather = #{weather},</if>
+            <if test="temperature != null">temperature = #{temperature},</if>
+            <if test="humidity != null">humidity = #{humidity},</if>
+            <if test="locationName != null">location_name = #{locationName},</if>
+            <if test="latitude != null">latitude = #{latitude},</if>
+            <if test="longitude != null">longitude = #{longitude},</if>
+            <if test="altitude != null">altitude = #{altitude},</if>
+            <if test="attachmentCount != null">attachment_count = #{attachmentCount},</if>
+            <if test="aiResultCount != null">ai_result_count = #{aiResultCount},</if>
+            <if test="recordStatus != null">record_status = #{recordStatus},</if>
+            <if test="submittedAt != null">submitted_at = #{submittedAt},</if>
+            <if test="confirmedBy != null">confirmed_by = #{confirmedBy},</if>
+            <if test="confirmedAt != null">confirmed_at = #{confirmedAt},</if>
+            <if test="clientCreatedAt != null">client_created_at = #{clientCreatedAt},</if>
+            <if test="clientUpdatedAt != null">client_updated_at = #{clientUpdatedAt},</if>
+            <if test="localId != null">local_id = #{localId},</if>
+            <if test="serverId != null">server_id = #{serverId},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="syncStatus != null">sync_status = #{syncStatus},</if>
+            <if test="deviceId != null">device_id = #{deviceId},</if>
+            <if test="operatorId != null">operator_id = #{operatorId},</if>
+            <if test="conflictFlag != null">conflict_flag = #{conflictFlag},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+            <if test="deletedFlag != null">deleted_flag = #{deletedFlag},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectById" parameterType="long" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM work_order_record
+        WHERE id = #{id}
+          AND deleted_flag = 0
+    </select>
+
+    <select id="selectByWorkOrderId" parameterType="long" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM work_order_record
+        WHERE work_order_id = #{workOrderId}
+          AND deleted_flag = 0
+        ORDER BY construction_time DESC, id DESC
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM work_order_record
+        WHERE deleted_flag = 0
+        ORDER BY id DESC
+    </select>
+
+    <update id="softDeleteById" parameterType="long">
+        UPDATE work_order_record
+        SET deleted_flag = 1
+        WHERE id = #{id}
+    </update>
+</mapper>

@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.offshore.platform.mapper.WorkOrderSignatureMapper">
+    <resultMap id="BaseResultMap" type="com.offshore.platform.entity.WorkOrderSignature">
+        <id column="id" property="id" />
+        <result column="signature_no" property="signatureNo" />
+        <result column="work_order_id" property="workOrderId" />
+        <result column="acceptance_id" property="acceptanceId" />
+        <result column="file_id" property="fileId" />
+        <result column="signature_role" property="signatureRole" />
+        <result column="signer_user_id" property="signerUserId" />
+        <result column="signer_name" property="signerName" />
+        <result column="signer_phone" property="signerPhone" />
+        <result column="signed_at" property="signedAt" />
+        <result column="sign_location" property="signLocation" />
+        <result column="latitude" property="latitude" />
+        <result column="longitude" property="longitude" />
+        <result column="signature_hash" property="signatureHash" />
+        <result column="signature_status" property="signatureStatus" />
+        <result column="local_file_path" property="localFilePath" />
+        <result column="upload_status" property="uploadStatus" />
+        <result column="retry_count" property="retryCount" />
+        <result column="last_retry_time" property="lastRetryTime" />
+        <result column="error_code" property="errorCode" />
+        <result column="error_message" property="errorMessage" />
+        <result column="client_created_at" property="clientCreatedAt" />
+        <result column="client_updated_at" property="clientUpdatedAt" />
+        <result column="local_id" property="localId" />
+        <result column="server_id" property="serverId" />
+        <result column="version" property="version" />
+        <result column="sync_status" property="syncStatus" />
+        <result column="device_id" property="deviceId" />
+        <result column="operator_id" property="operatorId" />
+        <result column="conflict_flag" property="conflictFlag" />
+        <result column="created_at" property="createdAt" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="deleted_flag" property="deletedFlag" />
+        <result column="created_by" property="createdBy" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <sql id="BaseColumnList">
+        id, signature_no, work_order_id, acceptance_id, file_id, signature_role, signer_user_id, signer_name, signer_phone, signed_at, sign_location, latitude, longitude, signature_hash, signature_status, local_file_path, upload_status, retry_count, last_retry_time, error_code, error_message, client_created_at, client_updated_at, local_id, server_id, version, sync_status, device_id, operator_id, conflict_flag, created_at, updated_at, deleted_flag, created_by, updated_by, remark
+    </sql>
+
+    <insert id="insert" parameterType="com.offshore.platform.entity.WorkOrderSignature" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO work_order_signature
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="signatureNo != null">signature_no,</if>
+            <if test="workOrderId != null">work_order_id,</if>
+            <if test="acceptanceId != null">acceptance_id,</if>
+            <if test="fileId != null">file_id,</if>
+            <if test="signatureRole != null">signature_role,</if>
+            <if test="signerUserId != null">signer_user_id,</if>
+            <if test="signerName != null">signer_name,</if>
+            <if test="signerPhone != null">signer_phone,</if>
+            <if test="signedAt != null">signed_at,</if>
+            <if test="signLocation != null">sign_location,</if>
+            <if test="latitude != null">latitude,</if>
+            <if test="longitude != null">longitude,</if>
+            <if test="signatureHash != null">signature_hash,</if>
+            <if test="signatureStatus != null">signature_status,</if>
+            <if test="localFilePath != null">local_file_path,</if>
+            <if test="uploadStatus != null">upload_status,</if>
+            <if test="retryCount != null">retry_count,</if>
+            <if test="lastRetryTime != null">last_retry_time,</if>
+            <if test="errorCode != null">error_code,</if>
+            <if test="errorMessage != null">error_message,</if>
+            <if test="clientCreatedAt != null">client_created_at,</if>
+            <if test="clientUpdatedAt != null">client_updated_at,</if>
+            <if test="localId != null">local_id,</if>
+            <if test="serverId != null">server_id,</if>
+            <if test="version != null">version,</if>
+            <if test="syncStatus != null">sync_status,</if>
+            <if test="deviceId != null">device_id,</if>
+            <if test="operatorId != null">operator_id,</if>
+            <if test="conflictFlag != null">conflict_flag,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+            <if test="deletedFlag != null">deleted_flag,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="signatureNo != null">#{signatureNo},</if>
+            <if test="workOrderId != null">#{workOrderId},</if>
+            <if test="acceptanceId != null">#{acceptanceId},</if>
+            <if test="fileId != null">#{fileId},</if>
+            <if test="signatureRole != null">#{signatureRole},</if>
+            <if test="signerUserId != null">#{signerUserId},</if>
+            <if test="signerName != null">#{signerName},</if>
+            <if test="signerPhone != null">#{signerPhone},</if>
+            <if test="signedAt != null">#{signedAt},</if>
+            <if test="signLocation != null">#{signLocation},</if>
+            <if test="latitude != null">#{latitude},</if>
+            <if test="longitude != null">#{longitude},</if>
+            <if test="signatureHash != null">#{signatureHash},</if>
+            <if test="signatureStatus != null">#{signatureStatus},</if>
+            <if test="localFilePath != null">#{localFilePath},</if>
+            <if test="uploadStatus != null">#{uploadStatus},</if>
+            <if test="retryCount != null">#{retryCount},</if>
+            <if test="lastRetryTime != null">#{lastRetryTime},</if>
+            <if test="errorCode != null">#{errorCode},</if>
+            <if test="errorMessage != null">#{errorMessage},</if>
+            <if test="clientCreatedAt != null">#{clientCreatedAt},</if>
+            <if test="clientUpdatedAt != null">#{clientUpdatedAt},</if>
+            <if test="localId != null">#{localId},</if>
+            <if test="serverId != null">#{serverId},</if>
+            <if test="version != null">#{version},</if>
+            <if test="syncStatus != null">#{syncStatus},</if>
+            <if test="deviceId != null">#{deviceId},</if>
+            <if test="operatorId != null">#{operatorId},</if>
+            <if test="conflictFlag != null">#{conflictFlag},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+            <if test="deletedFlag != null">#{deletedFlag},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateById" parameterType="com.offshore.platform.entity.WorkOrderSignature">
+        UPDATE work_order_signature
+        <set>
+            <if test="signatureNo != null">signature_no = #{signatureNo},</if>
+            <if test="workOrderId != null">work_order_id = #{workOrderId},</if>
+            <if test="acceptanceId != null">acceptance_id = #{acceptanceId},</if>
+            <if test="fileId != null">file_id = #{fileId},</if>
+            <if test="signatureRole != null">signature_role = #{signatureRole},</if>
+            <if test="signerUserId != null">signer_user_id = #{signerUserId},</if>
+            <if test="signerName != null">signer_name = #{signerName},</if>
+            <if test="signerPhone != null">signer_phone = #{signerPhone},</if>
+            <if test="signedAt != null">signed_at = #{signedAt},</if>
+            <if test="signLocation != null">sign_location = #{signLocation},</if>
+            <if test="latitude != null">latitude = #{latitude},</if>
+            <if test="longitude != null">longitude = #{longitude},</if>
+            <if test="signatureHash != null">signature_hash = #{signatureHash},</if>
+            <if test="signatureStatus != null">signature_status = #{signatureStatus},</if>
+            <if test="localFilePath != null">local_file_path = #{localFilePath},</if>
+            <if test="uploadStatus != null">upload_status = #{uploadStatus},</if>
+            <if test="retryCount != null">retry_count = #{retryCount},</if>
+            <if test="lastRetryTime != null">last_retry_time = #{lastRetryTime},</if>
+            <if test="errorCode != null">error_code = #{errorCode},</if>
+            <if test="errorMessage != null">error_message = #{errorMessage},</if>
+            <if test="clientCreatedAt != null">client_created_at = #{clientCreatedAt},</if>
+            <if test="clientUpdatedAt != null">client_updated_at = #{clientUpdatedAt},</if>
+            <if test="localId != null">local_id = #{localId},</if>
+            <if test="serverId != null">server_id = #{serverId},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="syncStatus != null">sync_status = #{syncStatus},</if>
+            <if test="deviceId != null">device_id = #{deviceId},</if>
+            <if test="operatorId != null">operator_id = #{operatorId},</if>
+            <if test="conflictFlag != null">conflict_flag = #{conflictFlag},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+            <if test="deletedFlag != null">deleted_flag = #{deletedFlag},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectById" parameterType="long" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM work_order_signature
+        WHERE id = #{id}
+          AND deleted_flag = 0
+    </select>
+
+    <select id="selectByWorkOrderId" parameterType="long" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM work_order_signature
+        WHERE work_order_id = #{workOrderId}
+          AND deleted_flag = 0
+        ORDER BY signed_at DESC, id DESC
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM work_order_signature
+        WHERE deleted_flag = 0
+        ORDER BY id DESC
+    </select>
+
+    <update id="softDeleteById" parameterType="long">
+        UPDATE work_order_signature
+        SET deleted_flag = 1
+        WHERE id = #{id}
+    </update>
+</mapper>

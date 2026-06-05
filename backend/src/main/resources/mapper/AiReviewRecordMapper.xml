@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.offshore.platform.mapper.AiReviewRecordMapper">
+    <resultMap id="BaseResultMap" type="com.offshore.platform.entity.AiReviewRecord">
+        <id column="id" property="id" />
+        <result column="review_no" property="reviewNo" />
+        <result column="ai_result_id" property="aiResultId" />
+        <result column="work_order_id" property="workOrderId" />
+        <result column="record_id" property="recordId" />
+        <result column="attachment_id" property="attachmentId" />
+        <result column="reviewer_id" property="reviewerId" />
+        <result column="reviewer_name" property="reviewerName" />
+        <result column="review_status" property="reviewStatus" />
+        <result column="confirmed_defect_type" property="confirmedDefectType" />
+        <result column="review_opinion" property="reviewOpinion" />
+        <result column="acceptance_suggestion" property="acceptanceSuggestion" />
+        <result column="review_time" property="reviewTime" />
+        <result column="created_at" property="createdAt" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="deleted_flag" property="deletedFlag" />
+        <result column="created_by" property="createdBy" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <sql id="BaseColumnList">
+        id, review_no, ai_result_id, work_order_id, record_id, attachment_id, reviewer_id, reviewer_name, review_status, confirmed_defect_type, review_opinion, acceptance_suggestion, review_time, created_at, updated_at, deleted_flag, created_by, updated_by, remark
+    </sql>
+
+    <insert id="insert" parameterType="com.offshore.platform.entity.AiReviewRecord" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO ai_review_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="reviewNo != null">review_no,</if>
+            <if test="aiResultId != null">ai_result_id,</if>
+            <if test="workOrderId != null">work_order_id,</if>
+            <if test="recordId != null">record_id,</if>
+            <if test="attachmentId != null">attachment_id,</if>
+            <if test="reviewerId != null">reviewer_id,</if>
+            <if test="reviewerName != null">reviewer_name,</if>
+            <if test="reviewStatus != null">review_status,</if>
+            <if test="confirmedDefectType != null">confirmed_defect_type,</if>
+            <if test="reviewOpinion != null">review_opinion,</if>
+            <if test="acceptanceSuggestion != null">acceptance_suggestion,</if>
+            <if test="reviewTime != null">review_time,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+            <if test="deletedFlag != null">deleted_flag,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="reviewNo != null">#{reviewNo},</if>
+            <if test="aiResultId != null">#{aiResultId},</if>
+            <if test="workOrderId != null">#{workOrderId},</if>
+            <if test="recordId != null">#{recordId},</if>
+            <if test="attachmentId != null">#{attachmentId},</if>
+            <if test="reviewerId != null">#{reviewerId},</if>
+            <if test="reviewerName != null">#{reviewerName},</if>
+            <if test="reviewStatus != null">#{reviewStatus},</if>
+            <if test="confirmedDefectType != null">#{confirmedDefectType},</if>
+            <if test="reviewOpinion != null">#{reviewOpinion},</if>
+            <if test="acceptanceSuggestion != null">#{acceptanceSuggestion},</if>
+            <if test="reviewTime != null">#{reviewTime},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+            <if test="deletedFlag != null">#{deletedFlag},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateById" parameterType="com.offshore.platform.entity.AiReviewRecord">
+        UPDATE ai_review_record
+        <set>
+            <if test="reviewNo != null">review_no = #{reviewNo},</if>
+            <if test="aiResultId != null">ai_result_id = #{aiResultId},</if>
+            <if test="workOrderId != null">work_order_id = #{workOrderId},</if>
+            <if test="recordId != null">record_id = #{recordId},</if>
+            <if test="attachmentId != null">attachment_id = #{attachmentId},</if>
+            <if test="reviewerId != null">reviewer_id = #{reviewerId},</if>
+            <if test="reviewerName != null">reviewer_name = #{reviewerName},</if>
+            <if test="reviewStatus != null">review_status = #{reviewStatus},</if>
+            <if test="confirmedDefectType != null">confirmed_defect_type = #{confirmedDefectType},</if>
+            <if test="reviewOpinion != null">review_opinion = #{reviewOpinion},</if>
+            <if test="acceptanceSuggestion != null">acceptance_suggestion = #{acceptanceSuggestion},</if>
+            <if test="reviewTime != null">review_time = #{reviewTime},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+            <if test="deletedFlag != null">deleted_flag = #{deletedFlag},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectById" parameterType="long" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM ai_review_record
+        WHERE id = #{id}
+          AND deleted_flag = 0
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM ai_review_record
+        WHERE deleted_flag = 0
+        ORDER BY id DESC
+    </select>
+
+    <update id="softDeleteById" parameterType="long">
+        UPDATE ai_review_record
+        SET deleted_flag = 1
+        WHERE id = #{id}
+    </update>
+</mapper>

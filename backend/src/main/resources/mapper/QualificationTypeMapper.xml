@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.offshore.platform.mapper.QualificationTypeMapper">
+    <resultMap id="BaseResultMap" type="com.offshore.platform.entity.QualificationType">
+        <id column="id" property="id" />
+        <result column="qualification_code" property="qualificationCode" />
+        <result column="qualification_name" property="qualificationName" />
+        <result column="warning_days" property="warningDays" />
+        <result column="required_flag" property="requiredFlag" />
+        <result column="enabled_flag" property="enabledFlag" />
+        <result column="created_at" property="createdAt" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="deleted_flag" property="deletedFlag" />
+        <result column="created_by" property="createdBy" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <sql id="BaseColumnList">
+        id, qualification_code, qualification_name, warning_days, required_flag, enabled_flag, created_at, updated_at, deleted_flag, created_by, updated_by, remark
+    </sql>
+
+    <insert id="insert" parameterType="com.offshore.platform.entity.QualificationType" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO qualification_type
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="qualificationCode != null">qualification_code,</if>
+            <if test="qualificationName != null">qualification_name,</if>
+            <if test="warningDays != null">warning_days,</if>
+            <if test="requiredFlag != null">required_flag,</if>
+            <if test="enabledFlag != null">enabled_flag,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+            <if test="deletedFlag != null">deleted_flag,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="qualificationCode != null">#{qualificationCode},</if>
+            <if test="qualificationName != null">#{qualificationName},</if>
+            <if test="warningDays != null">#{warningDays},</if>
+            <if test="requiredFlag != null">#{requiredFlag},</if>
+            <if test="enabledFlag != null">#{enabledFlag},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+            <if test="deletedFlag != null">#{deletedFlag},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateById" parameterType="com.offshore.platform.entity.QualificationType">
+        UPDATE qualification_type
+        <set>
+            <if test="qualificationCode != null">qualification_code = #{qualificationCode},</if>
+            <if test="qualificationName != null">qualification_name = #{qualificationName},</if>
+            <if test="warningDays != null">warning_days = #{warningDays},</if>
+            <if test="requiredFlag != null">required_flag = #{requiredFlag},</if>
+            <if test="enabledFlag != null">enabled_flag = #{enabledFlag},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+            <if test="deletedFlag != null">deleted_flag = #{deletedFlag},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectById" parameterType="long" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM qualification_type
+        WHERE id = #{id}
+          AND deleted_flag = 0
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM qualification_type
+        WHERE deleted_flag = 0
+        ORDER BY id DESC
+    </select>
+
+    <update id="softDeleteById" parameterType="long">
+        UPDATE qualification_type
+        SET deleted_flag = 1
+        WHERE id = #{id}
+    </update>
+</mapper>

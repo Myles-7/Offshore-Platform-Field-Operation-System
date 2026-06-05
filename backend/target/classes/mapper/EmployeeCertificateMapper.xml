@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.offshore.platform.mapper.EmployeeCertificateMapper">
+    <resultMap id="BaseResultMap" type="com.offshore.platform.entity.EmployeeCertificate">
+        <id column="id" property="id" />
+        <result column="employee_id" property="employeeId" />
+        <result column="qualification_type_id" property="qualificationTypeId" />
+        <result column="certificate_no" property="certificateNo" />
+        <result column="certificate_name" property="certificateName" />
+        <result column="issue_org" property="issueOrg" />
+        <result column="issue_date" property="issueDate" />
+        <result column="valid_from" property="validFrom" />
+        <result column="valid_to" property="validTo" />
+        <result column="valid_status" property="validStatus" />
+        <result column="warning_level" property="warningLevel" />
+        <result column="file_id" property="fileId" />
+        <result column="created_at" property="createdAt" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="deleted_flag" property="deletedFlag" />
+        <result column="created_by" property="createdBy" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <sql id="BaseColumnList">
+        id, employee_id, qualification_type_id, certificate_no, certificate_name, issue_org, issue_date, valid_from, valid_to, valid_status, warning_level, file_id, created_at, updated_at, deleted_flag, created_by, updated_by, remark
+    </sql>
+
+    <insert id="insert" parameterType="com.offshore.platform.entity.EmployeeCertificate" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO employee_certificate
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="employeeId != null">employee_id,</if>
+            <if test="qualificationTypeId != null">qualification_type_id,</if>
+            <if test="certificateNo != null">certificate_no,</if>
+            <if test="certificateName != null">certificate_name,</if>
+            <if test="issueOrg != null">issue_org,</if>
+            <if test="issueDate != null">issue_date,</if>
+            <if test="validFrom != null">valid_from,</if>
+            <if test="validTo != null">valid_to,</if>
+            <if test="validStatus != null">valid_status,</if>
+            <if test="warningLevel != null">warning_level,</if>
+            <if test="fileId != null">file_id,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+            <if test="deletedFlag != null">deleted_flag,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="employeeId != null">#{employeeId},</if>
+            <if test="qualificationTypeId != null">#{qualificationTypeId},</if>
+            <if test="certificateNo != null">#{certificateNo},</if>
+            <if test="certificateName != null">#{certificateName},</if>
+            <if test="issueOrg != null">#{issueOrg},</if>
+            <if test="issueDate != null">#{issueDate},</if>
+            <if test="validFrom != null">#{validFrom},</if>
+            <if test="validTo != null">#{validTo},</if>
+            <if test="validStatus != null">#{validStatus},</if>
+            <if test="warningLevel != null">#{warningLevel},</if>
+            <if test="fileId != null">#{fileId},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+            <if test="deletedFlag != null">#{deletedFlag},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateById" parameterType="com.offshore.platform.entity.EmployeeCertificate">
+        UPDATE employee_certificate
+        <set>
+            <if test="employeeId != null">employee_id = #{employeeId},</if>
+            <if test="qualificationTypeId != null">qualification_type_id = #{qualificationTypeId},</if>
+            <if test="certificateNo != null">certificate_no = #{certificateNo},</if>
+            <if test="certificateName != null">certificate_name = #{certificateName},</if>
+            <if test="issueOrg != null">issue_org = #{issueOrg},</if>
+            <if test="issueDate != null">issue_date = #{issueDate},</if>
+            <if test="validFrom != null">valid_from = #{validFrom},</if>
+            <if test="validTo != null">valid_to = #{validTo},</if>
+            <if test="validStatus != null">valid_status = #{validStatus},</if>
+            <if test="warningLevel != null">warning_level = #{warningLevel},</if>
+            <if test="fileId != null">file_id = #{fileId},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+            <if test="deletedFlag != null">deleted_flag = #{deletedFlag},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectById" parameterType="long" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM employee_certificate
+        WHERE id = #{id}
+          AND deleted_flag = 0
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM employee_certificate
+        WHERE deleted_flag = 0
+        ORDER BY id DESC
+    </select>
+
+    <update id="softDeleteById" parameterType="long">
+        UPDATE employee_certificate
+        SET deleted_flag = 1
+        WHERE id = #{id}
+    </update>
+</mapper>

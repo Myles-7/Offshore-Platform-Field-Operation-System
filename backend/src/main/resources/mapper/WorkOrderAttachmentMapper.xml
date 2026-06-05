@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.offshore.platform.mapper.WorkOrderAttachmentMapper">
+    <resultMap id="BaseResultMap" type="com.offshore.platform.entity.WorkOrderAttachment">
+        <id column="id" property="id" />
+        <result column="work_order_id" property="workOrderId" />
+        <result column="record_id" property="recordId" />
+        <result column="file_id" property="fileId" />
+        <result column="attachment_type" property="attachmentType" />
+        <result column="attachment_name" property="attachmentName" />
+        <result column="attachment_desc" property="attachmentDesc" />
+        <result column="business_scene" property="businessScene" />
+        <result column="capture_time" property="captureTime" />
+        <result column="capture_user_id" property="captureUserId" />
+        <result column="capture_user_name" property="captureUserName" />
+        <result column="latitude" property="latitude" />
+        <result column="longitude" property="longitude" />
+        <result column="location_name" property="locationName" />
+        <result column="watermark_flag" property="watermarkFlag" />
+        <result column="watermark_text" property="watermarkText" />
+        <result column="watermark_time" property="watermarkTime" />
+        <result column="watermark_work_order_no" property="watermarkWorkOrderNo" />
+        <result column="watermark_user_name" property="watermarkUserName" />
+        <result column="watermark_latitude" property="watermarkLatitude" />
+        <result column="watermark_longitude" property="watermarkLongitude" />
+        <result column="duration_seconds" property="durationSeconds" />
+        <result column="media_width" property="mediaWidth" />
+        <result column="media_height" property="mediaHeight" />
+        <result column="ai_result_id" property="aiResultId" />
+        <result column="ai_bind_status" property="aiBindStatus" />
+        <result column="preview_status" property="previewStatus" />
+        <result column="mobile_cache_status" property="mobileCacheStatus" />
+        <result column="upload_status" property="uploadStatus" />
+        <result column="retry_count" property="retryCount" />
+        <result column="last_retry_time" property="lastRetryTime" />
+        <result column="error_code" property="errorCode" />
+        <result column="error_message" property="errorMessage" />
+        <result column="client_created_at" property="clientCreatedAt" />
+        <result column="client_updated_at" property="clientUpdatedAt" />
+        <result column="local_id" property="localId" />
+        <result column="server_id" property="serverId" />
+        <result column="version" property="version" />
+        <result column="sync_status" property="syncStatus" />
+        <result column="device_id" property="deviceId" />
+        <result column="operator_id" property="operatorId" />
+        <result column="conflict_flag" property="conflictFlag" />
+        <result column="created_at" property="createdAt" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="deleted_flag" property="deletedFlag" />
+        <result column="created_by" property="createdBy" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <sql id="BaseColumnList">
+        id, work_order_id, record_id, file_id, attachment_type, attachment_name, attachment_desc, business_scene, capture_time, capture_user_id, capture_user_name, latitude, longitude, location_name, watermark_flag, watermark_text, watermark_time, watermark_work_order_no, watermark_user_name, watermark_latitude, watermark_longitude, duration_seconds, media_width, media_height, ai_result_id, ai_bind_status, preview_status, mobile_cache_status, upload_status, retry_count, last_retry_time, error_code, error_message, client_created_at, client_updated_at, local_id, server_id, version, sync_status, device_id, operator_id, conflict_flag, created_at, updated_at, deleted_flag, created_by, updated_by, remark
+    </sql>
+
+    <insert id="insert" parameterType="com.offshore.platform.entity.WorkOrderAttachment" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO work_order_attachment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="workOrderId != null">work_order_id,</if>
+            <if test="recordId != null">record_id,</if>
+            <if test="fileId != null">file_id,</if>
+            <if test="attachmentType != null">attachment_type,</if>
+            <if test="attachmentName != null">attachment_name,</if>
+            <if test="attachmentDesc != null">attachment_desc,</if>
+            <if test="businessScene != null">business_scene,</if>
+            <if test="captureTime != null">capture_time,</if>
+            <if test="captureUserId != null">capture_user_id,</if>
+            <if test="captureUserName != null">capture_user_name,</if>
+            <if test="latitude != null">latitude,</if>
+            <if test="longitude != null">longitude,</if>
+            <if test="locationName != null">location_name,</if>
+            <if test="watermarkFlag != null">watermark_flag,</if>
+            <if test="watermarkText != null">watermark_text,</if>
+            <if test="watermarkTime != null">watermark_time,</if>
+            <if test="watermarkWorkOrderNo != null">watermark_work_order_no,</if>
+            <if test="watermarkUserName != null">watermark_user_name,</if>
+            <if test="watermarkLatitude != null">watermark_latitude,</if>
+            <if test="watermarkLongitude != null">watermark_longitude,</if>
+            <if test="durationSeconds != null">duration_seconds,</if>
+            <if test="mediaWidth != null">media_width,</if>
+            <if test="mediaHeight != null">media_height,</if>
+            <if test="aiResultId != null">ai_result_id,</if>
+            <if test="aiBindStatus != null">ai_bind_status,</if>
+            <if test="previewStatus != null">preview_status,</if>
+            <if test="mobileCacheStatus != null">mobile_cache_status,</if>
+            <if test="uploadStatus != null">upload_status,</if>
+            <if test="retryCount != null">retry_count,</if>
+            <if test="lastRetryTime != null">last_retry_time,</if>
+            <if test="errorCode != null">error_code,</if>
+            <if test="errorMessage != null">error_message,</if>
+            <if test="clientCreatedAt != null">client_created_at,</if>
+            <if test="clientUpdatedAt != null">client_updated_at,</if>
+            <if test="localId != null">local_id,</if>
+            <if test="serverId != null">server_id,</if>
+            <if test="version != null">version,</if>
+            <if test="syncStatus != null">sync_status,</if>
+            <if test="deviceId != null">device_id,</if>
+            <if test="operatorId != null">operator_id,</if>
+            <if test="conflictFlag != null">conflict_flag,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+            <if test="deletedFlag != null">deleted_flag,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="workOrderId != null">#{workOrderId},</if>
+            <if test="recordId != null">#{recordId},</if>
+            <if test="fileId != null">#{fileId},</if>
+            <if test="attachmentType != null">#{attachmentType},</if>
+            <if test="attachmentName != null">#{attachmentName},</if>
+            <if test="attachmentDesc != null">#{attachmentDesc},</if>
+            <if test="businessScene != null">#{businessScene},</if>
+            <if test="captureTime != null">#{captureTime},</if>
+            <if test="captureUserId != null">#{captureUserId},</if>
+            <if test="captureUserName != null">#{captureUserName},</if>
+            <if test="latitude != null">#{latitude},</if>
+            <if test="longitude != null">#{longitude},</if>
+            <if test="locationName != null">#{locationName},</if>
+            <if test="watermarkFlag != null">#{watermarkFlag},</if>
+            <if test="watermarkText != null">#{watermarkText},</if>
+            <if test="watermarkTime != null">#{watermarkTime},</if>
+            <if test="watermarkWorkOrderNo != null">#{watermarkWorkOrderNo},</if>
+            <if test="watermarkUserName != null">#{watermarkUserName},</if>
+            <if test="watermarkLatitude != null">#{watermarkLatitude},</if>
+            <if test="watermarkLongitude != null">#{watermarkLongitude},</if>
+            <if test="durationSeconds != null">#{durationSeconds},</if>
+            <if test="mediaWidth != null">#{mediaWidth},</if>
+            <if test="mediaHeight != null">#{mediaHeight},</if>
+            <if test="aiResultId != null">#{aiResultId},</if>
+            <if test="aiBindStatus != null">#{aiBindStatus},</if>
+            <if test="previewStatus != null">#{previewStatus},</if>
+            <if test="mobileCacheStatus != null">#{mobileCacheStatus},</if>
+            <if test="uploadStatus != null">#{uploadStatus},</if>
+            <if test="retryCount != null">#{retryCount},</if>
+            <if test="lastRetryTime != null">#{lastRetryTime},</if>
+            <if test="errorCode != null">#{errorCode},</if>
+            <if test="errorMessage != null">#{errorMessage},</if>
+            <if test="clientCreatedAt != null">#{clientCreatedAt},</if>
+            <if test="clientUpdatedAt != null">#{clientUpdatedAt},</if>
+            <if test="localId != null">#{localId},</if>
+            <if test="serverId != null">#{serverId},</if>
+            <if test="version != null">#{version},</if>
+            <if test="syncStatus != null">#{syncStatus},</if>
+            <if test="deviceId != null">#{deviceId},</if>
+            <if test="operatorId != null">#{operatorId},</if>
+            <if test="conflictFlag != null">#{conflictFlag},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+            <if test="deletedFlag != null">#{deletedFlag},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateById" parameterType="com.offshore.platform.entity.WorkOrderAttachment">
+        UPDATE work_order_attachment
+        <set>
+            <if test="workOrderId != null">work_order_id = #{workOrderId},</if>
+            <if test="recordId != null">record_id = #{recordId},</if>
+            <if test="fileId != null">file_id = #{fileId},</if>
+            <if test="attachmentType != null">attachment_type = #{attachmentType},</if>
+            <if test="attachmentName != null">attachment_name = #{attachmentName},</if>
+            <if test="attachmentDesc != null">attachment_desc = #{attachmentDesc},</if>
+            <if test="businessScene != null">business_scene = #{businessScene},</if>
+            <if test="captureTime != null">capture_time = #{captureTime},</if>
+            <if test="captureUserId != null">capture_user_id = #{captureUserId},</if>
+            <if test="captureUserName != null">capture_user_name = #{captureUserName},</if>
+            <if test="latitude != null">latitude = #{latitude},</if>
+            <if test="longitude != null">longitude = #{longitude},</if>
+            <if test="locationName != null">location_name = #{locationName},</if>
+            <if test="watermarkFlag != null">watermark_flag = #{watermarkFlag},</if>
+            <if test="watermarkText != null">watermark_text = #{watermarkText},</if>
+            <if test="watermarkTime != null">watermark_time = #{watermarkTime},</if>
+            <if test="watermarkWorkOrderNo != null">watermark_work_order_no = #{watermarkWorkOrderNo},</if>
+            <if test="watermarkUserName != null">watermark_user_name = #{watermarkUserName},</if>
+            <if test="watermarkLatitude != null">watermark_latitude = #{watermarkLatitude},</if>
+            <if test="watermarkLongitude != null">watermark_longitude = #{watermarkLongitude},</if>
+            <if test="durationSeconds != null">duration_seconds = #{durationSeconds},</if>
+            <if test="mediaWidth != null">media_width = #{mediaWidth},</if>
+            <if test="mediaHeight != null">media_height = #{mediaHeight},</if>
+            <if test="aiResultId != null">ai_result_id = #{aiResultId},</if>
+            <if test="aiBindStatus != null">ai_bind_status = #{aiBindStatus},</if>
+            <if test="previewStatus != null">preview_status = #{previewStatus},</if>
+            <if test="mobileCacheStatus != null">mobile_cache_status = #{mobileCacheStatus},</if>
+            <if test="uploadStatus != null">upload_status = #{uploadStatus},</if>
+            <if test="retryCount != null">retry_count = #{retryCount},</if>
+            <if test="lastRetryTime != null">last_retry_time = #{lastRetryTime},</if>
+            <if test="errorCode != null">error_code = #{errorCode},</if>
+            <if test="errorMessage != null">error_message = #{errorMessage},</if>
+            <if test="clientCreatedAt != null">client_created_at = #{clientCreatedAt},</if>
+            <if test="clientUpdatedAt != null">client_updated_at = #{clientUpdatedAt},</if>
+            <if test="localId != null">local_id = #{localId},</if>
+            <if test="serverId != null">server_id = #{serverId},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="syncStatus != null">sync_status = #{syncStatus},</if>
+            <if test="deviceId != null">device_id = #{deviceId},</if>
+            <if test="operatorId != null">operator_id = #{operatorId},</if>
+            <if test="conflictFlag != null">conflict_flag = #{conflictFlag},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+            <if test="deletedFlag != null">deleted_flag = #{deletedFlag},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectById" parameterType="long" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM work_order_attachment
+        WHERE id = #{id}
+          AND deleted_flag = 0
+    </select>
+
+    <select id="selectByWorkOrderId" parameterType="long" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM work_order_attachment
+        WHERE work_order_id = #{workOrderId}
+          AND deleted_flag = 0
+        ORDER BY capture_time DESC, id DESC
+    </select>
+
+    <select id="selectByFileId" parameterType="string" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM work_order_attachment
+        WHERE file_id = #{fileId}
+          AND deleted_flag = 0
+        ORDER BY id DESC
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM work_order_attachment
+        WHERE deleted_flag = 0
+        ORDER BY id DESC
+    </select>
+
+    <update id="softDeleteById" parameterType="long">
+        UPDATE work_order_attachment
+        SET deleted_flag = 1
+        WHERE id = #{id}
+    </update>
+</mapper>

@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.offshore.platform.mapper.MaterialInfoMapper">
+    <resultMap id="BaseResultMap" type="com.offshore.platform.entity.MaterialInfo">
+        <id column="id" property="id" />
+        <result column="material_code" property="materialCode" />
+        <result column="material_name" property="materialName" />
+        <result column="material_category" property="materialCategory" />
+        <result column="material_spec" property="materialSpec" />
+        <result column="material_model" property="materialModel" />
+        <result column="unit" property="unit" />
+        <result column="brand" property="brand" />
+        <result column="manufacturer" property="manufacturer" />
+        <result column="safety_stock_qty" property="safetyStockQty" />
+        <result column="enabled_flag" property="enabledFlag" />
+        <result column="trace_enabled" property="traceEnabled" />
+        <result column="qrcode_required" property="qrcodeRequired" />
+        <result column="created_at" property="createdAt" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="deleted_flag" property="deletedFlag" />
+        <result column="created_by" property="createdBy" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <sql id="BaseColumnList">
+        id, material_code, material_name, material_category, material_spec, material_model, unit, brand, manufacturer, safety_stock_qty, enabled_flag, trace_enabled, qrcode_required, created_at, updated_at, deleted_flag, created_by, updated_by, remark
+    </sql>
+
+    <insert id="insert" parameterType="com.offshore.platform.entity.MaterialInfo" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO material_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="materialCode != null">material_code,</if>
+            <if test="materialName != null">material_name,</if>
+            <if test="materialCategory != null">material_category,</if>
+            <if test="materialSpec != null">material_spec,</if>
+            <if test="materialModel != null">material_model,</if>
+            <if test="unit != null">unit,</if>
+            <if test="brand != null">brand,</if>
+            <if test="manufacturer != null">manufacturer,</if>
+            <if test="safetyStockQty != null">safety_stock_qty,</if>
+            <if test="enabledFlag != null">enabled_flag,</if>
+            <if test="traceEnabled != null">trace_enabled,</if>
+            <if test="qrcodeRequired != null">qrcode_required,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+            <if test="deletedFlag != null">deleted_flag,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="materialCode != null">#{materialCode},</if>
+            <if test="materialName != null">#{materialName},</if>
+            <if test="materialCategory != null">#{materialCategory},</if>
+            <if test="materialSpec != null">#{materialSpec},</if>
+            <if test="materialModel != null">#{materialModel},</if>
+            <if test="unit != null">#{unit},</if>
+            <if test="brand != null">#{brand},</if>
+            <if test="manufacturer != null">#{manufacturer},</if>
+            <if test="safetyStockQty != null">#{safetyStockQty},</if>
+            <if test="enabledFlag != null">#{enabledFlag},</if>
+            <if test="traceEnabled != null">#{traceEnabled},</if>
+            <if test="qrcodeRequired != null">#{qrcodeRequired},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+            <if test="deletedFlag != null">#{deletedFlag},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateById" parameterType="com.offshore.platform.entity.MaterialInfo">
+        UPDATE material_info
+        <set>
+            <if test="materialCode != null">material_code = #{materialCode},</if>
+            <if test="materialName != null">material_name = #{materialName},</if>
+            <if test="materialCategory != null">material_category = #{materialCategory},</if>
+            <if test="materialSpec != null">material_spec = #{materialSpec},</if>
+            <if test="materialModel != null">material_model = #{materialModel},</if>
+            <if test="unit != null">unit = #{unit},</if>
+            <if test="brand != null">brand = #{brand},</if>
+            <if test="manufacturer != null">manufacturer = #{manufacturer},</if>
+            <if test="safetyStockQty != null">safety_stock_qty = #{safetyStockQty},</if>
+            <if test="enabledFlag != null">enabled_flag = #{enabledFlag},</if>
+            <if test="traceEnabled != null">trace_enabled = #{traceEnabled},</if>
+            <if test="qrcodeRequired != null">qrcode_required = #{qrcodeRequired},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+            <if test="deletedFlag != null">deleted_flag = #{deletedFlag},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectById" parameterType="long" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM material_info
+        WHERE id = #{id}
+          AND deleted_flag = 0
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM material_info
+        WHERE deleted_flag = 0
+        ORDER BY id DESC
+    </select>
+
+    <update id="softDeleteById" parameterType="long">
+        UPDATE material_info
+        SET deleted_flag = 1
+        WHERE id = #{id}
+    </update>
+</mapper>

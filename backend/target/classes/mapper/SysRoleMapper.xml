@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.offshore.platform.mapper.SysRoleMapper">
+    <resultMap id="BaseResultMap" type="com.offshore.platform.entity.SysRole">
+        <id column="id" property="id" />
+        <result column="role_code" property="roleCode" />
+        <result column="role_name" property="roleName" />
+        <result column="role_type" property="roleType" />
+        <result column="data_scope" property="dataScope" />
+        <result column="pc_enabled" property="pcEnabled" />
+        <result column="mobile_enabled" property="mobileEnabled" />
+        <result column="sort_order" property="sortOrder" />
+        <result column="status" property="status" />
+        <result column="created_at" property="createdAt" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="deleted_flag" property="deletedFlag" />
+        <result column="created_by" property="createdBy" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <sql id="BaseColumnList">
+        id, role_code, role_name, role_type, data_scope, pc_enabled, mobile_enabled, sort_order, status, created_at, updated_at, deleted_flag, created_by, updated_by, remark
+    </sql>
+
+    <insert id="insert" parameterType="com.offshore.platform.entity.SysRole" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sys_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="roleCode != null">role_code,</if>
+            <if test="roleName != null">role_name,</if>
+            <if test="roleType != null">role_type,</if>
+            <if test="dataScope != null">data_scope,</if>
+            <if test="pcEnabled != null">pc_enabled,</if>
+            <if test="mobileEnabled != null">mobile_enabled,</if>
+            <if test="sortOrder != null">sort_order,</if>
+            <if test="status != null">status,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+            <if test="deletedFlag != null">deleted_flag,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="roleCode != null">#{roleCode},</if>
+            <if test="roleName != null">#{roleName},</if>
+            <if test="roleType != null">#{roleType},</if>
+            <if test="dataScope != null">#{dataScope},</if>
+            <if test="pcEnabled != null">#{pcEnabled},</if>
+            <if test="mobileEnabled != null">#{mobileEnabled},</if>
+            <if test="sortOrder != null">#{sortOrder},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+            <if test="deletedFlag != null">#{deletedFlag},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateById" parameterType="com.offshore.platform.entity.SysRole">
+        UPDATE sys_role
+        <set>
+            <if test="roleCode != null">role_code = #{roleCode},</if>
+            <if test="roleName != null">role_name = #{roleName},</if>
+            <if test="roleType != null">role_type = #{roleType},</if>
+            <if test="dataScope != null">data_scope = #{dataScope},</if>
+            <if test="pcEnabled != null">pc_enabled = #{pcEnabled},</if>
+            <if test="mobileEnabled != null">mobile_enabled = #{mobileEnabled},</if>
+            <if test="sortOrder != null">sort_order = #{sortOrder},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+            <if test="deletedFlag != null">deleted_flag = #{deletedFlag},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectById" parameterType="long" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM sys_role
+        WHERE id = #{id}
+          AND deleted_flag = 0
+    </select>
+
+    <select id="selectByUserId" parameterType="long" resultMap="BaseResultMap">
+        SELECT r.id, r.role_code, r.role_name, r.role_type, r.data_scope, r.pc_enabled, r.mobile_enabled,
+               r.sort_order, r.status, r.created_at, r.updated_at, r.deleted_flag, r.created_by, r.updated_by, r.remark
+        FROM sys_role r
+        JOIN sys_user_role ur ON ur.role_id = r.id
+        WHERE ur.user_id = #{userId}
+          AND ur.deleted_flag = 0
+          AND r.deleted_flag = 0
+          AND r.status = 'ACTIVE'
+        ORDER BY r.sort_order ASC, r.id ASC
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM sys_role
+        WHERE deleted_flag = 0
+        ORDER BY id DESC
+    </select>
+
+    <update id="softDeleteById" parameterType="long">
+        UPDATE sys_role
+        SET deleted_flag = 1
+        WHERE id = #{id}
+    </update>
+</mapper>

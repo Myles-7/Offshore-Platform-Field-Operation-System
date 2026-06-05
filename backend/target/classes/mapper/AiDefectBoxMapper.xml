@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.offshore.platform.mapper.AiDefectBoxMapper">
+    <resultMap id="BaseResultMap" type="com.offshore.platform.entity.AiDefectBox">
+        <id column="id" property="id" />
+        <result column="ai_result_id" property="aiResultId" />
+        <result column="box_no" property="boxNo" />
+        <result column="defect_type" property="defectType" />
+        <result column="confidence" property="confidence" />
+        <result column="x" property="x" />
+        <result column="y" property="y" />
+        <result column="width" property="width" />
+        <result column="height" property="height" />
+        <result column="image_width" property="imageWidth" />
+        <result column="image_height" property="imageHeight" />
+        <result column="normalized_flag" property="normalizedFlag" />
+        <result column="box_label" property="boxLabel" />
+        <result column="box_color" property="boxColor" />
+        <result column="sort_order" property="sortOrder" />
+        <result column="local_id" property="localId" />
+        <result column="server_id" property="serverId" />
+        <result column="version" property="version" />
+        <result column="sync_status" property="syncStatus" />
+        <result column="device_id" property="deviceId" />
+        <result column="operator_id" property="operatorId" />
+        <result column="conflict_flag" property="conflictFlag" />
+        <result column="created_at" property="createdAt" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="deleted_flag" property="deletedFlag" />
+        <result column="created_by" property="createdBy" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <sql id="BaseColumnList">
+        id, ai_result_id, box_no, defect_type, confidence, x, y, width, height, image_width, image_height, normalized_flag, box_label, box_color, sort_order, local_id, server_id, version, sync_status, device_id, operator_id, conflict_flag, created_at, updated_at, deleted_flag, created_by, updated_by, remark
+    </sql>
+
+    <insert id="insert" parameterType="com.offshore.platform.entity.AiDefectBox" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO ai_defect_box
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="aiResultId != null">ai_result_id,</if>
+            <if test="boxNo != null">box_no,</if>
+            <if test="defectType != null">defect_type,</if>
+            <if test="confidence != null">confidence,</if>
+            <if test="x != null">x,</if>
+            <if test="y != null">y,</if>
+            <if test="width != null">width,</if>
+            <if test="height != null">height,</if>
+            <if test="imageWidth != null">image_width,</if>
+            <if test="imageHeight != null">image_height,</if>
+            <if test="normalizedFlag != null">normalized_flag,</if>
+            <if test="boxLabel != null">box_label,</if>
+            <if test="boxColor != null">box_color,</if>
+            <if test="sortOrder != null">sort_order,</if>
+            <if test="localId != null">local_id,</if>
+            <if test="serverId != null">server_id,</if>
+            <if test="version != null">version,</if>
+            <if test="syncStatus != null">sync_status,</if>
+            <if test="deviceId != null">device_id,</if>
+            <if test="operatorId != null">operator_id,</if>
+            <if test="conflictFlag != null">conflict_flag,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+            <if test="deletedFlag != null">deleted_flag,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="aiResultId != null">#{aiResultId},</if>
+            <if test="boxNo != null">#{boxNo},</if>
+            <if test="defectType != null">#{defectType},</if>
+            <if test="confidence != null">#{confidence},</if>
+            <if test="x != null">#{x},</if>
+            <if test="y != null">#{y},</if>
+            <if test="width != null">#{width},</if>
+            <if test="height != null">#{height},</if>
+            <if test="imageWidth != null">#{imageWidth},</if>
+            <if test="imageHeight != null">#{imageHeight},</if>
+            <if test="normalizedFlag != null">#{normalizedFlag},</if>
+            <if test="boxLabel != null">#{boxLabel},</if>
+            <if test="boxColor != null">#{boxColor},</if>
+            <if test="sortOrder != null">#{sortOrder},</if>
+            <if test="localId != null">#{localId},</if>
+            <if test="serverId != null">#{serverId},</if>
+            <if test="version != null">#{version},</if>
+            <if test="syncStatus != null">#{syncStatus},</if>
+            <if test="deviceId != null">#{deviceId},</if>
+            <if test="operatorId != null">#{operatorId},</if>
+            <if test="conflictFlag != null">#{conflictFlag},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+            <if test="deletedFlag != null">#{deletedFlag},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateById" parameterType="com.offshore.platform.entity.AiDefectBox">
+        UPDATE ai_defect_box
+        <set>
+            <if test="aiResultId != null">ai_result_id = #{aiResultId},</if>
+            <if test="boxNo != null">box_no = #{boxNo},</if>
+            <if test="defectType != null">defect_type = #{defectType},</if>
+            <if test="confidence != null">confidence = #{confidence},</if>
+            <if test="x != null">x = #{x},</if>
+            <if test="y != null">y = #{y},</if>
+            <if test="width != null">width = #{width},</if>
+            <if test="height != null">height = #{height},</if>
+            <if test="imageWidth != null">image_width = #{imageWidth},</if>
+            <if test="imageHeight != null">image_height = #{imageHeight},</if>
+            <if test="normalizedFlag != null">normalized_flag = #{normalizedFlag},</if>
+            <if test="boxLabel != null">box_label = #{boxLabel},</if>
+            <if test="boxColor != null">box_color = #{boxColor},</if>
+            <if test="sortOrder != null">sort_order = #{sortOrder},</if>
+            <if test="localId != null">local_id = #{localId},</if>
+            <if test="serverId != null">server_id = #{serverId},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="syncStatus != null">sync_status = #{syncStatus},</if>
+            <if test="deviceId != null">device_id = #{deviceId},</if>
+            <if test="operatorId != null">operator_id = #{operatorId},</if>
+            <if test="conflictFlag != null">conflict_flag = #{conflictFlag},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+            <if test="deletedFlag != null">deleted_flag = #{deletedFlag},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectById" parameterType="long" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM ai_defect_box
+        WHERE id = #{id}
+          AND deleted_flag = 0
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM ai_defect_box
+        WHERE deleted_flag = 0
+        ORDER BY id DESC
+    </select>
+
+    <update id="softDeleteById" parameterType="long">
+        UPDATE ai_defect_box
+        SET deleted_flag = 1
+        WHERE id = #{id}
+    </update>
+</mapper>

@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.offshore.platform.mapper.WorkOrderMaterialUsageMapper">
+    <resultMap id="BaseResultMap" type="com.offshore.platform.entity.WorkOrderMaterialUsage">
+        <id column="id" property="id" />
+        <result column="usage_no" property="usageNo" />
+        <result column="work_order_id" property="workOrderId" />
+        <result column="work_order_no" property="workOrderNo" />
+        <result column="project_id" property="projectId" />
+        <result column="material_id" property="materialId" />
+        <result column="material_code" property="materialCode" />
+        <result column="material_name" property="materialName" />
+        <result column="material_spec" property="materialSpec" />
+        <result column="unit" property="unit" />
+        <result column="qrcode_id" property="qrcodeId" />
+        <result column="qrcode_value" property="qrcodeValue" />
+        <result column="planned_qty" property="plannedQty" />
+        <result column="used_qty" property="usedQty" />
+        <result column="waste_qty" property="wasteQty" />
+        <result column="return_qty" property="returnQty" />
+        <result column="usage_time" property="usageTime" />
+        <result column="usage_user_id" property="usageUserId" />
+        <result column="usage_user_name" property="usageUserName" />
+        <result column="usage_location" property="usageLocation" />
+        <result column="usage_desc" property="usageDesc" />
+        <result column="cost_price" property="costPrice" />
+        <result column="cost_amount" property="costAmount" />
+        <result column="source_type" property="sourceType" />
+        <result column="inout_record_id" property="inoutRecordId" />
+        <result column="client_created_at" property="clientCreatedAt" />
+        <result column="client_updated_at" property="clientUpdatedAt" />
+        <result column="local_id" property="localId" />
+        <result column="server_id" property="serverId" />
+        <result column="version" property="version" />
+        <result column="sync_status" property="syncStatus" />
+        <result column="device_id" property="deviceId" />
+        <result column="operator_id" property="operatorId" />
+        <result column="conflict_flag" property="conflictFlag" />
+        <result column="created_at" property="createdAt" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="deleted_flag" property="deletedFlag" />
+        <result column="created_by" property="createdBy" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <sql id="BaseColumnList">
+        id, usage_no, work_order_id, work_order_no, project_id, material_id, material_code, material_name, material_spec, unit, qrcode_id, qrcode_value, planned_qty, used_qty, waste_qty, return_qty, usage_time, usage_user_id, usage_user_name, usage_location, usage_desc, cost_price, cost_amount, source_type, inout_record_id, client_created_at, client_updated_at, local_id, server_id, version, sync_status, device_id, operator_id, conflict_flag, created_at, updated_at, deleted_flag, created_by, updated_by, remark
+    </sql>
+
+    <insert id="insert" parameterType="com.offshore.platform.entity.WorkOrderMaterialUsage" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO work_order_material_usage
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="usageNo != null">usage_no,</if>
+            <if test="workOrderId != null">work_order_id,</if>
+            <if test="workOrderNo != null">work_order_no,</if>
+            <if test="projectId != null">project_id,</if>
+            <if test="materialId != null">material_id,</if>
+            <if test="materialCode != null">material_code,</if>
+            <if test="materialName != null">material_name,</if>
+            <if test="materialSpec != null">material_spec,</if>
+            <if test="unit != null">unit,</if>
+            <if test="qrcodeId != null">qrcode_id,</if>
+            <if test="qrcodeValue != null">qrcode_value,</if>
+            <if test="plannedQty != null">planned_qty,</if>
+            <if test="usedQty != null">used_qty,</if>
+            <if test="wasteQty != null">waste_qty,</if>
+            <if test="returnQty != null">return_qty,</if>
+            <if test="usageTime != null">usage_time,</if>
+            <if test="usageUserId != null">usage_user_id,</if>
+            <if test="usageUserName != null">usage_user_name,</if>
+            <if test="usageLocation != null">usage_location,</if>
+            <if test="usageDesc != null">usage_desc,</if>
+            <if test="costPrice != null">cost_price,</if>
+            <if test="costAmount != null">cost_amount,</if>
+            <if test="sourceType != null">source_type,</if>
+            <if test="inoutRecordId != null">inout_record_id,</if>
+            <if test="clientCreatedAt != null">client_created_at,</if>
+            <if test="clientUpdatedAt != null">client_updated_at,</if>
+            <if test="localId != null">local_id,</if>
+            <if test="serverId != null">server_id,</if>
+            <if test="version != null">version,</if>
+            <if test="syncStatus != null">sync_status,</if>
+            <if test="deviceId != null">device_id,</if>
+            <if test="operatorId != null">operator_id,</if>
+            <if test="conflictFlag != null">conflict_flag,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+            <if test="deletedFlag != null">deleted_flag,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="usageNo != null">#{usageNo},</if>
+            <if test="workOrderId != null">#{workOrderId},</if>
+            <if test="workOrderNo != null">#{workOrderNo},</if>
+            <if test="projectId != null">#{projectId},</if>
+            <if test="materialId != null">#{materialId},</if>
+            <if test="materialCode != null">#{materialCode},</if>
+            <if test="materialName != null">#{materialName},</if>
+            <if test="materialSpec != null">#{materialSpec},</if>
+            <if test="unit != null">#{unit},</if>
+            <if test="qrcodeId != null">#{qrcodeId},</if>
+            <if test="qrcodeValue != null">#{qrcodeValue},</if>
+            <if test="plannedQty != null">#{plannedQty},</if>
+            <if test="usedQty != null">#{usedQty},</if>
+            <if test="wasteQty != null">#{wasteQty},</if>
+            <if test="returnQty != null">#{returnQty},</if>
+            <if test="usageTime != null">#{usageTime},</if>
+            <if test="usageUserId != null">#{usageUserId},</if>
+            <if test="usageUserName != null">#{usageUserName},</if>
+            <if test="usageLocation != null">#{usageLocation},</if>
+            <if test="usageDesc != null">#{usageDesc},</if>
+            <if test="costPrice != null">#{costPrice},</if>
+            <if test="costAmount != null">#{costAmount},</if>
+            <if test="sourceType != null">#{sourceType},</if>
+            <if test="inoutRecordId != null">#{inoutRecordId},</if>
+            <if test="clientCreatedAt != null">#{clientCreatedAt},</if>
+            <if test="clientUpdatedAt != null">#{clientUpdatedAt},</if>
+            <if test="localId != null">#{localId},</if>
+            <if test="serverId != null">#{serverId},</if>
+            <if test="version != null">#{version},</if>
+            <if test="syncStatus != null">#{syncStatus},</if>
+            <if test="deviceId != null">#{deviceId},</if>
+            <if test="operatorId != null">#{operatorId},</if>
+            <if test="conflictFlag != null">#{conflictFlag},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+            <if test="deletedFlag != null">#{deletedFlag},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateById" parameterType="com.offshore.platform.entity.WorkOrderMaterialUsage">
+        UPDATE work_order_material_usage
+        <set>
+            <if test="usageNo != null">usage_no = #{usageNo},</if>
+            <if test="workOrderId != null">work_order_id = #{workOrderId},</if>
+            <if test="workOrderNo != null">work_order_no = #{workOrderNo},</if>
+            <if test="projectId != null">project_id = #{projectId},</if>
+            <if test="materialId != null">material_id = #{materialId},</if>
+            <if test="materialCode != null">material_code = #{materialCode},</if>
+            <if test="materialName != null">material_name = #{materialName},</if>
+            <if test="materialSpec != null">material_spec = #{materialSpec},</if>
+            <if test="unit != null">unit = #{unit},</if>
+            <if test="qrcodeId != null">qrcode_id = #{qrcodeId},</if>
+            <if test="qrcodeValue != null">qrcode_value = #{qrcodeValue},</if>
+            <if test="plannedQty != null">planned_qty = #{plannedQty},</if>
+            <if test="usedQty != null">used_qty = #{usedQty},</if>
+            <if test="wasteQty != null">waste_qty = #{wasteQty},</if>
+            <if test="returnQty != null">return_qty = #{returnQty},</if>
+            <if test="usageTime != null">usage_time = #{usageTime},</if>
+            <if test="usageUserId != null">usage_user_id = #{usageUserId},</if>
+            <if test="usageUserName != null">usage_user_name = #{usageUserName},</if>
+            <if test="usageLocation != null">usage_location = #{usageLocation},</if>
+            <if test="usageDesc != null">usage_desc = #{usageDesc},</if>
+            <if test="costPrice != null">cost_price = #{costPrice},</if>
+            <if test="costAmount != null">cost_amount = #{costAmount},</if>
+            <if test="sourceType != null">source_type = #{sourceType},</if>
+            <if test="inoutRecordId != null">inout_record_id = #{inoutRecordId},</if>
+            <if test="clientCreatedAt != null">client_created_at = #{clientCreatedAt},</if>
+            <if test="clientUpdatedAt != null">client_updated_at = #{clientUpdatedAt},</if>
+            <if test="localId != null">local_id = #{localId},</if>
+            <if test="serverId != null">server_id = #{serverId},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="syncStatus != null">sync_status = #{syncStatus},</if>
+            <if test="deviceId != null">device_id = #{deviceId},</if>
+            <if test="operatorId != null">operator_id = #{operatorId},</if>
+            <if test="conflictFlag != null">conflict_flag = #{conflictFlag},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+            <if test="deletedFlag != null">deleted_flag = #{deletedFlag},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectById" parameterType="long" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM work_order_material_usage
+        WHERE id = #{id}
+          AND deleted_flag = 0
+    </select>
+
+    <select id="selectByWorkOrderId" parameterType="long" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM work_order_material_usage
+        WHERE work_order_id = #{workOrderId}
+          AND deleted_flag = 0
+        ORDER BY usage_time DESC, id DESC
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM work_order_material_usage
+        WHERE deleted_flag = 0
+        ORDER BY id DESC
+    </select>
+
+    <update id="softDeleteById" parameterType="long">
+        UPDATE work_order_material_usage
+        SET deleted_flag = 1
+        WHERE id = #{id}
+    </update>
+</mapper>

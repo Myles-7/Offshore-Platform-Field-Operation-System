@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.offshore.platform.mapper.MaterialInoutRecordMapper">
+    <resultMap id="BaseResultMap" type="com.offshore.platform.entity.MaterialInoutRecord">
+        <id column="id" property="id" />
+        <result column="record_no" property="recordNo" />
+        <result column="material_id" property="materialId" />
+        <result column="material_code" property="materialCode" />
+        <result column="material_name" property="materialName" />
+        <result column="qrcode_id" property="qrcodeId" />
+        <result column="qrcode_value" property="qrcodeValue" />
+        <result column="project_id" property="projectId" />
+        <result column="work_order_id" property="workOrderId" />
+        <result column="work_order_no" property="workOrderNo" />
+        <result column="inout_type" property="inoutType" />
+        <result column="quantity" property="quantity" />
+        <result column="before_qty" property="beforeQty" />
+        <result column="after_qty" property="afterQty" />
+        <result column="warehouse_code" property="warehouseCode" />
+        <result column="warehouse_name" property="warehouseName" />
+        <result column="location_code" property="locationCode" />
+        <result column="batch_no" property="batchNo" />
+        <result column="source_type" property="sourceType" />
+        <result column="business_reason" property="businessReason" />
+        <result column="operator_id" property="operatorId" />
+        <result column="operator_name" property="operatorName" />
+        <result column="operate_time" property="operateTime" />
+        <result column="approval_status" property="approvalStatus" />
+        <result column="created_at" property="createdAt" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="deleted_flag" property="deletedFlag" />
+        <result column="created_by" property="createdBy" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <sql id="BaseColumnList">
+        id, record_no, material_id, material_code, material_name, qrcode_id, qrcode_value, project_id, work_order_id, work_order_no, inout_type, quantity, before_qty, after_qty, warehouse_code, warehouse_name, location_code, batch_no, source_type, business_reason, operator_id, operator_name, operate_time, approval_status, created_at, updated_at, deleted_flag, created_by, updated_by, remark
+    </sql>
+
+    <insert id="insert" parameterType="com.offshore.platform.entity.MaterialInoutRecord" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO material_inout_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="recordNo != null">record_no,</if>
+            <if test="materialId != null">material_id,</if>
+            <if test="materialCode != null">material_code,</if>
+            <if test="materialName != null">material_name,</if>
+            <if test="qrcodeId != null">qrcode_id,</if>
+            <if test="qrcodeValue != null">qrcode_value,</if>
+            <if test="projectId != null">project_id,</if>
+            <if test="workOrderId != null">work_order_id,</if>
+            <if test="workOrderNo != null">work_order_no,</if>
+            <if test="inoutType != null">inout_type,</if>
+            <if test="quantity != null">quantity,</if>
+            <if test="beforeQty != null">before_qty,</if>
+            <if test="afterQty != null">after_qty,</if>
+            <if test="warehouseCode != null">warehouse_code,</if>
+            <if test="warehouseName != null">warehouse_name,</if>
+            <if test="locationCode != null">location_code,</if>
+            <if test="batchNo != null">batch_no,</if>
+            <if test="sourceType != null">source_type,</if>
+            <if test="businessReason != null">business_reason,</if>
+            <if test="operatorId != null">operator_id,</if>
+            <if test="operatorName != null">operator_name,</if>
+            <if test="operateTime != null">operate_time,</if>
+            <if test="approvalStatus != null">approval_status,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+            <if test="deletedFlag != null">deleted_flag,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="recordNo != null">#{recordNo},</if>
+            <if test="materialId != null">#{materialId},</if>
+            <if test="materialCode != null">#{materialCode},</if>
+            <if test="materialName != null">#{materialName},</if>
+            <if test="qrcodeId != null">#{qrcodeId},</if>
+            <if test="qrcodeValue != null">#{qrcodeValue},</if>
+            <if test="projectId != null">#{projectId},</if>
+            <if test="workOrderId != null">#{workOrderId},</if>
+            <if test="workOrderNo != null">#{workOrderNo},</if>
+            <if test="inoutType != null">#{inoutType},</if>
+            <if test="quantity != null">#{quantity},</if>
+            <if test="beforeQty != null">#{beforeQty},</if>
+            <if test="afterQty != null">#{afterQty},</if>
+            <if test="warehouseCode != null">#{warehouseCode},</if>
+            <if test="warehouseName != null">#{warehouseName},</if>
+            <if test="locationCode != null">#{locationCode},</if>
+            <if test="batchNo != null">#{batchNo},</if>
+            <if test="sourceType != null">#{sourceType},</if>
+            <if test="businessReason != null">#{businessReason},</if>
+            <if test="operatorId != null">#{operatorId},</if>
+            <if test="operatorName != null">#{operatorName},</if>
+            <if test="operateTime != null">#{operateTime},</if>
+            <if test="approvalStatus != null">#{approvalStatus},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+            <if test="deletedFlag != null">#{deletedFlag},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateById" parameterType="com.offshore.platform.entity.MaterialInoutRecord">
+        UPDATE material_inout_record
+        <set>
+            <if test="recordNo != null">record_no = #{recordNo},</if>
+            <if test="materialId != null">material_id = #{materialId},</if>
+            <if test="materialCode != null">material_code = #{materialCode},</if>
+            <if test="materialName != null">material_name = #{materialName},</if>
+            <if test="qrcodeId != null">qrcode_id = #{qrcodeId},</if>
+            <if test="qrcodeValue != null">qrcode_value = #{qrcodeValue},</if>
+            <if test="projectId != null">project_id = #{projectId},</if>
+            <if test="workOrderId != null">work_order_id = #{workOrderId},</if>
+            <if test="workOrderNo != null">work_order_no = #{workOrderNo},</if>
+            <if test="inoutType != null">inout_type = #{inoutType},</if>
+            <if test="quantity != null">quantity = #{quantity},</if>
+            <if test="beforeQty != null">before_qty = #{beforeQty},</if>
+            <if test="afterQty != null">after_qty = #{afterQty},</if>
+            <if test="warehouseCode != null">warehouse_code = #{warehouseCode},</if>
+            <if test="warehouseName != null">warehouse_name = #{warehouseName},</if>
+            <if test="locationCode != null">location_code = #{locationCode},</if>
+            <if test="batchNo != null">batch_no = #{batchNo},</if>
+            <if test="sourceType != null">source_type = #{sourceType},</if>
+            <if test="businessReason != null">business_reason = #{businessReason},</if>
+            <if test="operatorId != null">operator_id = #{operatorId},</if>
+            <if test="operatorName != null">operator_name = #{operatorName},</if>
+            <if test="operateTime != null">operate_time = #{operateTime},</if>
+            <if test="approvalStatus != null">approval_status = #{approvalStatus},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+            <if test="deletedFlag != null">deleted_flag = #{deletedFlag},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectById" parameterType="long" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM material_inout_record
+        WHERE id = #{id}
+          AND deleted_flag = 0
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM material_inout_record
+        WHERE deleted_flag = 0
+        ORDER BY id DESC
+    </select>
+
+    <update id="softDeleteById" parameterType="long">
+        UPDATE material_inout_record
+        SET deleted_flag = 1
+        WHERE id = #{id}
+    </update>
+</mapper>

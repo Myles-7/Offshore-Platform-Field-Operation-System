@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.offshore.platform.mapper.SysUserMapper">
+    <resultMap id="BaseResultMap" type="com.offshore.platform.entity.SysUser">
+        <id column="id" property="id" />
+        <result column="username" property="username" />
+        <result column="password_hash" property="passwordHash" />
+        <result column="real_name" property="realName" />
+        <result column="phone" property="phone" />
+        <result column="email" property="email" />
+        <result column="employee_no" property="employeeNo" />
+        <result column="avatar_file_id" property="avatarFileId" />
+        <result column="account_status" property="accountStatus" />
+        <result column="pc_enabled" property="pcEnabled" />
+        <result column="mobile_enabled" property="mobileEnabled" />
+        <result column="primary_project_id" property="primaryProjectId" />
+        <result column="department_id" property="departmentId" />
+        <result column="last_login_time" property="lastLoginTime" />
+        <result column="last_login_ip" property="lastLoginIp" />
+        <result column="password_updated_at" property="passwordUpdatedAt" />
+        <result column="created_at" property="createdAt" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="deleted_flag" property="deletedFlag" />
+        <result column="created_by" property="createdBy" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <sql id="BaseColumnList">
+        id, username, password_hash, real_name, phone, email, employee_no, avatar_file_id, account_status, pc_enabled, mobile_enabled, primary_project_id, department_id, last_login_time, last_login_ip, password_updated_at, created_at, updated_at, deleted_flag, created_by, updated_by, remark
+    </sql>
+
+    <insert id="insert" parameterType="com.offshore.platform.entity.SysUser" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sys_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="username != null">username,</if>
+            <if test="passwordHash != null">password_hash,</if>
+            <if test="realName != null">real_name,</if>
+            <if test="phone != null">phone,</if>
+            <if test="email != null">email,</if>
+            <if test="employeeNo != null">employee_no,</if>
+            <if test="avatarFileId != null">avatar_file_id,</if>
+            <if test="accountStatus != null">account_status,</if>
+            <if test="pcEnabled != null">pc_enabled,</if>
+            <if test="mobileEnabled != null">mobile_enabled,</if>
+            <if test="primaryProjectId != null">primary_project_id,</if>
+            <if test="departmentId != null">department_id,</if>
+            <if test="lastLoginTime != null">last_login_time,</if>
+            <if test="lastLoginIp != null">last_login_ip,</if>
+            <if test="passwordUpdatedAt != null">password_updated_at,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+            <if test="deletedFlag != null">deleted_flag,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="username != null">#{username},</if>
+            <if test="passwordHash != null">#{passwordHash},</if>
+            <if test="realName != null">#{realName},</if>
+            <if test="phone != null">#{phone},</if>
+            <if test="email != null">#{email},</if>
+            <if test="employeeNo != null">#{employeeNo},</if>
+            <if test="avatarFileId != null">#{avatarFileId},</if>
+            <if test="accountStatus != null">#{accountStatus},</if>
+            <if test="pcEnabled != null">#{pcEnabled},</if>
+            <if test="mobileEnabled != null">#{mobileEnabled},</if>
+            <if test="primaryProjectId != null">#{primaryProjectId},</if>
+            <if test="departmentId != null">#{departmentId},</if>
+            <if test="lastLoginTime != null">#{lastLoginTime},</if>
+            <if test="lastLoginIp != null">#{lastLoginIp},</if>
+            <if test="passwordUpdatedAt != null">#{passwordUpdatedAt},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+            <if test="deletedFlag != null">#{deletedFlag},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateById" parameterType="com.offshore.platform.entity.SysUser">
+        UPDATE sys_user
+        <set>
+            <if test="username != null">username = #{username},</if>
+            <if test="passwordHash != null">password_hash = #{passwordHash},</if>
+            <if test="realName != null">real_name = #{realName},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="employeeNo != null">employee_no = #{employeeNo},</if>
+            <if test="avatarFileId != null">avatar_file_id = #{avatarFileId},</if>
+            <if test="accountStatus != null">account_status = #{accountStatus},</if>
+            <if test="pcEnabled != null">pc_enabled = #{pcEnabled},</if>
+            <if test="mobileEnabled != null">mobile_enabled = #{mobileEnabled},</if>
+            <if test="primaryProjectId != null">primary_project_id = #{primaryProjectId},</if>
+            <if test="departmentId != null">department_id = #{departmentId},</if>
+            <if test="lastLoginTime != null">last_login_time = #{lastLoginTime},</if>
+            <if test="lastLoginIp != null">last_login_ip = #{lastLoginIp},</if>
+            <if test="passwordUpdatedAt != null">password_updated_at = #{passwordUpdatedAt},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+            <if test="deletedFlag != null">deleted_flag = #{deletedFlag},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectById" parameterType="long" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM sys_user
+        WHERE id = #{id}
+          AND deleted_flag = 0
+    </select>
+
+    <select id="selectByUsernameOrPhone" parameterType="string" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM sys_user
+        WHERE deleted_flag = 0
+          AND (username = #{loginName} OR phone = #{loginName})
+        LIMIT 1
+    </select>
+
+    <select id="selectByUsername" parameterType="string" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM sys_user
+        WHERE deleted_flag = 0
+          AND username = #{username}
+        LIMIT 1
+    </select>
+
+    <select id="selectByPhone" parameterType="string" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM sys_user
+        WHERE deleted_flag = 0
+          AND phone = #{phone}
+        LIMIT 1
+    </select>
+
+    <select id="selectPage" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM sys_user
+        WHERE deleted_flag = 0
+        <if test="keyword != null and keyword != ''">
+          AND (
+            username LIKE CONCAT('%', #{keyword}, '%')
+            OR real_name LIKE CONCAT('%', #{keyword}, '%')
+            OR phone LIKE CONCAT('%', #{keyword}, '%')
+            OR employee_no LIKE CONCAT('%', #{keyword}, '%')
+          )
+        </if>
+        ORDER BY id DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <select id="countPage" resultType="long">
+        SELECT COUNT(1)
+        FROM sys_user
+        WHERE deleted_flag = 0
+        <if test="keyword != null and keyword != ''">
+          AND (
+            username LIKE CONCAT('%', #{keyword}, '%')
+            OR real_name LIKE CONCAT('%', #{keyword}, '%')
+            OR phone LIKE CONCAT('%', #{keyword}, '%')
+            OR employee_no LIKE CONCAT('%', #{keyword}, '%')
+          )
+        </if>
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM sys_user
+        WHERE deleted_flag = 0
+        ORDER BY id DESC
+    </select>
+
+    <update id="softDeleteById" parameterType="long">
+        UPDATE sys_user
+        SET deleted_flag = 1
+        WHERE id = #{id}
+    </update>
+</mapper>

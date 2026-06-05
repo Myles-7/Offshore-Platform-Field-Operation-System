@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.offshore.platform.mapper.SyncTaskMapper">
+    <resultMap id="BaseResultMap" type="com.offshore.platform.entity.SyncTask">
+        <id column="id" property="id" />
+        <result column="sync_task_no" property="syncTaskNo" />
+        <result column="batch_id" property="batchId" />
+        <result column="device_id" property="deviceId" />
+        <result column="operator_id" property="operatorId" />
+        <result column="sync_direction" property="syncDirection" />
+        <result column="sync_type" property="syncType" />
+        <result column="task_status" property="taskStatus" />
+        <result column="total_count" property="totalCount" />
+        <result column="success_count" property="successCount" />
+        <result column="failed_count" property="failedCount" />
+        <result column="conflict_count" property="conflictCount" />
+        <result column="retry_count" property="retryCount" />
+        <result column="max_retry_count" property="maxRetryCount" />
+        <result column="request_cursor" property="requestCursor" />
+        <result column="response_cursor" property="responseCursor" />
+        <result column="client_time" property="clientTime" />
+        <result column="server_start_time" property="serverStartTime" />
+        <result column="server_end_time" property="serverEndTime" />
+        <result column="error_code" property="errorCode" />
+        <result column="error_message" property="errorMessage" />
+        <result column="idempotency_key" property="idempotencyKey" />
+        <result column="request_summary" property="requestSummary" />
+        <result column="response_summary" property="responseSummary" />
+        <result column="created_at" property="createdAt" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="deleted_flag" property="deletedFlag" />
+        <result column="created_by" property="createdBy" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <sql id="BaseColumnList">
+        id, sync_task_no, batch_id, device_id, operator_id, sync_direction, sync_type, task_status, total_count, success_count, failed_count, conflict_count, retry_count, max_retry_count, request_cursor, response_cursor, client_time, server_start_time, server_end_time, error_code, error_message, idempotency_key, request_summary, response_summary, created_at, updated_at, deleted_flag, created_by, updated_by, remark
+    </sql>
+
+    <insert id="insert" parameterType="com.offshore.platform.entity.SyncTask" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sync_task
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="syncTaskNo != null">sync_task_no,</if>
+            <if test="batchId != null">batch_id,</if>
+            <if test="deviceId != null">device_id,</if>
+            <if test="operatorId != null">operator_id,</if>
+            <if test="syncDirection != null">sync_direction,</if>
+            <if test="syncType != null">sync_type,</if>
+            <if test="taskStatus != null">task_status,</if>
+            <if test="totalCount != null">total_count,</if>
+            <if test="successCount != null">success_count,</if>
+            <if test="failedCount != null">failed_count,</if>
+            <if test="conflictCount != null">conflict_count,</if>
+            <if test="retryCount != null">retry_count,</if>
+            <if test="maxRetryCount != null">max_retry_count,</if>
+            <if test="requestCursor != null">request_cursor,</if>
+            <if test="responseCursor != null">response_cursor,</if>
+            <if test="clientTime != null">client_time,</if>
+            <if test="serverStartTime != null">server_start_time,</if>
+            <if test="serverEndTime != null">server_end_time,</if>
+            <if test="errorCode != null">error_code,</if>
+            <if test="errorMessage != null">error_message,</if>
+            <if test="idempotencyKey != null">idempotency_key,</if>
+            <if test="requestSummary != null">request_summary,</if>
+            <if test="responseSummary != null">response_summary,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+            <if test="deletedFlag != null">deleted_flag,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="syncTaskNo != null">#{syncTaskNo},</if>
+            <if test="batchId != null">#{batchId},</if>
+            <if test="deviceId != null">#{deviceId},</if>
+            <if test="operatorId != null">#{operatorId},</if>
+            <if test="syncDirection != null">#{syncDirection},</if>
+            <if test="syncType != null">#{syncType},</if>
+            <if test="taskStatus != null">#{taskStatus},</if>
+            <if test="totalCount != null">#{totalCount},</if>
+            <if test="successCount != null">#{successCount},</if>
+            <if test="failedCount != null">#{failedCount},</if>
+            <if test="conflictCount != null">#{conflictCount},</if>
+            <if test="retryCount != null">#{retryCount},</if>
+            <if test="maxRetryCount != null">#{maxRetryCount},</if>
+            <if test="requestCursor != null">#{requestCursor},</if>
+            <if test="responseCursor != null">#{responseCursor},</if>
+            <if test="clientTime != null">#{clientTime},</if>
+            <if test="serverStartTime != null">#{serverStartTime},</if>
+            <if test="serverEndTime != null">#{serverEndTime},</if>
+            <if test="errorCode != null">#{errorCode},</if>
+            <if test="errorMessage != null">#{errorMessage},</if>
+            <if test="idempotencyKey != null">#{idempotencyKey},</if>
+            <if test="requestSummary != null">#{requestSummary},</if>
+            <if test="responseSummary != null">#{responseSummary},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+            <if test="deletedFlag != null">#{deletedFlag},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateById" parameterType="com.offshore.platform.entity.SyncTask">
+        UPDATE sync_task
+        <set>
+            <if test="syncTaskNo != null">sync_task_no = #{syncTaskNo},</if>
+            <if test="batchId != null">batch_id = #{batchId},</if>
+            <if test="deviceId != null">device_id = #{deviceId},</if>
+            <if test="operatorId != null">operator_id = #{operatorId},</if>
+            <if test="syncDirection != null">sync_direction = #{syncDirection},</if>
+            <if test="syncType != null">sync_type = #{syncType},</if>
+            <if test="taskStatus != null">task_status = #{taskStatus},</if>
+            <if test="totalCount != null">total_count = #{totalCount},</if>
+            <if test="successCount != null">success_count = #{successCount},</if>
+            <if test="failedCount != null">failed_count = #{failedCount},</if>
+            <if test="conflictCount != null">conflict_count = #{conflictCount},</if>
+            <if test="retryCount != null">retry_count = #{retryCount},</if>
+            <if test="maxRetryCount != null">max_retry_count = #{maxRetryCount},</if>
+            <if test="requestCursor != null">request_cursor = #{requestCursor},</if>
+            <if test="responseCursor != null">response_cursor = #{responseCursor},</if>
+            <if test="clientTime != null">client_time = #{clientTime},</if>
+            <if test="serverStartTime != null">server_start_time = #{serverStartTime},</if>
+            <if test="serverEndTime != null">server_end_time = #{serverEndTime},</if>
+            <if test="errorCode != null">error_code = #{errorCode},</if>
+            <if test="errorMessage != null">error_message = #{errorMessage},</if>
+            <if test="idempotencyKey != null">idempotency_key = #{idempotencyKey},</if>
+            <if test="requestSummary != null">request_summary = #{requestSummary},</if>
+            <if test="responseSummary != null">response_summary = #{responseSummary},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+            <if test="deletedFlag != null">deleted_flag = #{deletedFlag},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectById" parameterType="long" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM sync_task
+        WHERE id = #{id}
+          AND deleted_flag = 0
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM sync_task
+        WHERE deleted_flag = 0
+        ORDER BY id DESC
+    </select>
+
+    <update id="softDeleteById" parameterType="long">
+        UPDATE sync_task
+        SET deleted_flag = 1
+        WHERE id = #{id}
+    </update>
+</mapper>

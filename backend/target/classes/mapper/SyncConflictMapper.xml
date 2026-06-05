@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.offshore.platform.mapper.SyncConflictMapper">
+    <resultMap id="BaseResultMap" type="com.offshore.platform.entity.SyncConflict">
+        <id column="id" property="id" />
+        <result column="conflict_no" property="conflictNo" />
+        <result column="sync_task_id" property="syncTaskId" />
+        <result column="sync_log_id" property="syncLogId" />
+        <result column="device_id" property="deviceId" />
+        <result column="operator_id" property="operatorId" />
+        <result column="module_type" property="moduleType" />
+        <result column="entity_type" property="entityType" />
+        <result column="entity_id" property="entityId" />
+        <result column="local_id" property="localId" />
+        <result column="server_id" property="serverId" />
+        <result column="work_order_id" property="workOrderId" />
+        <result column="business_no" property="businessNo" />
+        <result column="base_version" property="baseVersion" />
+        <result column="client_version" property="clientVersion" />
+        <result column="server_version" property="serverVersion" />
+        <result column="client_updated_at" property="clientUpdatedAt" />
+        <result column="server_updated_at" property="serverUpdatedAt" />
+        <result column="conflict_type" property="conflictType" />
+        <result column="conflict_fields" property="conflictFields" />
+        <result column="old_payload" property="oldPayload" />
+        <result column="client_payload" property="clientPayload" />
+        <result column="server_payload" property="serverPayload" />
+        <result column="final_payload" property="finalPayload" />
+        <result column="default_strategy" property="defaultStrategy" />
+        <result column="resolve_strategy" property="resolveStrategy" />
+        <result column="resolve_status" property="resolveStatus" />
+        <result column="resolver_id" property="resolverId" />
+        <result column="resolve_time" property="resolveTime" />
+        <result column="resolve_comment" property="resolveComment" />
+        <result column="last_write_side" property="lastWriteSide" />
+        <result column="last_write_time" property="lastWriteTime" />
+        <result column="created_at" property="createdAt" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="deleted_flag" property="deletedFlag" />
+        <result column="created_by" property="createdBy" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <sql id="BaseColumnList">
+        id, conflict_no, sync_task_id, sync_log_id, device_id, operator_id, module_type, entity_type, entity_id, local_id, server_id, work_order_id, business_no, base_version, client_version, server_version, client_updated_at, server_updated_at, conflict_type, conflict_fields, old_payload, client_payload, server_payload, final_payload, default_strategy, resolve_strategy, resolve_status, resolver_id, resolve_time, resolve_comment, last_write_side, last_write_time, created_at, updated_at, deleted_flag, created_by, updated_by, remark
+    </sql>
+
+    <insert id="insert" parameterType="com.offshore.platform.entity.SyncConflict" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sync_conflict
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="conflictNo != null">conflict_no,</if>
+            <if test="syncTaskId != null">sync_task_id,</if>
+            <if test="syncLogId != null">sync_log_id,</if>
+            <if test="deviceId != null">device_id,</if>
+            <if test="operatorId != null">operator_id,</if>
+            <if test="moduleType != null">module_type,</if>
+            <if test="entityType != null">entity_type,</if>
+            <if test="entityId != null">entity_id,</if>
+            <if test="localId != null">local_id,</if>
+            <if test="serverId != null">server_id,</if>
+            <if test="workOrderId != null">work_order_id,</if>
+            <if test="businessNo != null">business_no,</if>
+            <if test="baseVersion != null">base_version,</if>
+            <if test="clientVersion != null">client_version,</if>
+            <if test="serverVersion != null">server_version,</if>
+            <if test="clientUpdatedAt != null">client_updated_at,</if>
+            <if test="serverUpdatedAt != null">server_updated_at,</if>
+            <if test="conflictType != null">conflict_type,</if>
+            <if test="conflictFields != null">conflict_fields,</if>
+            <if test="oldPayload != null">old_payload,</if>
+            <if test="clientPayload != null">client_payload,</if>
+            <if test="serverPayload != null">server_payload,</if>
+            <if test="finalPayload != null">final_payload,</if>
+            <if test="defaultStrategy != null">default_strategy,</if>
+            <if test="resolveStrategy != null">resolve_strategy,</if>
+            <if test="resolveStatus != null">resolve_status,</if>
+            <if test="resolverId != null">resolver_id,</if>
+            <if test="resolveTime != null">resolve_time,</if>
+            <if test="resolveComment != null">resolve_comment,</if>
+            <if test="lastWriteSide != null">last_write_side,</if>
+            <if test="lastWriteTime != null">last_write_time,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+            <if test="deletedFlag != null">deleted_flag,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="conflictNo != null">#{conflictNo},</if>
+            <if test="syncTaskId != null">#{syncTaskId},</if>
+            <if test="syncLogId != null">#{syncLogId},</if>
+            <if test="deviceId != null">#{deviceId},</if>
+            <if test="operatorId != null">#{operatorId},</if>
+            <if test="moduleType != null">#{moduleType},</if>
+            <if test="entityType != null">#{entityType},</if>
+            <if test="entityId != null">#{entityId},</if>
+            <if test="localId != null">#{localId},</if>
+            <if test="serverId != null">#{serverId},</if>
+            <if test="workOrderId != null">#{workOrderId},</if>
+            <if test="businessNo != null">#{businessNo},</if>
+            <if test="baseVersion != null">#{baseVersion},</if>
+            <if test="clientVersion != null">#{clientVersion},</if>
+            <if test="serverVersion != null">#{serverVersion},</if>
+            <if test="clientUpdatedAt != null">#{clientUpdatedAt},</if>
+            <if test="serverUpdatedAt != null">#{serverUpdatedAt},</if>
+            <if test="conflictType != null">#{conflictType},</if>
+            <if test="conflictFields != null">#{conflictFields},</if>
+            <if test="oldPayload != null">#{oldPayload},</if>
+            <if test="clientPayload != null">#{clientPayload},</if>
+            <if test="serverPayload != null">#{serverPayload},</if>
+            <if test="finalPayload != null">#{finalPayload},</if>
+            <if test="defaultStrategy != null">#{defaultStrategy},</if>
+            <if test="resolveStrategy != null">#{resolveStrategy},</if>
+            <if test="resolveStatus != null">#{resolveStatus},</if>
+            <if test="resolverId != null">#{resolverId},</if>
+            <if test="resolveTime != null">#{resolveTime},</if>
+            <if test="resolveComment != null">#{resolveComment},</if>
+            <if test="lastWriteSide != null">#{lastWriteSide},</if>
+            <if test="lastWriteTime != null">#{lastWriteTime},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+            <if test="deletedFlag != null">#{deletedFlag},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateById" parameterType="com.offshore.platform.entity.SyncConflict">
+        UPDATE sync_conflict
+        <set>
+            <if test="conflictNo != null">conflict_no = #{conflictNo},</if>
+            <if test="syncTaskId != null">sync_task_id = #{syncTaskId},</if>
+            <if test="syncLogId != null">sync_log_id = #{syncLogId},</if>
+            <if test="deviceId != null">device_id = #{deviceId},</if>
+            <if test="operatorId != null">operator_id = #{operatorId},</if>
+            <if test="moduleType != null">module_type = #{moduleType},</if>
+            <if test="entityType != null">entity_type = #{entityType},</if>
+            <if test="entityId != null">entity_id = #{entityId},</if>
+            <if test="localId != null">local_id = #{localId},</if>
+            <if test="serverId != null">server_id = #{serverId},</if>
+            <if test="workOrderId != null">work_order_id = #{workOrderId},</if>
+            <if test="businessNo != null">business_no = #{businessNo},</if>
+            <if test="baseVersion != null">base_version = #{baseVersion},</if>
+            <if test="clientVersion != null">client_version = #{clientVersion},</if>
+            <if test="serverVersion != null">server_version = #{serverVersion},</if>
+            <if test="clientUpdatedAt != null">client_updated_at = #{clientUpdatedAt},</if>
+            <if test="serverUpdatedAt != null">server_updated_at = #{serverUpdatedAt},</if>
+            <if test="conflictType != null">conflict_type = #{conflictType},</if>
+            <if test="conflictFields != null">conflict_fields = #{conflictFields},</if>
+            <if test="oldPayload != null">old_payload = #{oldPayload},</if>
+            <if test="clientPayload != null">client_payload = #{clientPayload},</if>
+            <if test="serverPayload != null">server_payload = #{serverPayload},</if>
+            <if test="finalPayload != null">final_payload = #{finalPayload},</if>
+            <if test="defaultStrategy != null">default_strategy = #{defaultStrategy},</if>
+            <if test="resolveStrategy != null">resolve_strategy = #{resolveStrategy},</if>
+            <if test="resolveStatus != null">resolve_status = #{resolveStatus},</if>
+            <if test="resolverId != null">resolver_id = #{resolverId},</if>
+            <if test="resolveTime != null">resolve_time = #{resolveTime},</if>
+            <if test="resolveComment != null">resolve_comment = #{resolveComment},</if>
+            <if test="lastWriteSide != null">last_write_side = #{lastWriteSide},</if>
+            <if test="lastWriteTime != null">last_write_time = #{lastWriteTime},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+            <if test="deletedFlag != null">deleted_flag = #{deletedFlag},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectById" parameterType="long" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM sync_conflict
+        WHERE id = #{id}
+          AND deleted_flag = 0
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM sync_conflict
+        WHERE deleted_flag = 0
+        ORDER BY id DESC
+    </select>
+
+    <update id="softDeleteById" parameterType="long">
+        UPDATE sync_conflict
+        SET deleted_flag = 1
+        WHERE id = #{id}
+    </update>
+</mapper>

@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.offshore.platform.mapper.WorkOrderMapper">
+    <resultMap id="BaseResultMap" type="com.offshore.platform.entity.WorkOrder">
+        <id column="id" property="id" />
+        <result column="work_order_no" property="workOrderNo" />
+        <result column="project_id" property="projectId" />
+        <result column="template_id" property="templateId" />
+        <result column="work_title" property="workTitle" />
+        <result column="work_type" property="workType" />
+        <result column="work_location" property="workLocation" />
+        <result column="work_content" property="workContent" />
+        <result column="required_material_desc" property="requiredMaterialDesc" />
+        <result column="leader_id" property="leaderId" />
+        <result column="maintainer_id" property="maintainerId" />
+        <result column="planned_start_time" property="plannedStartTime" />
+        <result column="planned_end_time" property="plannedEndTime" />
+        <result column="actual_start_time" property="actualStartTime" />
+        <result column="actual_end_time" property="actualEndTime" />
+        <result column="status" property="status" />
+        <result column="priority" property="priority" />
+        <result column="reject_reason" property="rejectReason" />
+        <result column="close_reason" property="closeReason" />
+        <result column="acceptance_required" property="acceptanceRequired" />
+        <result column="source_type" property="sourceType" />
+        <result column="local_id" property="localId" />
+        <result column="server_id" property="serverId" />
+        <result column="version" property="version" />
+        <result column="sync_status" property="syncStatus" />
+        <result column="device_id" property="deviceId" />
+        <result column="operator_id" property="operatorId" />
+        <result column="created_at" property="createdAt" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="deleted_flag" property="deletedFlag" />
+        <result column="created_by" property="createdBy" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <sql id="BaseColumnList">
+        id, work_order_no, project_id, template_id, work_title, work_type, work_location, work_content, required_material_desc, leader_id, maintainer_id, planned_start_time, planned_end_time, actual_start_time, actual_end_time, status, priority, reject_reason, close_reason, acceptance_required, source_type, local_id, server_id, version, sync_status, device_id, operator_id, created_at, updated_at, deleted_flag, created_by, updated_by, remark
+    </sql>
+
+    <insert id="insert" parameterType="com.offshore.platform.entity.WorkOrder" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO work_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="workOrderNo != null">work_order_no,</if>
+            <if test="projectId != null">project_id,</if>
+            <if test="templateId != null">template_id,</if>
+            <if test="workTitle != null">work_title,</if>
+            <if test="workType != null">work_type,</if>
+            <if test="workLocation != null">work_location,</if>
+            <if test="workContent != null">work_content,</if>
+            <if test="requiredMaterialDesc != null">required_material_desc,</if>
+            <if test="leaderId != null">leader_id,</if>
+            <if test="maintainerId != null">maintainer_id,</if>
+            <if test="plannedStartTime != null">planned_start_time,</if>
+            <if test="plannedEndTime != null">planned_end_time,</if>
+            <if test="actualStartTime != null">actual_start_time,</if>
+            <if test="actualEndTime != null">actual_end_time,</if>
+            <if test="status != null">status,</if>
+            <if test="priority != null">priority,</if>
+            <if test="rejectReason != null">reject_reason,</if>
+            <if test="closeReason != null">close_reason,</if>
+            <if test="acceptanceRequired != null">acceptance_required,</if>
+            <if test="sourceType != null">source_type,</if>
+            <if test="localId != null">local_id,</if>
+            <if test="serverId != null">server_id,</if>
+            <if test="version != null">version,</if>
+            <if test="syncStatus != null">sync_status,</if>
+            <if test="deviceId != null">device_id,</if>
+            <if test="operatorId != null">operator_id,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+            <if test="deletedFlag != null">deleted_flag,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="workOrderNo != null">#{workOrderNo},</if>
+            <if test="projectId != null">#{projectId},</if>
+            <if test="templateId != null">#{templateId},</if>
+            <if test="workTitle != null">#{workTitle},</if>
+            <if test="workType != null">#{workType},</if>
+            <if test="workLocation != null">#{workLocation},</if>
+            <if test="workContent != null">#{workContent},</if>
+            <if test="requiredMaterialDesc != null">#{requiredMaterialDesc},</if>
+            <if test="leaderId != null">#{leaderId},</if>
+            <if test="maintainerId != null">#{maintainerId},</if>
+            <if test="plannedStartTime != null">#{plannedStartTime},</if>
+            <if test="plannedEndTime != null">#{plannedEndTime},</if>
+            <if test="actualStartTime != null">#{actualStartTime},</if>
+            <if test="actualEndTime != null">#{actualEndTime},</if>
+            <if test="status != null">#{status},</if>
+            <if test="priority != null">#{priority},</if>
+            <if test="rejectReason != null">#{rejectReason},</if>
+            <if test="closeReason != null">#{closeReason},</if>
+            <if test="acceptanceRequired != null">#{acceptanceRequired},</if>
+            <if test="sourceType != null">#{sourceType},</if>
+            <if test="localId != null">#{localId},</if>
+            <if test="serverId != null">#{serverId},</if>
+            <if test="version != null">#{version},</if>
+            <if test="syncStatus != null">#{syncStatus},</if>
+            <if test="deviceId != null">#{deviceId},</if>
+            <if test="operatorId != null">#{operatorId},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+            <if test="deletedFlag != null">#{deletedFlag},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateById" parameterType="com.offshore.platform.entity.WorkOrder">
+        UPDATE work_order
+        <set>
+            <if test="workOrderNo != null">work_order_no = #{workOrderNo},</if>
+            <if test="projectId != null">project_id = #{projectId},</if>
+            <if test="templateId != null">template_id = #{templateId},</if>
+            <if test="workTitle != null">work_title = #{workTitle},</if>
+            <if test="workType != null">work_type = #{workType},</if>
+            <if test="workLocation != null">work_location = #{workLocation},</if>
+            <if test="workContent != null">work_content = #{workContent},</if>
+            <if test="requiredMaterialDesc != null">required_material_desc = #{requiredMaterialDesc},</if>
+            <if test="leaderId != null">leader_id = #{leaderId},</if>
+            <if test="maintainerId != null">maintainer_id = #{maintainerId},</if>
+            <if test="plannedStartTime != null">planned_start_time = #{plannedStartTime},</if>
+            <if test="plannedEndTime != null">planned_end_time = #{plannedEndTime},</if>
+            <if test="actualStartTime != null">actual_start_time = #{actualStartTime},</if>
+            <if test="actualEndTime != null">actual_end_time = #{actualEndTime},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="priority != null">priority = #{priority},</if>
+            <if test="rejectReason != null">reject_reason = #{rejectReason},</if>
+            <if test="closeReason != null">close_reason = #{closeReason},</if>
+            <if test="acceptanceRequired != null">acceptance_required = #{acceptanceRequired},</if>
+            <if test="sourceType != null">source_type = #{sourceType},</if>
+            <if test="localId != null">local_id = #{localId},</if>
+            <if test="serverId != null">server_id = #{serverId},</if>
+            <if test="version != null">version = #{version},</if>
+            <if test="syncStatus != null">sync_status = #{syncStatus},</if>
+            <if test="deviceId != null">device_id = #{deviceId},</if>
+            <if test="operatorId != null">operator_id = #{operatorId},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+            <if test="deletedFlag != null">deleted_flag = #{deletedFlag},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectById" parameterType="long" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM work_order
+        WHERE id = #{id}
+          AND deleted_flag = 0
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM work_order
+        WHERE deleted_flag = 0
+        ORDER BY id DESC
+    </select>
+
+    <update id="softDeleteById" parameterType="long">
+        UPDATE work_order
+        SET deleted_flag = 1
+        WHERE id = #{id}
+    </update>
+</mapper>

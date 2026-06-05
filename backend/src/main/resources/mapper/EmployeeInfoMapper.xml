@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.offshore.platform.mapper.EmployeeInfoMapper">
+    <resultMap id="BaseResultMap" type="com.offshore.platform.entity.EmployeeInfo">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="employee_no" property="employeeNo" />
+        <result column="real_name" property="realName" />
+        <result column="phone" property="phone" />
+        <result column="id_card_hash" property="idCardHash" />
+        <result column="department_id" property="departmentId" />
+        <result column="position_name" property="positionName" />
+        <result column="employee_status" property="employeeStatus" />
+        <result column="created_at" property="createdAt" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="deleted_flag" property="deletedFlag" />
+        <result column="created_by" property="createdBy" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <sql id="BaseColumnList">
+        id, user_id, employee_no, real_name, phone, id_card_hash, department_id, position_name, employee_status, created_at, updated_at, deleted_flag, created_by, updated_by, remark
+    </sql>
+
+    <insert id="insert" parameterType="com.offshore.platform.entity.EmployeeInfo" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO employee_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="employeeNo != null">employee_no,</if>
+            <if test="realName != null">real_name,</if>
+            <if test="phone != null">phone,</if>
+            <if test="idCardHash != null">id_card_hash,</if>
+            <if test="departmentId != null">department_id,</if>
+            <if test="positionName != null">position_name,</if>
+            <if test="employeeStatus != null">employee_status,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+            <if test="deletedFlag != null">deleted_flag,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="employeeNo != null">#{employeeNo},</if>
+            <if test="realName != null">#{realName},</if>
+            <if test="phone != null">#{phone},</if>
+            <if test="idCardHash != null">#{idCardHash},</if>
+            <if test="departmentId != null">#{departmentId},</if>
+            <if test="positionName != null">#{positionName},</if>
+            <if test="employeeStatus != null">#{employeeStatus},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+            <if test="deletedFlag != null">#{deletedFlag},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateById" parameterType="com.offshore.platform.entity.EmployeeInfo">
+        UPDATE employee_info
+        <set>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="employeeNo != null">employee_no = #{employeeNo},</if>
+            <if test="realName != null">real_name = #{realName},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="idCardHash != null">id_card_hash = #{idCardHash},</if>
+            <if test="departmentId != null">department_id = #{departmentId},</if>
+            <if test="positionName != null">position_name = #{positionName},</if>
+            <if test="employeeStatus != null">employee_status = #{employeeStatus},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+            <if test="deletedFlag != null">deleted_flag = #{deletedFlag},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectById" parameterType="long" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM employee_info
+        WHERE id = #{id}
+          AND deleted_flag = 0
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM employee_info
+        WHERE deleted_flag = 0
+        ORDER BY id DESC
+    </select>
+
+    <update id="softDeleteById" parameterType="long">
+        UPDATE employee_info
+        SET deleted_flag = 1
+        WHERE id = #{id}
+    </update>
+</mapper>
