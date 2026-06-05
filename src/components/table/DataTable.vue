@@ -10,7 +10,7 @@
       <el-pagination
         background
         layout="total, sizes, prev, pager, next, jumper"
-        :page-sizes="pageSizeOptions"
+        :page-sizes="[10, 20, 50, 100]"
         :current-page="pageNum"
         :page-size="pageSize"
         :total="total"
@@ -22,7 +22,6 @@
 </template>
 
 <script setup lang="ts" generic="T">
-import { pageSizeOptions } from '@/constants/pagination';
 import AppState from '@/components/state/AppState.vue';
 
 defineProps<{
@@ -38,3 +37,17 @@ defineEmits<{
   'update:pageSize': [value: number];
 }>();
 </script>
+
+<style scoped>
+.data-table {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #fff;
+  padding: 16px;
+}
+.data-table__pagination {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 16px;
+}
+</style>

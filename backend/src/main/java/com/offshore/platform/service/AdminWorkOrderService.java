@@ -47,5 +47,9 @@ public interface AdminWorkOrderService {
 
     WorkOrderTemplateVO createTemplate(WorkOrderTemplateRequest request, HttpServletRequest servletRequest);
 
+    WorkOrderTemplateVO updateTemplate(Long id, WorkOrderTemplateRequest request, HttpServletRequest servletRequest);
+
+    void deleteTemplate(Long id, HttpServletRequest servletRequest);
+
     WorkOrderVO createFromTemplate(Long templateId, WorkOrderFromTemplateRequest request, HttpServletRequest servletRequest);
 }

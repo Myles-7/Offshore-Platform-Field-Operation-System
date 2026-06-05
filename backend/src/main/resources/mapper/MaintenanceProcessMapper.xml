@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.offshore.platform.mapper.MaintenanceProcessMapper">
+    <resultMap id="BaseResultMap" type="com.offshore.platform.entity.MaintenanceProcess">
+        <id column="id" property="id" />
+        <result column="process_code" property="processCode" />
+        <result column="process_name" property="processName" />
+        <result column="equipment_type" property="equipmentType" />
+        <result column="process_type" property="processType" />
+        <result column="process_steps" property="processSteps" />
+        <result column="tools_required" property="toolsRequired" />
+        <result column="material_required" property="materialRequired" />
+        <result column="safety_measures" property="safetyMeasures" />
+        <result column="quality_standard" property="qualityStandard" />
+        <result column="duration_estimate" property="durationEstimate" />
+        <result column="work_type" property="workType" />
+        <result column="enabled_flag" property="enabledFlag" />
+        <result column="local_id" property="localId" />
+        <result column="server_id" property="serverId" />
+        <result column="version" property="version" />
+        <result column="sync_status" property="syncStatus" />
+        <result column="device_id" property="deviceId" />
+        <result column="operator_id" property="operatorId" />
+        <result column="created_at" property="createdAt" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="deleted_flag" property="deletedFlag" />
+        <result column="created_by" property="createdBy" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="remark" property="remark" />
+    </resultMap>
+    <sql id="BaseColumnList">id, process_code, process_name, equipment_type, process_type, process_steps, tools_required, material_required, safety_measures, quality_standard, duration_estimate, work_type, enabled_flag, local_id, server_id, version, sync_status, device_id, operator_id, created_at, updated_at, deleted_flag, created_by, updated_by, remark</sql>
+    <insert id="insert" parameterType="com.offshore.platform.entity.MaintenanceProcess" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO maintenance_process
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="processCode != null">process_code,</if>
+            <if test="processName != null">process_name,</if>
+            <if test="equipmentType != null">equipment_type,</if>
+            <if test="processType != null">process_type,</if>
+            <if test="processSteps != null">process_steps,</if>
+            <if test="toolsRequired != null">tools_required,</if>
+            <if test="materialRequired != null">material_required,</if>
+            <if test="safetyMeasures != null">safety_measures,</if>
+            <if test="qualityStandard != null">quality_standard,</if>
+            <if test="durationEstimate != null">duration_estimate,</if>
+            <if test="workType != null">work_type,</if>
+            <if test="enabledFlag != null">enabled_flag,</if>
+            <if test="localId != null">local_id,</if>
+            <if test="serverId != null">server_id,</if>
+            <if test="version != null">version,</if>
+            <if test="syncStatus != null">sync_status,</if>
+            <if test="deviceId != null">device_id,</if>
+            <if test="operatorId != null">operator_id,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+            <if test="deletedFlag != null">deleted_flag,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="processCode != null">#{processCode},</if>
+            <if test="processName != null">#{processName},</if>
+            <if test="equipmentType != null">#{equipmentType},</if>
+            <if test="processType != null">#{processType},</if>
+            <if test="processSteps != null">#{processSteps},</if>
+            <if test="toolsRequired != null">#{toolsRequired},</if>
+            <if test="materialRequired != null">#{materialRequired},</if>
+            <if test="safetyMeasures != null">#{safetyMeasures},</if>
+            <if test="qualityStandard != null">#{qualityStandard},</if>
+            <if test="durationEstimate != null">#{durationEstimate},</if>
+            <if test="workType != null">#{workType},</if>
+            <if test="enabledFlag != null">#{enabledFlag},</if>
+            <if test="localId != null">#{localId},</if>
+            <if test="serverId != null">#{serverId},</if>
+            <if test="version != null">#{version},</if>
+            <if test="syncStatus != null">#{syncStatus},</if>
+            <if test="deviceId != null">#{deviceId},</if>
+            <if test="operatorId != null">#{operatorId},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+            <if test="deletedFlag != null">#{deletedFlag},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+    <update id="updateById" parameterType="com.offshore.platform.entity.MaintenanceProcess">
+        UPDATE maintenance_process
+        <set>
+            <if test="processName != null">process_name = #{processName},</if>
+            <if test="equipmentType != null">equipment_type = #{equipmentType},</if>
+            <if test="processType != null">process_type = #{processType},</if>
+            <if test="processSteps != null">process_steps = #{processSteps},</if>
+            <if test="toolsRequired != null">tools_required = #{toolsRequired},</if>
+            <if test="materialRequired != null">material_required = #{materialRequired},</if>
+            <if test="safetyMeasures != null">safety_measures = #{safetyMeasures},</if>
+            <if test="qualityStandard != null">quality_standard = #{qualityStandard},</if>
+            <if test="durationEstimate != null">duration_estimate = #{durationEstimate},</if>
+            <if test="workType != null">work_type = #{workType},</if>
+            <if test="enabledFlag != null">enabled_flag = #{enabledFlag},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+    <select id="selectById" parameterType="long" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" /> FROM maintenance_process WHERE id = #{id} AND deleted_flag = 0
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" /> FROM maintenance_process WHERE deleted_flag = 0 ORDER BY id DESC
+    </select>
+    <update id="softDeleteById" parameterType="long">
+        UPDATE maintenance_process SET deleted_flag = 1 WHERE id = #{id}
+    </update>
+</mapper>

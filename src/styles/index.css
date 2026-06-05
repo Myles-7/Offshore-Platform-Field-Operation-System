@@ -92,6 +92,7 @@ body {
 
 .admin-layout__main {
   background: #f3f6fb;
+  overflow-x: auto;
 }
 
 .app-menu {
@@ -241,6 +242,8 @@ body {
 
 .metric-card span {
   color: #64748b;
+  line-height: 1.35;
+  word-break: keep-all;
 }
 
 .metric-card strong {
@@ -252,4 +255,52 @@ body {
   border: 1px solid #e5e7eb;
   border-radius: 8px;
   background: #fff;
+}
+
+@media (max-width: 960px) {
+  .admin-layout__header {
+    padding: 0 10px;
+  }
+
+  .admin-layout__header-left {
+    min-width: 0;
+  }
+
+  .admin-layout__header h1 {
+    overflow: hidden;
+    max-width: 42vw;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .admin-layout__subtitle,
+  .admin-layout__user-name {
+    display: none;
+  }
+
+  .admin-layout__main {
+    padding: 12px;
+  }
+
+  .search-form .el-form-item {
+    display: flex;
+    margin-right: 0;
+  }
+
+  .search-form__select,
+  .search-form .el-date-editor {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .metric-card {
+    min-height: 112px;
+    padding: 12px;
+  }
+
+  .metric-card strong {
+    font-size: 24px;
+    line-height: 1.2;
+    word-break: keep-all;
+  }
 }

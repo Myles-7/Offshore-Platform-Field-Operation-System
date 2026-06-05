@@ -1,0 +1,70 @@
+-- ========== 知识库模块：故障案例 + 维修工艺 ==========
+
+DROP TABLE IF EXISTS knowledge_case;
+CREATE TABLE knowledge_case (
+    id                  BIGINT          NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    case_no             VARCHAR(64)     NOT NULL COMMENT '案例编号',
+    title               VARCHAR(255)    NOT NULL COMMENT '案例标题',
+    equipment_type      VARCHAR(128)    NULL COMMENT '设备类型',
+    fault_type          VARCHAR(128)    NULL COMMENT '故障类型',
+    fault_phenomenon    TEXT            NULL COMMENT '故障现象',
+    fault_cause         TEXT            NULL COMMENT '故障原因',
+    solution            TEXT            NULL COMMENT '处理方法',
+    preventive_measures TEXT            NULL COMMENT '预防措施',
+    work_type           VARCHAR(64)     NULL COMMENT '关联工单类型',
+    enabled_flag        TINYINT         NOT NULL DEFAULT 1 COMMENT '是否启用',
+    source_work_order_id BIGINT         NULL COMMENT '来源工单ID',
+    attachment_ids      VARCHAR(500)    NULL COMMENT '附件ID列表，逗号分隔',
+    -- offline sync fields
+    local_id            VARCHAR(128)    NULL,
+    server_id           BIGINT          NULL,
+    version             INT             NOT NULL DEFAULT 1,
+    sync_status         VARCHAR(32)     NOT NULL DEFAULT 'SYNCED',
+    device_id           VARCHAR(128)    NULL,
+    operator_id         BIGINT          NULL,
+    -- audit fields
+    created_at          DATETIME        NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at          DATETIME        NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_flag        TINYINT         NOT NULL DEFAULT 0,
+    created_by          BIGINT          NULL,
+    updated_by          BIGINT          NULL,
+    remark              VARCHAR(500)    NULL,
+    UNIQUE KEY uk_case_no (case_no),
+    KEY idx_case_equipment (equipment_type),
+    KEY idx_case_fault (fault_type),
+    KEY idx_case_work_type (work_type)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='故障案例表';
+
+DROP TABLE IF EXISTS maintenance_process;
+CREATE TABLE maintenance_process (
+    id                  BIGINT          NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    process_code        VARCHAR(64)     NOT NULL COMMENT '工艺编号',
+    process_name        VARCHAR(255)    NOT NULL COMMENT '工艺名称',
+    equipment_type      VARCHAR(128)    NULL COMMENT '设备类型',
+    process_type        VARCHAR(128)    NULL COMMENT '工艺类型',
+    process_steps       TEXT            NULL COMMENT '工艺步骤',
+    tools_required      TEXT            NULL COMMENT '所需工具',
+    material_required   TEXT            NULL COMMENT '所需物料',
+    safety_measures     TEXT            NULL COMMENT '安全措施',
+    quality_standard    TEXT            NULL COMMENT '质量标准',
+    duration_estimate   VARCHAR(64)     NULL COMMENT '预计工时',
+    work_type           VARCHAR(64)     NULL COMMENT '关联工单类型',
+    enabled_flag        TINYINT         NOT NULL DEFAULT 1 COMMENT '是否启用',
+    -- offline sync fields
+    local_id            VARCHAR(128)    NULL,
+    server_id           BIGINT          NULL,
+    version             INT             NOT NULL DEFAULT 1,
+    sync_status         VARCHAR(32)     NOT NULL DEFAULT 'SYNCED',
+    device_id           VARCHAR(128)    NULL,
+    operator_id         BIGINT          NULL,
+    -- audit fields
+    created_at          DATETIME        NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at          DATETIME        NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_flag        TINYINT         NOT NULL DEFAULT 0,
+    created_by          BIGINT          NULL,
+    updated_by          BIGINT          NULL,
+    remark              VARCHAR(500)    NULL,
+    UNIQUE KEY uk_process_code (process_code),
+    KEY idx_process_equipment (equipment_type),
+    KEY idx_process_work_type (work_type)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='维修工艺表';

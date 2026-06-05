@@ -214,7 +214,11 @@ class AiDashboardControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.inProgressWorkOrderCount").value(2))
                 .andExpect(jsonPath("$.data.pendingAcceptanceWorkOrderCount").value(1))
-                .andExpect(jsonPath("$.data.todayAttendanceCount").value(1));
+                .andExpect(jsonPath("$.data.todayAttendanceCount").value(1))
+                .andExpect(jsonPath("$.data.certificateExpiringCount").exists())
+                .andExpect(jsonPath("$.data.inventoryWarningCount").exists())
+                .andExpect(jsonPath("$.data.pendingConflictCount").exists())
+                .andExpect(jsonPath("$.data.pendingAiReviewCount").exists());
 
         mockMvc.perform(get("/api/admin/dashboard/overview").header("Authorization", "Bearer " + managerToken))
                 .andExpect(status().isOk())

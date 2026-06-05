@@ -7,6 +7,7 @@ import { computed } from 'vue';
 import {
   aiReviewStatusOptions,
   getEnumOption,
+  priorityStatusOptions,
   qualificationStatusOptions,
   syncStatusOptions,
   workOrderStatusOptions
@@ -14,14 +15,15 @@ import {
 
 const props = defineProps<{
   value?: string;
-  enumType: 'workOrder' | 'qualification' | 'sync' | 'aiReview';
+  enumType: 'workOrder' | 'qualification' | 'sync' | 'aiReview' | 'priority';
 }>();
 
 const optionsMap = {
   workOrder: workOrderStatusOptions,
   qualification: qualificationStatusOptions,
   sync: syncStatusOptions,
-  aiReview: aiReviewStatusOptions
+  aiReview: aiReviewStatusOptions,
+  priority: priorityStatusOptions
 };
 
 const option = computed(() => getEnumOption(optionsMap[props.enumType], props.value));

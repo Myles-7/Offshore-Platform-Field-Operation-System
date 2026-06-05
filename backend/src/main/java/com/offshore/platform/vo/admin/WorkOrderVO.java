@@ -6,6 +6,7 @@ public class WorkOrderVO {
     public Long id;
     public String workOrderNo;
     public Long projectId;
+    public String projectName;
     public Long templateId;
     public String workTitle;
     public String workType;
@@ -13,7 +14,9 @@ public class WorkOrderVO {
     public String workContent;
     public String requiredMaterialDesc;
     public Long leaderId;
+    public String leaderName;
     public Long maintainerId;
+    public String maintainerName;
     public LocalDateTime plannedStartTime;
     public LocalDateTime plannedEndTime;
     public LocalDateTime actualStartTime;

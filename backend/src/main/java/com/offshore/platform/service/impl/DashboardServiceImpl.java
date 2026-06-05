@@ -11,9 +11,15 @@ import com.offshore.platform.entity.ReportDailySummary;
 import com.offshore.platform.entity.WorkOrder;
 import com.offshore.platform.entity.WorkOrderMaterialUsage;
 import com.offshore.platform.entity.WorkOrderRecord;
+import com.offshore.platform.entity.MaterialInfo;
+import com.offshore.platform.mapper.AiResultMapper;
+import com.offshore.platform.mapper.EmployeeCertificateMapper;
+import com.offshore.platform.mapper.MaterialInfoMapper;
+import com.offshore.platform.mapper.MaterialInventoryMapper;
 import com.offshore.platform.mapper.OperationLogMapper;
 import com.offshore.platform.mapper.ProjectInfoMapper;
 import com.offshore.platform.mapper.ReportDailySummaryMapper;
+import com.offshore.platform.mapper.SyncConflictMapper;
 import com.offshore.platform.mapper.WorkOrderMapper;
 import com.offshore.platform.mapper.WorkOrderMaterialUsageMapper;
 import com.offshore.platform.mapper.WorkOrderRecordMapper;
@@ -50,11 +56,21 @@ public class DashboardServiceImpl implements DashboardService {
     private final ReportDailySummaryMapper reportMapper;
     private final OperationLogMapper operationLogMapper;
     private final DataScopeService dataScopeService;
+    private final EmployeeCertificateMapper certificateMapper;
+    private final MaterialInventoryMapper inventoryMapper;
+    private final MaterialInfoMapper materialInfoMapper;
+    private final SyncConflictMapper syncConflictMapper;
+    private final AiResultMapper aiResultMapper;
 
     public DashboardServiceImpl(WorkOrderMapper workOrderMapper, WorkOrderRecordMapper recordMapper,
             WorkOrderMaterialUsageMapper materialUsageMapper, ProjectInfoMapper projectMapper,
             ReportDailySummaryMapper reportMapper, OperationLogMapper operationLogMapper,
-            DataScopeService dataScopeService) {
+            DataScopeService dataScopeService,
+            EmployeeCertificateMapper certificateMapper,
+            MaterialInventoryMapper inventoryMapper,
+            MaterialInfoMapper materialInfoMapper,
+            SyncConflictMapper syncConflictMapper,
+            AiResultMapper aiResultMapper) {
         this.workOrderMapper = workOrderMapper;
         this.recordMapper = recordMapper;
         this.materialUsageMapper = materialUsageMapper;
@@ -62,6 +78,11 @@ public class DashboardServiceImpl implements DashboardService {
         this.reportMapper = reportMapper;
         this.operationLogMapper = operationLogMapper;
         this.dataScopeService = dataScopeService;
+        this.certificateMapper = certificateMapper;
+        this.inventoryMapper = inventoryMapper;
+        this.materialInfoMapper = materialInfoMapper;
+        this.syncConflictMapper = syncConflictMapper;
+        this.aiResultMapper = aiResultMapper;
     }
 
     @Override
@@ -76,6 +97,11 @@ public class DashboardServiceImpl implements DashboardService {
         vo.todayAttendanceCount = todayAttendance(user);
         vo.weeklyCompletedOutputValue = weeklyOutput(user);
         vo.completionRate = completionRate(orders);
+        // -- real statistics from related tables --
+        vo.certificateExpiringCount = certificateExpiringCount();
+        vo.inventoryWarningCount = inventoryWarningCount();
+        vo.pendingConflictCount = pendingConflictCount();
+        vo.pendingAiReviewCount = pendingAiReviewCount();
         return vo;
     }
 
@@ -264,6 +290,46 @@ public class DashboardServiceImpl implements DashboardService {
 
     private BigDecimal nullToZero(BigDecimal value) {
         return value == null ? BigDecimal.ZERO : value;
+    }
+
+    /* ========== 实时预警统计 ========== */
+
+    /** 资质临期：到期时间在未来30天内且未过期 */
+    private int certificateExpiringCount() {
+        LocalDate today = LocalDate.now();
+        LocalDate deadline = today.plusDays(30);
+        return (int) certificateMapper.selectAll().stream()
+                .filter(c -> c.getValidTo() != null
+                        && !c.getValidTo().isBefore(today)
+                        && c.getValidTo().isBefore(deadline)
+                        && c.getDeletedFlag() == 0)
+                .count();
+    }
+
+    /** 库存预警：可用库存 <= 安全库存 */
+    private int inventoryWarningCount() {
+        return (int) inventoryMapper.selectAll().stream()
+                .filter(inv -> {
+                    if (inv.getCurrentQty() == null) return false;
+                    MaterialInfo material = materialInfoMapper.selectById(inv.getMaterialId());
+                    if (material == null || material.getSafetyStockQty() == null) return false;
+                    return inv.getCurrentQty().compareTo(material.getSafetyStockQty()) <= 0;
+                })
+                .count();
+    }
+
+    /** 未处理同步冲突 */
+    private int pendingConflictCount() {
+        return (int) syncConflictMapper.selectAll().stream()
+                .filter(c -> "PENDING".equals(c.getResolveStatus()))
+                .count();
+    }
+
+    /** AI待复核 */
+    private int pendingAiReviewCount() {
+        return (int) aiResultMapper.selectAll().stream()
+                .filter(r -> "PENDING_REVIEW".equals(r.getReviewStatus()))
+                .count();
     }
 
     private Map<String, Object> map(Object... keyValues) {

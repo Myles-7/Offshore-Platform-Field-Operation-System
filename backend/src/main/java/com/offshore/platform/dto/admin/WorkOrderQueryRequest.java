@@ -7,6 +7,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class WorkOrderQueryRequest extends PageRequestDTO {
     private Long projectId;
     private String workOrderNo;
+    private String workType;
+    private String workLocation;
     private String status;
     private String priority;
     private Long maintainerId;
@@ -35,6 +37,22 @@ public class WorkOrderQueryRequest extends PageRequestDTO {
 
     public void setWorkOrderNo(String workOrderNo) {
         this.workOrderNo = workOrderNo;
+    }
+
+    public String getWorkType() {
+        return workType;
+    }
+
+    public void setWorkType(String workType) {
+        this.workType = workType;
+    }
+
+    public String getWorkLocation() {
+        return workLocation;
+    }
+
+    public void setWorkLocation(String workLocation) {
+        this.workLocation = workLocation;
     }
 
     public String getStatus() {

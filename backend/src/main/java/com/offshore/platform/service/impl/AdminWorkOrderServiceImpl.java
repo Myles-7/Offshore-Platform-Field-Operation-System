@@ -313,6 +313,43 @@ public class AdminWorkOrderServiceImpl implements AdminWorkOrderService {
 
     @Override
     @Transactional
+    public WorkOrderTemplateVO updateTemplate(Long id, WorkOrderTemplateRequest request, HttpServletRequest servletRequest) {
+        CurrentUser user = requirePcManager();
+        WorkOrderTemplate template = workOrderTemplateMapper.selectById(id);
+        if (template == null) {
+            throw new BusinessException(ErrorCode.NOT_FOUND, "工单模板不存在");
+        }
+        template.setTemplateCode(request.templateCode);
+        template.setTemplateName(request.templateName);
+        template.setWorkType(request.workType);
+        template.setDefaultPriority(defaultText(request.defaultPriority, template.getDefaultPriority()));
+        template.setDefaultWorkContent(request.defaultWorkContent);
+        template.setDefaultMaterialDesc(request.defaultMaterialDesc);
+        template.setDefaultDurationHours(request.defaultDurationHours);
+        template.setEnabledFlag(defaultInt(request.enabledFlag, template.getEnabledFlag()));
+        template.setUpdatedAt(LocalDateTime.now());
+        template.setUpdatedBy(user.getUserId());
+        template.setOperatorId(user.getUserId());
+        template.setRemark(request.remark);
+        workOrderTemplateMapper.updateById(template);
+        writeOperationLog(user, servletRequest, "UPDATE_WORK_ORDER_TEMPLATE", "WORK_ORDER_TEMPLATE", id, template.getTemplateCode());
+        return toTemplateVO(template);
+    }
+
+    @Override
+    @Transactional
+    public void deleteTemplate(Long id, HttpServletRequest servletRequest) {
+        CurrentUser user = requirePcManager();
+        WorkOrderTemplate template = workOrderTemplateMapper.selectById(id);
+        if (template == null) {
+            throw new BusinessException(ErrorCode.NOT_FOUND, "工单模板不存在");
+        }
+        workOrderTemplateMapper.softDeleteById(id);
+        writeOperationLog(user, servletRequest, "DELETE_WORK_ORDER_TEMPLATE", "WORK_ORDER_TEMPLATE", id, template.getTemplateCode());
+    }
+
+    @Override
+    @Transactional
     public WorkOrderVO createFromTemplate(Long templateId, WorkOrderFromTemplateRequest request, HttpServletRequest servletRequest) {
         CurrentUser user = requirePcManager();
         WorkOrderTemplate template = workOrderTemplateMapper.selectById(templateId);
@@ -533,6 +570,8 @@ public class AdminWorkOrderServiceImpl implements AdminWorkOrderService {
     private Predicate<WorkOrder> matchesWorkOrderQuery(WorkOrderQueryRequest query) {
         return order -> (query.getProjectId() == null || query.getProjectId().equals(order.getProjectId()))
                 && (!StringUtils.hasText(query.getWorkOrderNo()) || contains(order.getWorkOrderNo(), query.getWorkOrderNo()))
+                && (!StringUtils.hasText(query.getWorkType()) || query.getWorkType().equals(order.getWorkType()))
+                && (!StringUtils.hasText(query.getWorkLocation()) || contains(order.getWorkLocation(), query.getWorkLocation()))
                 && (!StringUtils.hasText(query.getStatus()) || query.getStatus().equals(order.getStatus()))
                 && (!StringUtils.hasText(query.getPriority()) || query.getPriority().equals(order.getPriority()))
                 && (query.getMaintainerId() == null || query.getMaintainerId().equals(order.getMaintainerId()))
@@ -604,6 +643,8 @@ public class AdminWorkOrderServiceImpl implements AdminWorkOrderService {
         vo.id = order.getId();
         vo.workOrderNo = order.getWorkOrderNo();
         vo.projectId = order.getProjectId();
+        ProjectInfo project = projectInfoMapper.selectById(order.getProjectId());
+        vo.projectName = project == null ? null : project.getProjectName();
         vo.templateId = order.getTemplateId();
         vo.workTitle = order.getWorkTitle();
         vo.workType = order.getWorkType();
@@ -611,7 +652,9 @@ public class AdminWorkOrderServiceImpl implements AdminWorkOrderService {
         vo.workContent = order.getWorkContent();
         vo.requiredMaterialDesc = order.getRequiredMaterialDesc();
         vo.leaderId = order.getLeaderId();
+        vo.leaderName = order.getLeaderId() == null ? null : getUserRealName(order.getLeaderId());
         vo.maintainerId = order.getMaintainerId();
+        vo.maintainerName = order.getMaintainerId() == null ? null : getUserRealName(order.getMaintainerId());
         vo.plannedStartTime = order.getPlannedStartTime();
         vo.plannedEndTime = order.getPlannedEndTime();
         vo.actualStartTime = order.getActualStartTime();
@@ -729,6 +772,14 @@ public class AdminWorkOrderServiceImpl implements AdminWorkOrderService {
         int from = Math.min((pageNum - 1) * pageSize, all.size());
         int to = Math.min(from + pageSize, all.size());
         return new PageResult<>(all.subList(from, to), (long) all.size(), pageNum, pageSize);
+    }
+
+    private String getUserRealName(Long userId) {
+        if (userId == null) {
+            return null;
+        }
+        SysUser user = sysUserMapper.selectById(userId);
+        return user == null ? null : user.getRealName();
     }
 
     private String generateNo(String prefix) {

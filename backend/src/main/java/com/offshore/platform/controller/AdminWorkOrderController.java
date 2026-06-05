@@ -146,6 +146,20 @@ public class AdminWorkOrderController {
         return ApiResponse.success(adminWorkOrderService.createTemplate(request, servletRequest));
     }
 
+    @Operation(summary = "更新工单模板")
+    @PutMapping("/work-order-templates/{id}")
+    public ApiResponse<WorkOrderTemplateVO> updateTemplate(@PathVariable Long id,
+            @Valid @RequestBody WorkOrderTemplateRequest request, HttpServletRequest servletRequest) {
+        return ApiResponse.success(adminWorkOrderService.updateTemplate(id, request, servletRequest));
+    }
+
+    @Operation(summary = "删除工单模板")
+    @DeleteMapping("/work-order-templates/{id}")
+    public ApiResponse<Void> deleteTemplate(@PathVariable Long id, HttpServletRequest servletRequest) {
+        adminWorkOrderService.deleteTemplate(id, servletRequest);
+        return ApiResponse.success();
+    }
+
     @Operation(summary = "根据模板创建工单")
     @PostMapping("/work-orders/from-template/{templateId}")
     public ApiResponse<WorkOrderVO> createFromTemplate(@PathVariable Long templateId,

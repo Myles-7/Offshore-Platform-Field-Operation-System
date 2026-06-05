@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.offshore.platform.mapper.KnowledgeCaseMapper">
+    <resultMap id="BaseResultMap" type="com.offshore.platform.entity.KnowledgeCase">
+        <id column="id" property="id" />
+        <result column="case_no" property="caseNo" />
+        <result column="title" property="title" />
+        <result column="equipment_type" property="equipmentType" />
+        <result column="fault_type" property="faultType" />
+        <result column="fault_phenomenon" property="faultPhenomenon" />
+        <result column="fault_cause" property="faultCause" />
+        <result column="solution" property="solution" />
+        <result column="preventive_measures" property="preventiveMeasures" />
+        <result column="work_type" property="workType" />
+        <result column="enabled_flag" property="enabledFlag" />
+        <result column="source_work_order_id" property="sourceWorkOrderId" />
+        <result column="attachment_ids" property="attachmentIds" />
+        <result column="local_id" property="localId" />
+        <result column="server_id" property="serverId" />
+        <result column="version" property="version" />
+        <result column="sync_status" property="syncStatus" />
+        <result column="device_id" property="deviceId" />
+        <result column="operator_id" property="operatorId" />
+        <result column="created_at" property="createdAt" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="deleted_flag" property="deletedFlag" />
+        <result column="created_by" property="createdBy" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="remark" property="remark" />
+    </resultMap>
+    <sql id="BaseColumnList">id, case_no, title, equipment_type, fault_type, fault_phenomenon, fault_cause, solution, preventive_measures, work_type, enabled_flag, source_work_order_id, attachment_ids, local_id, server_id, version, sync_status, device_id, operator_id, created_at, updated_at, deleted_flag, created_by, updated_by, remark</sql>
+    <insert id="insert" parameterType="com.offshore.platform.entity.KnowledgeCase" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO knowledge_case
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="caseNo != null">case_no,</if>
+            <if test="title != null">title,</if>
+            <if test="equipmentType != null">equipment_type,</if>
+            <if test="faultType != null">fault_type,</if>
+            <if test="faultPhenomenon != null">fault_phenomenon,</if>
+            <if test="faultCause != null">fault_cause,</if>
+            <if test="solution != null">solution,</if>
+            <if test="preventiveMeasures != null">preventive_measures,</if>
+            <if test="workType != null">work_type,</if>
+            <if test="enabledFlag != null">enabled_flag,</if>
+            <if test="sourceWorkOrderId != null">source_work_order_id,</if>
+            <if test="attachmentIds != null">attachment_ids,</if>
+            <if test="localId != null">local_id,</if>
+            <if test="serverId != null">server_id,</if>
+            <if test="version != null">version,</if>
+            <if test="syncStatus != null">sync_status,</if>
+            <if test="deviceId != null">device_id,</if>
+            <if test="operatorId != null">operator_id,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+            <if test="deletedFlag != null">deleted_flag,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="caseNo != null">#{caseNo},</if>
+            <if test="title != null">#{title},</if>
+            <if test="equipmentType != null">#{equipmentType},</if>
+            <if test="faultType != null">#{faultType},</if>
+            <if test="faultPhenomenon != null">#{faultPhenomenon},</if>
+            <if test="faultCause != null">#{faultCause},</if>
+            <if test="solution != null">#{solution},</if>
+            <if test="preventiveMeasures != null">#{preventiveMeasures},</if>
+            <if test="workType != null">#{workType},</if>
+            <if test="enabledFlag != null">#{enabledFlag},</if>
+            <if test="sourceWorkOrderId != null">#{sourceWorkOrderId},</if>
+            <if test="attachmentIds != null">#{attachmentIds},</if>
+            <if test="localId != null">#{localId},</if>
+            <if test="serverId != null">#{serverId},</if>
+            <if test="version != null">#{version},</if>
+            <if test="syncStatus != null">#{syncStatus},</if>
+            <if test="deviceId != null">#{deviceId},</if>
+            <if test="operatorId != null">#{operatorId},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+            <if test="deletedFlag != null">#{deletedFlag},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+    <update id="updateById" parameterType="com.offshore.platform.entity.KnowledgeCase">
+        UPDATE knowledge_case
+        <set>
+            <if test="title != null">title = #{title},</if>
+            <if test="equipmentType != null">equipment_type = #{equipmentType},</if>
+            <if test="faultType != null">fault_type = #{faultType},</if>
+            <if test="faultPhenomenon != null">fault_phenomenon = #{faultPhenomenon},</if>
+            <if test="faultCause != null">fault_cause = #{faultCause},</if>
+            <if test="solution != null">solution = #{solution},</if>
+            <if test="preventiveMeasures != null">preventive_measures = #{preventiveMeasures},</if>
+            <if test="workType != null">work_type = #{workType},</if>
+            <if test="enabledFlag != null">enabled_flag = #{enabledFlag},</if>
+            <if test="attachmentIds != null">attachment_ids = #{attachmentIds},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+    <select id="selectById" parameterType="long" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" /> FROM knowledge_case WHERE id = #{id} AND deleted_flag = 0
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" /> FROM knowledge_case WHERE deleted_flag = 0 ORDER BY id DESC
+    </select>
+    <update id="softDeleteById" parameterType="long">
+        UPDATE knowledge_case SET deleted_flag = 1 WHERE id = #{id}
+    </update>
+</mapper>

@@ -5,8 +5,7 @@ export interface EnumOption {
 }
 
 export const workOrderStatusOptions: EnumOption[] = [
-  { label: '草稿', value: 'DRAFT', type: 'info' },
-  { label: '待派工', value: 'PENDING', type: 'warning' },
+  { label: '待派工', value: 'PENDING_ASSIGN', type: 'warning' },
   { label: '已派工', value: 'ASSIGNED', type: 'primary' },
   { label: '已接收', value: 'ACCEPTED', type: 'primary' },
   { label: '施工中', value: 'IN_PROGRESS', type: 'warning' },
@@ -36,6 +35,20 @@ export const aiReviewStatusOptions: EnumOption[] = [
   { label: '已确认', value: 'CONFIRMED', type: 'success' },
   { label: '误报', value: 'FALSE_POSITIVE', type: 'info' },
   { label: '已忽略', value: 'IGNORED', type: 'info' }
+];
+
+export const priorityStatusOptions: EnumOption[] = [
+  { label: '紧急', value: 'URGENT', type: 'danger' },
+  { label: '高', value: 'HIGH', type: 'warning' },
+  { label: '普通', value: 'NORMAL', type: 'info' },
+  { label: '低', value: 'LOW', type: 'info' }
+];
+
+export const workTypeOptions: EnumOption[] = [
+  { label: '防腐作业', value: 'ANTICORROSION', type: 'primary' },
+  { label: '维修作业', value: 'REPAIR', type: 'warning' },
+  { label: '巡检作业', value: 'INSPECTION', type: 'info' },
+  { label: '保养作业', value: 'MAINTENANCE', type: 'info' }
 ];
 
 export function getEnumOption(options: EnumOption[], value?: string): EnumOption {

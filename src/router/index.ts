@@ -37,6 +37,18 @@ export const routes: RouteRecordRaw[] = [
         meta: { title: '工单管理', ...routeAccess.workOrders }
       },
       {
+        path: 'work-orders/templates',
+        name: 'WorkOrderTemplates',
+        component: () => import('@/views/work-orders/WorkOrderTemplatesView.vue'),
+        meta: { title: '工单模板', ...routeAccess.workOrders }
+      },
+      {
+        path: 'work-orders/:id',
+        name: 'WorkOrderDetail',
+        component: () => import('@/views/work-orders/WorkOrderDetailView.vue'),
+        meta: { title: '工单详情', ...routeAccess.workOrders }
+      },
+      {
         path: 'records',
         name: 'Records',
         component: () => import('@/views/records/RecordsView.vue'),
@@ -71,6 +83,18 @@ export const routes: RouteRecordRaw[] = [
         name: 'AiReview',
         component: () => import('@/views/ai/AiReviewView.vue'),
         meta: { title: 'AI 辅助验收', ...routeAccess.aiReview }
+      },
+      {
+        path: 'knowledge/cases',
+        name: 'KnowledgeCases',
+        component: () => import('@/views/knowledge/KnowledgeView.vue'),
+        meta: { title: '知识库', ...routeAccess.workOrders }
+      },
+      {
+        path: 'reports/reconciliation',
+        name: 'Reports',
+        component: () => import('@/views/reports/ReportsView.vue'),
+        meta: { title: '经营报表', ...routeAccess.reports }
       },
       {
         path: 'system/users',

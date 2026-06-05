@@ -33,6 +33,7 @@ D:\桌面\海上平台现场作业管理系统\backend\src\main\java\com\offshor
 D:\桌面\海上平台现场作业管理系统\backend\src\main\java\com\offshore\platform\controller\DashboardController.java
 D:\桌面\海上平台现场作业管理系统\backend\src\main\java\com\offshore\platform\controller\FileController.java
 D:\桌面\海上平台现场作业管理系统\backend\src\main\java\com\offshore\platform\controller\HealthController.java
+D:\桌面\海上平台现场作业管理系统\backend\src\main\java\com\offshore\platform\controller\KnowledgeController.java
 D:\桌面\海上平台现场作业管理系统\backend\src\main\java\com\offshore\platform\controller\MaterialController.java
 D:\桌面\海上平台现场作业管理系统\backend\src\main\java\com\offshore\platform\controller\MobileWorkOrderController.java
 D:\桌面\海上平台现场作业管理系统\backend\src\main\java\com\offshore\platform\controller\package-info.java
@@ -89,6 +90,8 @@ D:\桌面\海上平台现场作业管理系统\backend\src\main\java\com\offshor
 D:\桌面\海上平台现场作业管理系统\backend\src\main\java\com\offshore\platform\entity\EmployeeCertificate.java
 D:\桌面\海上平台现场作业管理系统\backend\src\main\java\com\offshore\platform\entity\EmployeeInfo.java
 D:\桌面\海上平台现场作业管理系统\backend\src\main\java\com\offshore\platform\entity\FileStorage.java
+D:\桌面\海上平台现场作业管理系统\backend\src\main\java\com\offshore\platform\entity\KnowledgeCase.java
+D:\桌面\海上平台现场作业管理系统\backend\src\main\java\com\offshore\platform\entity\MaintenanceProcess.java
 D:\桌面\海上平台现场作业管理系统\backend\src\main\java\com\offshore\platform\entity\MaterialInfo.java
 D:\桌面\海上平台现场作业管理系统\backend\src\main\java\com\offshore\platform\entity\MaterialInoutRecord.java
 D:\桌面\海上平台现场作业管理系统\backend\src\main\java\com\offshore\platform\entity\MaterialInventory.java
@@ -128,6 +131,8 @@ D:\桌面\海上平台现场作业管理系统\backend\src\main\java\com\offshor
 D:\桌面\海上平台现场作业管理系统\backend\src\main\java\com\offshore\platform\mapper\EmployeeCertificateMapper.java
 D:\桌面\海上平台现场作业管理系统\backend\src\main\java\com\offshore\platform\mapper\EmployeeInfoMapper.java
 D:\桌面\海上平台现场作业管理系统\backend\src\main\java\com\offshore\platform\mapper\FileStorageMapper.java
+D:\桌面\海上平台现场作业管理系统\backend\src\main\java\com\offshore\platform\mapper\KnowledgeCaseMapper.java
+D:\桌面\海上平台现场作业管理系统\backend\src\main\java\com\offshore\platform\mapper\MaintenanceProcessMapper.java
 D:\桌面\海上平台现场作业管理系统\backend\src\main\java\com\offshore\platform\mapper\MaterialInfoMapper.java
 D:\桌面\海上平台现场作业管理系统\backend\src\main\java\com\offshore\platform\mapper\MaterialInoutRecordMapper.java
 D:\桌面\海上平台现场作业管理系统\backend\src\main\java\com\offshore\platform\mapper\MaterialInventoryMapper.java
@@ -196,6 +201,7 @@ D:\桌面\海上平台现场作业管理系统\backend\src\main\java\com\offshor
 D:\桌面\海上平台现场作业管理系统\backend\src\main\java\com\offshore\platform\service\impl\FilePermissionServiceImpl.java
 D:\桌面\海上平台现场作业管理系统\backend\src\main\java\com\offshore\platform\service\impl\FileServiceImpl.java
 D:\桌面\海上平台现场作业管理系统\backend\src\main\java\com\offshore\platform\service\impl\FileStorageServiceImpl.java
+D:\桌面\海上平台现场作业管理系统\backend\src\main\java\com\offshore\platform\service\impl\KnowledgeServiceImpl.java
 D:\桌面\海上平台现场作业管理系统\backend\src\main\java\com\offshore\platform\service\impl\MaterialInfoServiceImpl.java
 D:\桌面\海上平台现场作业管理系统\backend\src\main\java\com\offshore\platform\service\impl\MaterialInoutRecordServiceImpl.java
 D:\桌面\海上平台现场作业管理系统\backend\src\main\java\com\offshore\platform\service\impl\MaterialInventoryServiceImpl.java
@@ -235,6 +241,7 @@ D:\桌面\海上平台现场作业管理系统\backend\src\main\java\com\offshor
 D:\桌面\海上平台现场作业管理系统\backend\src\main\java\com\offshore\platform\service\impl\WorkOrderTemplateServiceImpl.java
 D:\桌面\海上平台现场作业管理系统\backend\src\main\java\com\offshore\platform\service\impl\WorkOrderVersionLogServiceImpl.java
 D:\桌面\海上平台现场作业管理系统\backend\src\main\java\com\offshore\platform\service\impl\WorkRecordServiceImpl.java
+D:\桌面\海上平台现场作业管理系统\backend\src\main\java\com\offshore\platform\service\KnowledgeService.java
 D:\桌面\海上平台现场作业管理系统\backend\src\main\java\com\offshore\platform\service\MaterialInfoService.java
 D:\桌面\海上平台现场作业管理系统\backend\src\main\java\com\offshore\platform\service\MaterialInoutRecordService.java
 D:\桌面\海上平台现场作业管理系统\backend\src\main\java\com\offshore\platform\service\MaterialInventoryService.java
