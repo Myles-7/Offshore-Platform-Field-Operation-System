@@ -172,4 +172,33 @@
         SET deleted_flag = 1
         WHERE id = #{id}
     </update>
+
+    <select id="selectUpdatedAfter" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM work_order
+        WHERE updated_at &gt; #{cursor}
+        ORDER BY updated_at ASC, id ASC
+        <if test="limit != null">LIMIT #{limit}</if>
+    </select>
+
+    <select id="selectUpdatedAfterByMaintainer" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM work_order
+        WHERE updated_at &gt; #{cursor}
+          AND maintainer_id = #{maintainerId}
+        ORDER BY updated_at ASC, id ASC
+        <if test="limit != null">LIMIT #{limit}</if>
+    </select>
+
+    <select id="selectUpdatedAfterByProjectScope" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM work_order
+        WHERE updated_at &gt; #{cursor}
+          AND project_id IN
+          <foreach collection="projectIds" item="pid" open="(" separator="," close=")">
+              #{pid}
+          </foreach>
+        ORDER BY updated_at ASC, id ASC
+        <if test="limit != null">LIMIT #{limit}</if>
+    </select>
 </mapper>

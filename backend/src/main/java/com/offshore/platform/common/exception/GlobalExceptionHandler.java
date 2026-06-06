@@ -66,6 +66,6 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ApiResponse<Void> handleException(Exception ex) {
         log.error("Unhandled server exception", ex);
-        return ApiResponse.fail(ErrorCode.SYSTEM_ERROR);
+        return ApiResponse.fail(ErrorCode.SYSTEM_ERROR, ex.getMessage() != null ? ex.getMessage() : "系统错误");
     }
 }

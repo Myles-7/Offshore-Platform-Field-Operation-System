@@ -6,8 +6,10 @@ import com.offshore.platform.common.enums.ErrorCode;
 import com.offshore.platform.common.exception.BusinessException;
 import com.offshore.platform.common.util.TraceIdUtils;
 import com.offshore.platform.dto.ai.AiDefectBoxRequest;
+import com.offshore.platform.dto.ai.AiBatchReviewRequest;
 import com.offshore.platform.dto.ai.AiModelRequest;
 import com.offshore.platform.dto.ai.AiResultRequest;
+import com.offshore.platform.dto.ai.AiResultQueryRequest;
 import com.offshore.platform.dto.ai.AiReviewRequest;
 import com.offshore.platform.entity.AiDefectBox;
 import com.offshore.platform.entity.AiModelInfo;
@@ -16,6 +18,7 @@ import com.offshore.platform.entity.AiReviewRecord;
 import com.offshore.platform.entity.OperationLog;
 import com.offshore.platform.entity.WorkOrder;
 import com.offshore.platform.entity.WorkOrderAttachment;
+import com.offshore.platform.entity.WorkOrderRecord;
 import com.offshore.platform.mapper.AiDefectBoxMapper;
 import com.offshore.platform.mapper.AiModelInfoMapper;
 import com.offshore.platform.mapper.AiResultMapper;
@@ -24,11 +27,14 @@ import com.offshore.platform.mapper.OperationLogMapper;
 import com.offshore.platform.mapper.WorkOrderAssignmentMapper;
 import com.offshore.platform.mapper.WorkOrderAttachmentMapper;
 import com.offshore.platform.mapper.WorkOrderMapper;
+import com.offshore.platform.mapper.WorkOrderRecordMapper;
 import com.offshore.platform.service.AiService;
 import com.offshore.platform.service.DataScopeService;
 import com.offshore.platform.vo.ai.AiDefectBoxVO;
 import com.offshore.platform.vo.ai.AiModelVO;
+import com.offshore.platform.vo.ai.AiResultDetailVO;
 import com.offshore.platform.vo.ai.AiResultVO;
+import com.offshore.platform.vo.ai.AiReviewRecordVO;
 import jakarta.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -42,6 +48,7 @@ public class AiServiceImpl implements AiService {
     private final AiDefectBoxMapper boxMapper;
     private final AiReviewRecordMapper reviewMapper;
     private final WorkOrderMapper workOrderMapper;
+    private final WorkOrderRecordMapper recordMapper;
     private final WorkOrderAttachmentMapper attachmentMapper;
     private final WorkOrderAssignmentMapper assignmentMapper;
     private final OperationLogMapper operationLogMapper;
@@ -49,13 +56,14 @@ public class AiServiceImpl implements AiService {
 
     public AiServiceImpl(AiModelInfoMapper modelMapper, AiResultMapper resultMapper, AiDefectBoxMapper boxMapper,
             AiReviewRecordMapper reviewMapper, WorkOrderMapper workOrderMapper, WorkOrderAttachmentMapper attachmentMapper,
-            WorkOrderAssignmentMapper assignmentMapper, OperationLogMapper operationLogMapper,
+            WorkOrderRecordMapper recordMapper, WorkOrderAssignmentMapper assignmentMapper, OperationLogMapper operationLogMapper,
             DataScopeService dataScopeService) {
         this.modelMapper = modelMapper;
         this.resultMapper = resultMapper;
         this.boxMapper = boxMapper;
         this.reviewMapper = reviewMapper;
         this.workOrderMapper = workOrderMapper;
+        this.recordMapper = recordMapper;
         this.attachmentMapper = attachmentMapper;
         this.assignmentMapper = assignmentMapper;
         this.operationLogMapper = operationLogMapper;
@@ -126,6 +134,16 @@ public class AiServiceImpl implements AiService {
         if (!"PHOTO".equals(attachment.getAttachmentType()) && !"AI_IMAGE".equals(attachment.getAttachmentType())) {
             throw new BusinessException(ErrorCode.AI_ERROR, "AI result must bind a construction photo attachment");
         }
+        if (request.recordId != null) {
+            WorkOrderRecord record = recordMapper.selectById(request.recordId);
+            if (record == null || !workOrder.getId().equals(record.getWorkOrderId())) {
+                throw new BusinessException(ErrorCode.AI_ERROR, "AI recordId must belong to the work order");
+            }
+        }
+        AiResult existing = findByLocalId(request.localId);
+        if (existing != null) {
+            return toResultVO(existing);
+        }
 
         AiResult result = new AiResult();
         result.setAiResultNo("AI-" + System.currentTimeMillis());
@@ -141,7 +159,7 @@ public class AiServiceImpl implements AiService {
         result.setModelVersion(request.modelVersion);
         result.setInferSide(defaultString(request.inferSide, "SERVER"));
         result.setInferTime(request.inferTime == null ? LocalDateTime.now() : request.inferTime);
-        result.setInferCostMs(request.inferCostMs);
+        result.setInferCostMs(request.inferenceTimeMs == null ? request.inferCostMs : request.inferenceTimeMs);
         result.setDefectType(defaultString(request.defectType, "UNKNOWN"));
         result.setConfidence(request.confidence);
         result.setSuspectedDefectFlag(request.suspectedDefectFlag == null ? 0 : request.suspectedDefectFlag);
@@ -197,10 +215,48 @@ public class AiServiceImpl implements AiService {
     }
 
     @Override
+    public AiResultDetailVO getResultDetail(Long id) {
+        AiResult result = requireResult(id);
+        requireReadableWorkOrder(result.getWorkOrderId(), CurrentUserContext.require(), false);
+        return toDetailVO(result);
+    }
+
+    @Override
+    public List<AiResultVO> adminResults(AiResultQueryRequest request) {
+        CurrentUser user = CurrentUserContext.require();
+        requireAdmin(user);
+        return resultMapper.selectAll().stream()
+                .filter(item -> canReadAiResult(user, item, false))
+                .filter(item -> request.projectId == null || request.projectId.equals(item.getProjectId()))
+                .filter(item -> request.workOrderId == null || request.workOrderId.equals(item.getWorkOrderId()))
+                .filter(item -> request.recordId == null || request.recordId.equals(item.getRecordId()))
+                .filter(item -> request.defectType == null || request.defectType.equals(item.getDefectType()))
+                .filter(item -> request.reviewStatus == null || request.reviewStatus.equals(item.getReviewStatus()))
+                .filter(item -> request.modelVersion == null || request.modelVersion.equals(item.getModelVersion()))
+                .filter(item -> request.createdTimeStart == null || (item.getCreatedAt() != null && !item.getCreatedAt().isBefore(request.createdTimeStart)))
+                .filter(item -> request.createdTimeEnd == null || (item.getCreatedAt() != null && !item.getCreatedAt().isAfter(request.createdTimeEnd)))
+                .map(this::toResultVO)
+                .toList();
+    }
+
+    @Override
     public List<AiResultVO> adminWorkOrderResults(Long workOrderId) {
         requireReadableWorkOrder(workOrderId, CurrentUserContext.require(), false);
         return resultMapper.selectAll().stream()
                 .filter(result -> workOrderId.equals(result.getWorkOrderId()))
+                .map(this::toResultVO)
+                .toList();
+    }
+
+    @Override
+    public List<AiResultVO> adminRecordResults(Long recordId) {
+        WorkOrderRecord record = recordMapper.selectById(recordId);
+        if (record == null) {
+            throw new BusinessException(ErrorCode.NOT_FOUND, "Work record not found");
+        }
+        requireReadableWorkOrder(record.getWorkOrderId(), CurrentUserContext.require(), false);
+        return resultMapper.selectAll().stream()
+                .filter(result -> recordId.equals(result.getRecordId()))
                 .map(this::toResultVO)
                 .toList();
     }
@@ -220,6 +276,7 @@ public class AiServiceImpl implements AiService {
         CurrentUser user = CurrentUserContext.require();
         AiResult result = requireResult(id);
         requireReadableWorkOrder(result.getWorkOrderId(), user, false);
+        validateReviewStatus(request.reviewStatus);
         result.setReviewStatus(request.reviewStatus);
         result.setReviewedFlag(1);
         result.setReviewerId(user.getUserId());
@@ -238,7 +295,7 @@ public class AiServiceImpl implements AiService {
         record.setReviewerName(user.getRealName());
         record.setReviewStatus(request.reviewStatus);
         record.setConfirmedDefectType(request.confirmedDefectType);
-        record.setReviewOpinion(request.reviewOpinion);
+        record.setReviewOpinion(defaultString(request.reviewComment, defaultString(request.reviewConclusion, request.reviewOpinion)));
         record.setAcceptanceSuggestion(request.acceptanceSuggestion);
         record.setReviewTime(LocalDateTime.now());
         record.setCreatedAt(LocalDateTime.now());
@@ -249,6 +306,45 @@ public class AiServiceImpl implements AiService {
         reviewMapper.insert(record);
         writeLog(user, servletRequest, "REVIEW_AI_RESULT", result.getId(), result.getAiResultNo());
         return toResultVO(result);
+    }
+
+    @Override
+    @Transactional
+    public AiDefectBoxVO reviewBox(Long id, Long boxId, AiDefectBoxRequest request, HttpServletRequest servletRequest) {
+        CurrentUser user = CurrentUserContext.require();
+        AiResult result = requireResult(id);
+        requireReadableWorkOrder(result.getWorkOrderId(), user, false);
+        AiDefectBox box = boxMapper.selectById(boxId);
+        if (box == null || !id.equals(box.getAiResultId())) {
+            throw new BusinessException(ErrorCode.NOT_FOUND, "AI defect box not found");
+        }
+        box.setDefectType(defaultString(request.defectType, box.getDefectType()));
+        box.setConfidence(request.confidence == null ? box.getConfidence() : request.confidence);
+        box.setX(request.x == null ? box.getX() : request.x);
+        box.setY(request.y == null ? box.getY() : request.y);
+        box.setWidth(request.width == null ? box.getWidth() : request.width);
+        box.setHeight(request.height == null ? box.getHeight() : request.height);
+        box.setBoxLabel(defaultString(request.boxLabel, box.getBoxLabel()));
+        box.setVersion(defaultInt(box.getVersion(), 1) + 1);
+        box.setUpdatedAt(LocalDateTime.now());
+        box.setUpdatedBy(user.getUserId());
+        boxMapper.updateById(box);
+        writeLog(user, servletRequest, "REVIEW_AI_DEFECT_BOX", result.getId(), result.getAiResultNo());
+        return toBoxVO(box);
+    }
+
+    @Override
+    @Transactional
+    public List<AiResultVO> batchReview(AiBatchReviewRequest request, HttpServletRequest servletRequest) {
+        validateReviewStatus(request.reviewStatus);
+        if ("CONFIRMED".equals(request.reviewStatus) && (request.reviewComment == null || request.reviewComment.isBlank())) {
+            throw new BusinessException(ErrorCode.PARAM_ERROR, "Batch confirmed review requires comment");
+        }
+        AiReviewRequest single = new AiReviewRequest();
+        single.reviewStatus = request.reviewStatus;
+        single.reviewComment = request.reviewComment;
+        single.reviewConclusion = request.reviewConclusion;
+        return request.resultIds.stream().map(id -> review(id, single, servletRequest)).toList();
     }
 
     private void fillSyncFields(AiResult result, String localId, String deviceId, Long userId) {
@@ -308,6 +404,28 @@ public class AiServiceImpl implements AiService {
         }
     }
 
+    private boolean canReadAiResult(CurrentUser user, AiResult result, boolean allowMobileSelf) {
+        try {
+            requireReadableWorkOrder(result.getWorkOrderId(), user, allowMobileSelf);
+            return true;
+        } catch (BusinessException ex) {
+            return false;
+        }
+    }
+
+    private AiResult findByLocalId(String localId) {
+        if (localId == null || localId.isBlank()) {
+            return null;
+        }
+        return resultMapper.selectAll().stream().filter(item -> localId.equals(item.getLocalId())).findFirst().orElse(null);
+    }
+
+    private void validateReviewStatus(String status) {
+        if (!List.of("CONFIRMED", "FALSE_POSITIVE", "IGNORED").contains(status)) {
+            throw new BusinessException(ErrorCode.PARAM_ERROR, "Unsupported AI review status");
+        }
+    }
+
     private AiModelInfo requireModel(Long id) {
         AiModelInfo model = modelMapper.selectById(id);
         if (model == null) {
@@ -357,6 +475,9 @@ public class AiServiceImpl implements AiService {
         vo.recordId = result.getRecordId();
         vo.attachmentId = result.getAttachmentId();
         vo.fileId = result.getFileId();
+        vo.imagePreviewUrl = result.getFileId() == null ? null : "/api/files/" + result.getFileId() + "/preview";
+        vo.resultImageFileId = result.getResultImageFileId();
+        vo.resultImagePreviewUrl = result.getResultImageFileId() == null ? null : "/api/files/" + result.getResultImageFileId() + "/preview";
         vo.modelId = result.getModelId();
         vo.modelCode = result.getModelCode();
         vo.modelVersion = result.getModelVersion();
@@ -367,6 +488,8 @@ public class AiServiceImpl implements AiService {
         vo.defectCount = result.getDefectCount();
         vo.resultSummary = result.getResultSummary();
         vo.reviewStatus = result.getReviewStatus();
+        vo.reviewerId = result.getReviewerId();
+        vo.reviewTime = result.getReviewTime();
         vo.reviewedFlag = result.getReviewedFlag();
         vo.version = result.getVersion();
         vo.syncStatus = result.getSyncStatus();
@@ -375,6 +498,41 @@ public class AiServiceImpl implements AiService {
                 .filter(box -> result.getId().equals(box.getAiResultId()))
                 .map(this::toBoxVO)
                 .toList();
+        return vo;
+    }
+
+    private AiResultDetailVO toDetailVO(AiResult result) {
+        AiResultDetailVO vo = new AiResultDetailVO();
+        AiResultVO base = toResultVO(result);
+        vo.id = base.id; vo.aiResultNo = base.aiResultNo; vo.workOrderId = base.workOrderId; vo.workOrderNo = base.workOrderNo;
+        vo.projectId = base.projectId; vo.recordId = base.recordId; vo.attachmentId = base.attachmentId; vo.fileId = base.fileId;
+        vo.imagePreviewUrl = base.imagePreviewUrl; vo.resultImageFileId = base.resultImageFileId; vo.resultImagePreviewUrl = base.resultImagePreviewUrl;
+        vo.modelId = base.modelId; vo.modelCode = base.modelCode; vo.modelVersion = base.modelVersion; vo.inferCostMs = base.inferCostMs;
+        vo.defectType = base.defectType; vo.confidence = base.confidence; vo.suspectedDefectFlag = base.suspectedDefectFlag; vo.defectCount = base.defectCount;
+        vo.resultSummary = base.resultSummary; vo.reviewStatus = base.reviewStatus; vo.reviewerId = base.reviewerId; vo.reviewTime = base.reviewTime;
+        vo.reviewedFlag = base.reviewedFlag; vo.version = base.version; vo.syncStatus = base.syncStatus; vo.updatedAt = base.updatedAt; vo.boxes = base.boxes;
+        vo.workOrder = workOrderMapper.selectById(result.getWorkOrderId());
+        vo.workRecord = result.getRecordId() == null ? null : recordMapper.selectById(result.getRecordId());
+        vo.attachment = result.getAttachmentId() == null ? null : attachmentMapper.selectById(result.getAttachmentId());
+        vo.reviewRecords = reviewMapper.selectAll().stream()
+                .filter(item -> result.getId().equals(item.getAiResultId()))
+                .map(this::toReviewRecordVO)
+                .toList();
+        return vo;
+    }
+
+    private AiReviewRecordVO toReviewRecordVO(AiReviewRecord record) {
+        AiReviewRecordVO vo = new AiReviewRecordVO();
+        vo.id = record.getId();
+        vo.reviewNo = record.getReviewNo();
+        vo.aiResultId = record.getAiResultId();
+        vo.reviewerId = record.getReviewerId();
+        vo.reviewerName = record.getReviewerName();
+        vo.reviewStatus = record.getReviewStatus();
+        vo.confirmedDefectType = record.getConfirmedDefectType();
+        vo.reviewOpinion = record.getReviewOpinion();
+        vo.acceptanceSuggestion = record.getAcceptanceSuggestion();
+        vo.reviewTime = record.getReviewTime();
         return vo;
     }
 
@@ -416,5 +574,9 @@ public class AiServiceImpl implements AiService {
 
     private String defaultString(String value, String defaultValue) {
         return value == null || value.isBlank() ? defaultValue : value;
+    }
+
+    private Integer defaultInt(Integer value, Integer defaultValue) {
+        return value == null ? defaultValue : value;
     }
 }

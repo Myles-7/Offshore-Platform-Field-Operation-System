@@ -2,6 +2,7 @@ package com.offshore.platform;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -12,21 +13,27 @@ import com.offshore.platform.dto.auth.LoginRequest;
 import com.offshore.platform.dto.mobile.MobileCheckItemBatchRequest;
 import com.offshore.platform.dto.mobile.MobileCheckItemRequest;
 import com.offshore.platform.dto.mobile.MobileWorkRecordRequest;
+import com.offshore.platform.dto.workrecord.WorkOrderRecordDetailRequest;
 import com.offshore.platform.entity.OperationLog;
 import com.offshore.platform.entity.ProjectInfo;
+import com.offshore.platform.entity.SyncConflict;
 import com.offshore.platform.entity.SysRole;
 import com.offshore.platform.entity.SysUser;
 import com.offshore.platform.entity.SysUserRole;
 import com.offshore.platform.entity.WorkOrder;
+import com.offshore.platform.entity.WorkOrderAcceptance;
 import com.offshore.platform.entity.WorkOrderAssignment;
 import com.offshore.platform.mapper.OperationLogMapper;
 import com.offshore.platform.mapper.ProjectInfoMapper;
+import com.offshore.platform.mapper.SyncConflictMapper;
 import com.offshore.platform.mapper.SysRoleMapper;
 import com.offshore.platform.mapper.SysUserMapper;
 import com.offshore.platform.mapper.SysUserRoleMapper;
+import com.offshore.platform.mapper.WorkOrderAcceptanceMapper;
 import com.offshore.platform.mapper.WorkOrderAssignmentMapper;
 import com.offshore.platform.mapper.WorkOrderCheckItemMapper;
 import com.offshore.platform.mapper.WorkOrderMapper;
+import com.offshore.platform.mapper.WorkOrderRecordDetailMapper;
 import com.offshore.platform.mapper.WorkOrderRecordMapper;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -75,7 +82,16 @@ class WorkRecordControllerTest {
     private WorkOrderRecordMapper workOrderRecordMapper;
 
     @Autowired
+    private WorkOrderRecordDetailMapper workOrderRecordDetailMapper;
+
+    @Autowired
     private WorkOrderCheckItemMapper workOrderCheckItemMapper;
+
+    @Autowired
+    private WorkOrderAcceptanceMapper workOrderAcceptanceMapper;
+
+    @Autowired
+    private SyncConflictMapper syncConflictMapper;
 
     @Autowired
     private OperationLogMapper operationLogMapper;
@@ -193,6 +209,112 @@ class WorkRecordControllerTest {
                         .content(objectMapper.writeValueAsString(baseRecordRequest())))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(403));
+    }
+
+    @Test
+    void mobileRecordCrudSupportsLocalIdIdempotencyAndDetails() throws Exception {
+        String token = login("record_worker", "MOBILE");
+        Long recordId = createRecord(token);
+
+        String duplicateBody = mockMvc.perform(post("/api/mobile/work-orders/{workOrderId}/records", workOrderId)
+                        .header("Authorization", "Bearer " + token)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(baseRecordRequest())))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(200))
+                .andExpect(jsonPath("$.data.id").value(recordId))
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+        assertThat(objectMapper.readTree(duplicateBody).at("/data/serverId").asLong()).isEqualTo(recordId);
+        assertThat(workOrderRecordMapper.selectByWorkOrderId(workOrderId)).hasSize(1);
+
+        WorkOrderRecordDetailRequest detail = new WorkOrderRecordDetailRequest();
+        detail.localId = "local-detail-001";
+        detail.detailType = "STEP";
+        detail.detailTitle = "surface treatment";
+        detail.detailContent = "sand and clean";
+        detail.stepNo = 1;
+        detail.deviceId = "android-test-device";
+        String detailBody = mockMvc.perform(post("/api/mobile/work-records/{recordId}/details", recordId)
+                        .header("Authorization", "Bearer " + token)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(detail)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(200))
+                .andExpect(jsonPath("$.data.serverId").isNumber())
+                .andExpect(jsonPath("$.data.version").value(1))
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+        Long detailId = objectMapper.readTree(detailBody).at("/data/id").asLong();
+
+        detail.version = 1;
+        detail.detailContent = "sand, clean, and paint";
+        mockMvc.perform(put("/api/mobile/work-records/{recordId}/details/{detailId}", recordId, detailId)
+                        .header("Authorization", "Bearer " + token)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(detail)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.version").value(2))
+                .andExpect(jsonPath("$.data.detailContent").value("sand, clean, and paint"));
+
+        mockMvc.perform(get("/api/mobile/work-orders/{workOrderId}/records/{recordId}", workOrderId, recordId)
+                        .header("Authorization", "Bearer " + token))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.details.length()").value(1));
+
+        mockMvc.perform(delete("/api/mobile/work-records/{recordId}/details/{detailId}", recordId, detailId)
+                        .header("Authorization", "Bearer " + token))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(200));
+        mockMvc.perform(get("/api/mobile/work-orders/{workOrderId}/records/{recordId}", workOrderId, recordId)
+                        .header("Authorization", "Bearer " + token))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.details.length()").value(0));
+    }
+
+    @Test
+    void lockedAcceptanceBlocksRecordUpdateAndWritesSyncConflict() throws Exception {
+        String token = login("record_worker", "MOBILE");
+        Long recordId = createRecord(token);
+        WorkOrder order = workOrderMapper.selectById(workOrderId);
+
+        WorkOrderAcceptance acceptance = new WorkOrderAcceptance();
+        acceptance.setAcceptanceNo("ACC-LOCK-001");
+        acceptance.setWorkOrderId(workOrderId);
+        acceptance.setProjectId(order.getProjectId());
+        acceptance.setWorkOrderNo(order.getWorkOrderNo());
+        acceptance.setProjectName("record project");
+        acceptance.setAcceptanceUserId(adminId);
+        acceptance.setAcceptanceUserName("admin");
+        acceptance.setAcceptanceTime(LocalDateTime.now());
+        acceptance.setAcceptanceStatus("LOCKED");
+        acceptance.setPdfGeneratedFlag(1);
+        acceptance.setLockedFlag(1);
+        acceptance.setLockedAt(LocalDateTime.now());
+        acceptance.setLockedBy(adminId);
+        acceptance.setVersion(1);
+        acceptance.setSyncStatus("SYNCED");
+        acceptance.setCreatedAt(LocalDateTime.now());
+        acceptance.setUpdatedAt(LocalDateTime.now());
+        acceptance.setDeletedFlag(0);
+        workOrderAcceptanceMapper.insert(acceptance);
+
+        MobileWorkRecordRequest update = baseRecordRequest();
+        update.setVersion(1);
+        update.setConstructionDesc("locked update");
+        mockMvc.perform(put("/api/mobile/work-orders/{workOrderId}/records/{recordId}", workOrderId, recordId)
+                        .header("Authorization", "Bearer " + token)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(update)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(40001));
+
+        assertThat(workOrderRecordMapper.selectById(recordId).getSyncStatus()).isEqualTo("CONFLICT");
+        assertThat(syncConflictMapper.selectAll())
+                .extracting(SyncConflict::getConflictType)
+                .contains("UPDATE_LOCKED_RECORD");
     }
 
     @Test

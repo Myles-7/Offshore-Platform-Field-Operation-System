@@ -171,21 +171,58 @@
         <el-radio-group v-model="resolveForm.resolveStrategy" style="display:flex;flex-direction:column;gap:12px;margin-bottom:16px">
           <el-radio value="KEEP_SERVER" border>
             <strong>保留服务器版本</strong>
-            <p style="margin:4px 0 0;font-size:12px;color:#64748b">以服务器数据为准，丢弃本地修改</p>
+            <p style="margin:4px 0 0;font-size:12px;color:#64748b">以服务器数据为准，丢弃移动端修改</p>
           </el-radio>
-          <el-radio value="KEEP_LOCAL" border>
-            <strong>保留本地版本</strong>
-            <p style="margin:4px 0 0;font-size:12px;color:#64748b">以移动端本地数据为准，覆盖服务器版本</p>
+          <el-radio value="KEEP_CLIENT" border>
+            <strong>保留客户端版本</strong>
+            <p style="margin:4px 0 0;font-size:12px;color:#64748b">以移动端数据为准，覆盖服务器版本</p>
           </el-radio>
-          <el-radio value="MERGE" border>
-            <strong>手动合并</strong>
-            <p style="margin:4px 0 0;font-size:12px;color:#64748b">在下方编辑最终数据</p>
+          <el-radio value="MANUAL_MERGE" border>
+            <strong>字段级合并</strong>
+            <p style="margin:4px 0 0;font-size:12px;color:#64748b">逐个字段选择保留服务端或客户端值</p>
+          </el-radio>
+          <el-radio value="IGNORE_CLIENT" border>
+            <strong>忽略客户端变更</strong>
+            <p style="margin:4px 0 0;font-size:12px;color:#64748b">忽略此冲突，不做数据合并</p>
           </el-radio>
         </el-radio-group>
 
-        <el-form-item v-if="resolveForm.resolveStrategy === 'MERGE'" label="合并后数据" required>
+        <!-- 字段级合并 UI -->
+        <div v-if="resolveForm.resolveStrategy === 'MANUAL_MERGE' && mergeFields.length" class="merge-table">
+          <div class="merge-header">
+            <span class="merge-col merge-col--field">字段</span>
+            <span class="merge-col merge-col--client">移动端版本</span>
+            <span class="merge-col merge-col--server">服务端版本</span>
+            <span class="merge-col merge-col--select">选择</span>
+          </div>
+          <div
+            v-for="f in mergeFields"
+            :key="f.name"
+            class="merge-row"
+            :class="{ 'merge-row--conflict': f.isConflict }"
+          >
+            <span class="merge-col merge-col--field">
+              <span class="merge-field-name">{{ f.label || f.name }}</span>
+              <el-tag v-if="f.isConflict" type="danger" size="small" effect="dark" style="margin-left:4px">冲突</el-tag>
+            </span>
+            <span class="merge-col merge-col--client" :class="{ 'text-danger': f.isConflict }">
+              {{ formatFieldValue(f.clientValue) }}
+            </span>
+            <span class="merge-col merge-col--server" :class="{ 'text-danger': f.isConflict }">
+              {{ formatFieldValue(f.serverValue) }}
+            </span>
+            <span class="merge-col merge-col--select">
+              <el-radio-group v-model="f.selected" size="small" :disabled="!f.isConflict">
+                <el-radio-button value="CLIENT">本地</el-radio-button>
+                <el-radio-button value="SERVER">服务端</el-radio-button>
+              </el-radio-group>
+            </span>
+          </div>
+        </div>
+
+        <el-form-item v-if="resolveForm.resolveStrategy === 'MANUAL_MERGE' && !mergeFields.length" label="合并后数据" required>
           <el-input
-            v-model="resolveForm.finalPayload"
+            v-model="resolveForm.resolvedPayload"
             type="textarea"
             :rows="6"
             placeholder="编辑 JSON 格式的最终版本数据"
@@ -220,7 +257,7 @@ import { ElMessage, ElMessageBox } from 'element-plus';
 import {
   fetchSyncConflicts, fetchSyncConflict, resolveSyncConflict,
   fetchSyncLogs, fetchSyncTasks,
-  type SyncConflictItem
+  type SyncConflictItem, type SyncLogItem, type SyncTaskItem
 } from '@/api/sync';
 import PageShell from '@/components/page/PageShell.vue';
 import DataTable from '@/components/table/DataTable.vue';
@@ -258,15 +295,46 @@ const resolveVisible = ref(false);
 const resolveSubmitting = ref(false);
 const resolveItem = ref<SyncConflictItem | null>(null);
 const resolveError = ref('');
-const resolveForm = reactive({ resolveStrategy: 'KEEP_SERVER', finalPayload: '', resolveComment: '' });
+const resolveForm = reactive({ resolveStrategy: 'KEEP_SERVER', resolvedPayload: '', resolveComment: '' });
 
-function openResolve(row: SyncConflictItem) {
-  resolveItem.value = row;
-  resolveError.value = '';
-  resolveForm.resolveStrategy = 'KEEP_SERVER';
-  resolveForm.finalPayload = '';
-  resolveForm.resolveComment = '';
-  resolveVisible.value = true;
+/** 字段级合并：解析 client/server payload 的差异字段 */
+interface MergeField {
+  name: string;
+  label: string;
+  clientValue: string;
+  serverValue: string;
+  selected: 'CLIENT' | 'SERVER';
+  isConflict: boolean;
+}
+
+const mergeFields = computed<MergeField[]>(() => {
+  const client = parsePayload(resolveItem.value?.clientPayload);
+  const server = parsePayload(resolveItem.value?.serverPayload);
+  const allKeys = [...new Set([...Object.keys(client), ...Object.keys(server)])];
+  return allKeys.map((key) => {
+    const cv = client[key] ?? '';
+    const sv = server[key] ?? '';
+    const isConflict = JSON.stringify(cv) !== JSON.stringify(sv);
+    return {
+      name: key,
+      label: key,
+      clientValue: typeof cv === 'string' ? cv : JSON.stringify(cv),
+      serverValue: typeof sv === 'string' ? sv : JSON.stringify(sv),
+      selected: isConflict ? 'SERVER' : 'SERVER',
+      isConflict
+    };
+  });
+});
+
+function parsePayload(raw?: string): Record<string, unknown> {
+  if (!raw) return {};
+  try { return JSON.parse(raw); } catch { return {}; }
+}
+
+function formatFieldValue(v: unknown): string {
+  if (v === null || v === undefined || v === '') return '(空)';
+  if (typeof v === 'object') return JSON.stringify(v);
+  return String(v);
 }
 
 async function submitResolve() {
@@ -274,13 +342,21 @@ async function submitResolve() {
     resolveError.value = '处理说明不能为空';
     return;
   }
-  if (resolveForm.resolveStrategy === 'MERGE' && !resolveForm.finalPayload.trim()) {
-    resolveError.value = '合并后数据不能为空';
-    return;
+  let finalPayload: string | undefined;
+  if (resolveForm.resolveStrategy === 'MANUAL_MERGE') {
+    const client = parsePayload(resolveItem.value?.clientPayload);
+    const server = parsePayload(resolveItem.value?.serverPayload);
+    const merged: Record<string, unknown> = {};
+    for (const f of mergeFields.value) {
+      merged[f.name] = f.selected === 'CLIENT' ? (client[f.name] ?? '') : (server[f.name] ?? '');
+    }
+    finalPayload = JSON.stringify(merged);
+  } else if (resolveForm.resolveStrategy === 'KEEP_CLIENT') {
+    finalPayload = resolveItem.value?.clientPayload;
   }
   try {
     await ElMessageBox.confirm(
-      `确认采用"${({ KEEP_SERVER: '保留服务器版本', KEEP_LOCAL: '保留本地版本', MERGE: '手动合并' })[resolveForm.resolveStrategy]}"策略处理此冲突？此操作不可撤销。`,
+      `确认采用"${resolveStrategyLabel(resolveForm.resolveStrategy)}"策略处理此冲突？此操作不可撤销。`,
       '二次确认',
       { confirmButtonText: '确认处理', cancelButtonText: '取消', type: 'warning' }
     );
@@ -290,7 +366,7 @@ async function submitResolve() {
   try {
     await resolveSyncConflict(resolveItem.value!.id, {
       resolveStrategy: resolveForm.resolveStrategy,
-      finalPayload: resolveForm.resolveStrategy === 'MERGE' ? resolveForm.finalPayload : undefined,
+      finalPayload,
       resolveComment: resolveForm.resolveComment
     });
     ElMessage.success('冲突已处理，移动端下次同步时将获取最终结果');
@@ -299,6 +375,41 @@ async function submitResolve() {
   } catch (err: unknown) {
     resolveError.value = err instanceof Error ? err.message : '处理失败';
   } finally { resolveSubmitting.value = false; }
+}
+
+function resolveStrategyLabel(s?: string) {
+  return {
+    KEEP_SERVER: '保留服务器版本',
+    KEEP_CLIENT: '保留本地版本',
+    MANUAL_MERGE: '手动合并',
+    IGNORE_CLIENT: '忽略客户端变更'
+  }[s || ''] || s || '-';
+}
+
+function openResolve(row: SyncConflictItem) {
+  resolveItem.value = row;
+  resolveError.value = '';
+  resolveForm.resolveStrategy = 'KEEP_SERVER';
+  resolveForm.resolvedPayload = '';
+  resolveForm.resolveComment = '';
+  resolveVisible.value = true;
+}
+
+function entityTypeLabel(t?: string) {
+  const map: Record<string, string> = {
+    work_order: '工单信息', work_order_record: '施工记录',
+    work_order_attachment: '附件', work_order_signature: '签名记录',
+    work_order_acceptance: '验收记录', work_order_material_usage: '物料使用',
+    ai_result: 'AI结果', project_info: '项目信息'
+  };
+  return map[t || ''] || t || '-';
+}
+
+function resolveStatusLabel(s?: string) {
+  return { PENDING: '待处理', RESOLVED: '已处理', IGNORED: '已忽略' }[s || ''] || s || '-';
+}
+function resolveStatusTag(s?: string) {
+  return s === 'PENDING' ? 'danger' : s === 'RESOLVED' ? 'success' : 'info';
 }
 
 /* ========== 数据对比 ========== */
@@ -321,11 +432,11 @@ function formatJson(raw?: string): string {
 }
 
 /* ========== 同步日志 ========== */
-const logsLoading = ref(false); const logList = ref<Record<string, unknown>[]>([]);
+const logsLoading = ref(false); const logList = ref<SyncLogItem[]>([]);
 async function loadLogs() { logsLoading.value = true; try { logList.value = await fetchSyncLogs(); } finally { logsLoading.value = false; } }
 
 /* ========== 同步任务 ========== */
-const tasksLoading = ref(false); const taskList = ref<Record<string, unknown>[]>([]);
+const tasksLoading = ref(false); const taskList = ref<SyncTaskItem[]>([]);
 async function loadTasks() { tasksLoading.value = true; try { taskList.value = await fetchSyncTasks(); } finally { tasksLoading.value = false; } }
 
 /* ========== 监听 Tab 切换 ========== */
@@ -334,23 +445,6 @@ watch(activeTab, (val) => {
   if (val === 'logs' && !logList.value.length) loadLogs();
   if (val === 'tasks' && !taskList.value.length) loadTasks();
 });
-
-/* ========== 标签函数 ========== */
-function entityTypeLabel(t?: string) {
-  const map: Record<string, string> = {
-    work_order: '工单信息', work_order_record: '施工记录',
-    work_order_attachment: '附件', work_order_signature: '签名记录',
-    work_order_acceptance: '验收记录', work_order_material_usage: '物料使用',
-    ai_result: 'AI结果', project_info: '项目信息'
-  };
-  return map[t || ''] || t || '-';
-}
-function resolveStatusLabel(s?: string) {
-  return { PENDING: '待处理', RESOLVED: '已处理', IGNORED: '已忽略' }[s || ''] || s || '-';
-}
-function resolveStatusTag(s?: string) {
-  return s === 'PENDING' ? 'danger' : s === 'RESOLVED' ? 'success' : 'info';
-}
 </script>
 
 <style scoped>

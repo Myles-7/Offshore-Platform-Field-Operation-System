@@ -208,4 +208,16 @@
         SET deleted_flag = 1
         WHERE id = #{id}
     </update>
+
+    <select id="selectUpdatedAfterByWorkOrderIds" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" />
+        FROM work_order_record
+        WHERE updated_at &gt; #{cursor}
+          AND work_order_id IN
+          <foreach collection="workOrderIds" item="wid" open="(" separator="," close=")">
+              #{wid}
+          </foreach>
+        ORDER BY updated_at ASC, id ASC
+        <if test="limit != null">LIMIT #{limit}</if>
+    </select>
 </mapper>

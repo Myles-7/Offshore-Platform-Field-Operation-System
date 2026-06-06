@@ -1,12 +1,13 @@
 package com.offshore.platform.entity;
 
+import com.offshore.platform.common.sync.SyncableEntity;
 import java.time.LocalDateTime;
 
 /**
  * work_order_pdf 表实体。
  * 根据 db/init_schema.sql 生成。
  */
-public class WorkOrderPdf {
+public class WorkOrderPdf implements SyncableEntity {
     public static final String TABLE_NAME = "work_order_pdf";
 
     private Long id;

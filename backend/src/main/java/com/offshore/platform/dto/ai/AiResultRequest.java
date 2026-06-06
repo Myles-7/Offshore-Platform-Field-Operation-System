@@ -18,6 +18,7 @@ public class AiResultRequest {
     public Long modelId;
     public String modelCode;
     public String modelVersion;
+    public Integer inferenceTimeMs;
     public String inferSide;
     public LocalDateTime inferTime;
     public Integer inferCostMs;

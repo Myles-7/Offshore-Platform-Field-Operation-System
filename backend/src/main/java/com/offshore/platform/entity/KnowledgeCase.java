@@ -1,11 +1,12 @@
 package com.offshore.platform.entity;
 
+import com.offshore.platform.common.sync.SyncableEntity;
 import java.time.LocalDateTime;
 
 /**
  * knowledge_case 表实体。
  */
-public class KnowledgeCase {
+public class KnowledgeCase implements SyncableEntity {
     private Long id;
     private String caseNo;
     private String title;
