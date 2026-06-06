@@ -14,6 +14,9 @@ public class AiResultVO {
     public Long recordId;
     public Long attachmentId;
     public String fileId;
+    public String imagePreviewUrl;
+    public String resultImageFileId;
+    public String resultImagePreviewUrl;
     public Long modelId;
     public String modelCode;
     public String modelVersion;
@@ -24,6 +27,8 @@ public class AiResultVO {
     public Integer defectCount;
     public String resultSummary;
     public String reviewStatus;
+    public Long reviewerId;
+    public LocalDateTime reviewTime;
     public Integer reviewedFlag;
     public Integer version;
     public String syncStatus;

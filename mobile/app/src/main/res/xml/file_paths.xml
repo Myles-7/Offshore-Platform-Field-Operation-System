@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <files-path name="captures" path="captures/" />
+    <files-path name="photos" path="photos/" />
+    <files-path name="watermarked" path="watermarked/" />
+    <files-path name="signatures" path="signatures/" />
+    <files-path name="pdf" path="pdf/" />
+    <files-path name="videos" path="videos/" />
+    <files-path name="audio" path="audio/" />
+</paths>

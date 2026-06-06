@@ -1,5 +1,6 @@
 package com.offshore.platform.entity;
 
+import com.offshore.platform.common.sync.SyncableEntity;
 import java.math.BigDecimal;
 
 import java.time.LocalDateTime;
@@ -8,7 +9,7 @@ import java.time.LocalDateTime;
  * ai_result 表实体。
  * 根据 db/init_schema.sql 生成。
  */
-public class AiResult {
+public class AiResult implements SyncableEntity {
     public static final String TABLE_NAME = "ai_result";
 
     private Long id;

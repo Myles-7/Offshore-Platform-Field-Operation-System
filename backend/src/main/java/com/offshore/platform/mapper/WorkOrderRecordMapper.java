@@ -1,6 +1,7 @@
 package com.offshore.platform.mapper;
 
 import com.offshore.platform.entity.WorkOrderRecord;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -19,4 +20,9 @@ public interface WorkOrderRecordMapper {
     List<WorkOrderRecord> selectAll();
 
     int softDeleteById(Long id);
+
+    /** Incremental pull: records accessible to this maintainer. */
+    List<WorkOrderRecord> selectUpdatedAfterByWorkOrderIds(@Param("cursor") LocalDateTime cursor,
+                                                           @Param("workOrderIds") List<Long> workOrderIds,
+                                                           @Param("limit") Integer limit);
 }

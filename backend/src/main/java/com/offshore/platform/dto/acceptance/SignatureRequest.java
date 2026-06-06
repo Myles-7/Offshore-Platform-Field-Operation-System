@@ -8,7 +8,9 @@ public class SignatureRequest {
     public Long acceptanceId;
     @NotBlank(message = "签名文件ID不能为空")
     public String fileId;
+    public String signatureType;
     public String signatureRole;
+    public Long signerUserId;
     public String signerName;
     public String signerPhone;
     public LocalDateTime signedAt;

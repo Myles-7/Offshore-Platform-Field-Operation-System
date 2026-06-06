@@ -2,11 +2,16 @@ package com.offshore.platform.controller;
 
 import com.offshore.platform.common.response.ApiResponse;
 import com.offshore.platform.common.log.OperationLog;
+import com.offshore.platform.dto.ai.AiBatchReviewRequest;
+import com.offshore.platform.dto.ai.AiDefectBoxRequest;
 import com.offshore.platform.dto.ai.AiModelRequest;
 import com.offshore.platform.dto.ai.AiResultRequest;
+import com.offshore.platform.dto.ai.AiResultQueryRequest;
 import com.offshore.platform.dto.ai.AiReviewRequest;
 import com.offshore.platform.service.AiService;
 import com.offshore.platform.vo.ai.AiModelVO;
+import com.offshore.platform.vo.ai.AiDefectBoxVO;
+import com.offshore.platform.vo.ai.AiResultDetailVO;
 import com.offshore.platform.vo.ai.AiResultVO;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
@@ -48,14 +53,29 @@ public class AiController {
         return ApiResponse.success(aiService.createResult(request));
     }
 
+    @GetMapping("/api/admin/ai/results")
+    public ApiResponse<List<AiResultVO>> adminResults(AiResultQueryRequest request) {
+        return ApiResponse.success(aiService.adminResults(request));
+    }
+
     @GetMapping("/api/ai/results/{id}")
     public ApiResponse<AiResultVO> result(@PathVariable Long id) {
         return ApiResponse.success(aiService.getResult(id));
     }
 
+    @GetMapping("/api/admin/ai/results/{id}")
+    public ApiResponse<AiResultDetailVO> adminResult(@PathVariable Long id) {
+        return ApiResponse.success(aiService.getResultDetail(id));
+    }
+
     @GetMapping("/api/admin/work-orders/{workOrderId}/ai-results")
     public ApiResponse<List<AiResultVO>> adminResults(@PathVariable Long workOrderId) {
         return ApiResponse.success(aiService.adminWorkOrderResults(workOrderId));
+    }
+
+    @GetMapping("/api/admin/work-records/{recordId}/ai-results")
+    public ApiResponse<List<AiResultVO>> adminRecordResults(@PathVariable Long recordId) {
+        return ApiResponse.success(aiService.adminRecordResults(recordId));
     }
 
     @GetMapping("/api/mobile/work-orders/{workOrderId}/ai-results")
@@ -68,5 +88,19 @@ public class AiController {
     public ApiResponse<AiResultVO> review(@PathVariable Long id, @Valid @RequestBody AiReviewRequest request,
             HttpServletRequest servletRequest) {
         return ApiResponse.success(aiService.review(id, request, servletRequest));
+    }
+
+    @PostMapping("/api/admin/ai/results/{id}/boxes/{boxId}/review")
+    @OperationLog(module = "AI", operation = "REVIEW_AI_BOX", businessType = "AI_RESULT")
+    public ApiResponse<AiDefectBoxVO> reviewBox(@PathVariable Long id, @PathVariable Long boxId,
+            @Valid @RequestBody AiDefectBoxRequest request, HttpServletRequest servletRequest) {
+        return ApiResponse.success(aiService.reviewBox(id, boxId, request, servletRequest));
+    }
+
+    @PostMapping("/api/admin/ai/results/batch-review")
+    @OperationLog(module = "AI", operation = "BATCH_REVIEW_AI_RESULT", businessType = "AI_RESULT")
+    public ApiResponse<List<AiResultVO>> batchReview(@Valid @RequestBody AiBatchReviewRequest request,
+            HttpServletRequest servletRequest) {
+        return ApiResponse.success(aiService.batchReview(request, servletRequest));
     }
 }

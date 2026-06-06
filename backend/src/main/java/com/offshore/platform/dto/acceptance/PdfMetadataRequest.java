@@ -4,8 +4,10 @@ import jakarta.validation.constraints.NotBlank;
 
 public class PdfMetadataRequest {
     public Long acceptanceId;
-    @NotBlank(message = "PDF文件ID不能为空")
+    @NotBlank(message = "PDF fileId is required")
     public String fileId;
+    public String pdfNo;
+    public String pdfStatus;
     public String pdfContentSnapshot;
     public String localId;
     public String deviceId;

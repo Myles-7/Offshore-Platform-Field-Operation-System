@@ -23,11 +23,47 @@ export const qualificationStatusOptions: EnumOption[] = [
 ];
 
 export const syncStatusOptions: EnumOption[] = [
+  { label: '仅本地', value: 'LOCAL_ONLY', type: 'info' },
   { label: '待同步', value: 'PENDING', type: 'warning' },
   { label: '同步中', value: 'SYNCING', type: 'primary' },
   { label: '已同步', value: 'SYNCED', type: 'success' },
   { label: '同步失败', value: 'FAILED', type: 'danger' },
-  { label: '冲突待处理', value: 'CONFLICT', type: 'danger' }
+  { label: '冲突待处理', value: 'CONFLICT', type: 'danger' },
+  { label: '已删除', value: 'DELETED', type: 'info' },
+  { label: '已忽略', value: 'IGNORED', type: 'info' }
+];
+
+export const syncModuleTypeOptions: EnumOption[] = [
+  { label: '工单信息', value: 'WORK_ORDER', type: 'primary' },
+  { label: '施工记录', value: 'WORK_RECORD', type: 'primary' },
+  { label: '附件元数据', value: 'ATTACHMENT_META', type: 'info' },
+  { label: '电子签名', value: 'SIGNATURE', type: 'warning' },
+  { label: '验收记录', value: 'ACCEPTANCE', type: 'warning' },
+  { label: 'PDF验收单', value: 'PDF', type: 'info' },
+  { label: '物料使用', value: 'MATERIAL_USAGE', type: 'info' },
+  { label: '人员资质', value: 'QUALIFICATION', type: 'info' },
+  { label: 'AI结果', value: 'AI_RESULT', type: 'info' },
+  { label: '知识库', value: 'KNOWLEDGE', type: 'info' },
+  { label: '设备信息', value: 'DEVICE', type: 'info' },
+  { label: '用户信息', value: 'USER_PROFILE', type: 'info' }
+];
+
+export const conflictTypeOptions: EnumOption[] = [
+  { label: '版本冲突', value: 'VERSION_CONFLICT', type: 'warning' },
+  { label: '字段冲突', value: 'FIELD_CONFLICT', type: 'warning' },
+  { label: '删除后更新', value: 'UPDATE_AFTER_DELETE', type: 'danger' },
+  { label: '更新后删除', value: 'DELETE_AFTER_UPDATE', type: 'danger' },
+  { label: '重复创建', value: 'DUPLICATE_CREATE', type: 'warning' },
+  { label: '权限冲突', value: 'PERMISSION_CONFLICT', type: 'danger' },
+  { label: '文件元数据冲突', value: 'FILE_META_CONFLICT', type: 'warning' },
+  { label: '验收锁定冲突', value: 'ACCEPTANCE_LOCKED_CONFLICT', type: 'danger' }
+];
+
+export const resolveStrategyOptions: EnumOption[] = [
+  { label: '保留服务器版本', value: 'KEEP_SERVER', type: 'primary' },
+  { label: '保留客户端版本', value: 'KEEP_CLIENT', type: 'warning' },
+  { label: '人工合并', value: 'MANUAL_MERGE', type: 'warning' },
+  { label: '忽略客户端变更', value: 'IGNORE_CLIENT', type: 'info' }
 ];
 
 export const aiReviewStatusOptions: EnumOption[] = [

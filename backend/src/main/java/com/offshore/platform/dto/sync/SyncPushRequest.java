@@ -12,5 +12,7 @@ public class SyncPushRequest {
     public String batchId;
     public LocalDateTime clientTime;
     public String appVersion;
+    /** 操作人 ID */
+    public Long operatorId;
     public List<SyncPushItem> items = new ArrayList<>();
 }

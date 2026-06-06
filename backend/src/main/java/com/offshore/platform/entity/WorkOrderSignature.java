@@ -1,5 +1,6 @@
 package com.offshore.platform.entity;
 
+import com.offshore.platform.common.sync.SyncableEntity;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -7,7 +8,7 @@ import java.time.LocalDateTime;
  * work_order_signature 表实体。
  * 根据 db/init_schema.sql 生成。
  */
-public class WorkOrderSignature {
+public class WorkOrderSignature implements SyncableEntity {
     public static final String TABLE_NAME = "work_order_signature";
 
     private Long id;

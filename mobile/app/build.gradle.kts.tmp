@@ -1,0 +1,1 @@
+android.testOptions.unitTests.all { maxHeapSize = '1024m'; jvmArgs '-Dfile.encoding=UTF-8', '-Dsun.jnu.encoding=UTF-8' }

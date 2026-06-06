@@ -4,12 +4,16 @@ import com.offshore.platform.common.response.ApiResponse;
 import com.offshore.platform.common.log.OperationLog;
 import com.offshore.platform.dto.sync.ConflictResolveRequest;
 import com.offshore.platform.dto.sync.DeviceRegisterRequest;
+import com.offshore.platform.dto.sync.SyncConflictBatchResolveRequest;
+import com.offshore.platform.dto.sync.SyncConflictQueryRequest;
 import com.offshore.platform.dto.sync.SyncAckRequest;
 import com.offshore.platform.dto.sync.SyncPullRequest;
 import com.offshore.platform.dto.sync.SyncPushRequest;
 import com.offshore.platform.service.SyncService;
 import com.offshore.platform.vo.sync.DeviceVO;
 import com.offshore.platform.vo.sync.SyncConflictVO;
+import com.offshore.platform.vo.sync.SyncConflictCompareVO;
+import com.offshore.platform.vo.sync.SyncConflictDetailVO;
 import com.offshore.platform.vo.sync.SyncPullVO;
 import com.offshore.platform.vo.sync.SyncPushResultVO;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -67,18 +71,34 @@ public class SyncController {
     }
 
     @GetMapping("/api/admin/sync/conflicts")
-    public ApiResponse<List<SyncConflictVO>> conflicts() {
-        return ApiResponse.success(syncService.conflicts());
+    public ApiResponse<List<SyncConflictVO>> conflicts(SyncConflictQueryRequest request) {
+        return ApiResponse.success(syncService.conflicts(request));
     }
 
     @GetMapping("/api/admin/sync/conflicts/{id}")
-    public ApiResponse<SyncConflictVO> conflict(@PathVariable Long id) {
-        return ApiResponse.success(syncService.conflict(id));
+    public ApiResponse<SyncConflictDetailVO> conflict(@PathVariable Long id) {
+        return ApiResponse.success(syncService.conflictDetail(id));
     }
 
     @PostMapping("/api/admin/sync/conflicts/{id}/resolve")
     @OperationLog(module = "SYNC", operation = "RESOLVE_SYNC_CONFLICT", businessType = "SYNC_CONFLICT")
     public ApiResponse<SyncConflictVO> resolve(@PathVariable Long id, @Valid @RequestBody ConflictResolveRequest request) {
         return ApiResponse.success(syncService.resolveConflict(id, request));
+    }
+
+    @PostMapping("/api/admin/sync/conflicts/batch-resolve")
+    @OperationLog(module = "SYNC", operation = "BATCH_RESOLVE_SYNC_CONFLICT", businessType = "SYNC_CONFLICT")
+    public ApiResponse<List<SyncConflictVO>> batchResolve(@Valid @RequestBody SyncConflictBatchResolveRequest request) {
+        return ApiResponse.success(syncService.batchResolveConflicts(request));
+    }
+
+    @GetMapping("/api/admin/sync/conflicts/{id}/compare")
+    public ApiResponse<SyncConflictCompareVO> compare(@PathVariable Long id) {
+        return ApiResponse.success(syncService.compareConflict(id));
+    }
+
+    @GetMapping("/api/admin/work-orders/{workOrderId}/conflicts")
+    public ApiResponse<List<SyncConflictVO>> workOrderConflicts(@PathVariable Long workOrderId) {
+        return ApiResponse.success(syncService.workOrderConflicts(workOrderId));
     }
 }

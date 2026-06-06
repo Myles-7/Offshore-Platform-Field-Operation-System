@@ -1,12 +1,13 @@
 package com.offshore.platform.entity;
 
+import com.offshore.platform.common.sync.SyncableEntity;
 import java.time.LocalDateTime;
 
 /**
  * work_order_acceptance 表实体。
  * 根据 db/init_schema.sql 生成。
  */
-public class WorkOrderAcceptance {
+public class WorkOrderAcceptance implements SyncableEntity {
     public static final String TABLE_NAME = "work_order_acceptance";
 
     private Long id;
